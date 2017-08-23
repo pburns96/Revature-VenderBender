@@ -1,15 +1,37 @@
 package com.revature.beans;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+@Entity
 public class Customer {
 
+	@Id
+	@Column(name="CUSTOMER_ID")
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int id;
+	
+	@Column(name="CUSTOMER_USERNAME", unique=true, nullable=false)
 	private String username;
+	
+	@Column(name="CUSTOMER_PASSWORD", nullable=false)
 	private String password;
+	
+	@Column(name="CUSTOMER_FIRSTNAME", nullable=false)
 	private String firstname;
+	
+	@Column(name="CUSTOMER_LASTNAME", nullable=false)
 	private String lastname;
+	
+	@Column(name="CUSTOMER_EMAIL", unique=true)
 	private String email;
+	
+	@Column(name="CUSTOMER_MANAGER", nullable=false)
 	private boolean manager;
-
+ 
 	public Customer() {
 		super();
 	}
