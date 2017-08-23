@@ -51,7 +51,7 @@
 
 	</dependencies>
 	<build>
-		<finalName>home</finalName>
+		<finalName>VenderBender</finalName>
 		<pluginManagement>
 			<plugins>
 				<plugin>
