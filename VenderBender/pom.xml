@@ -69,4 +69,31 @@
 			</plugins>
 		</pluginManagement>
 	</build>
+	<build>
+		<finalName>home</finalName>
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>org.apache.tomcat.maven</groupId>
+					<artifactId>tomcat7-maven-plugin</artifactId>
+					<version>2.0</version>
+					<configuration>
+						<url>http://localhost:8080/manager/text</url>
+						<update>true</update>
+						<server>jenkins-bot</server>
+						<path>/</path>
+					</configuration>
+				</plugin>
+				<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.6.2</version>
+				<configuration>
+					<source>1.8</source>
+					<target>1.8</target>
+				</configuration>
+			</plugin>
+			</plugins>
+		</pluginManagement>
+	</build>
 </project>
