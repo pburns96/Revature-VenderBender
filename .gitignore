@@ -12,6 +12,7 @@
 **/.recommenders/**
 **/Servers
 **/.springBeans
+**/hibernate.properties
 
 #IDEA
 **/.idea/
