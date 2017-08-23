@@ -10,6 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -17,23 +18,22 @@ import javax.persistence.Table;
 @Table
 public class Order {
 	@Id
+	@Column(name = "ORDER_ID")
 	@GeneratedValue(strategy =GenerationType.SEQUENCE, generator = "OrderId")
 	@SequenceGenerator(name="OrderId", sequenceName = "ORDER_ID_SEQ")
 	int id;
-	//TODO PAT: ASK ABOUT THIS
-	@ManyToOne
-	@JoinColumn(nullable = false, name = "ORDER_ITEM_ID")
+
+	@OneToMany(mappedBy="order")
 	private Set<OrderItem> orderItems;
 	
 	@ManyToOne
 	@JoinColumn(nullable = true, name = "TODO")
 	Customer owner;
+	
 	@Column(name = "ORDER_TIMEORDERED")
 	Timestamp timeOrdered;
 	
-	public Order() {
-		// TODO Auto-generated constructor stub
-	}
+	public Order() {}
 
 	public Order(Customer owner, Timestamp timeOrdered) {
 		super();

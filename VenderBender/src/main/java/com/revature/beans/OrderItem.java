@@ -20,8 +20,8 @@ public class OrderItem {
 	@GeneratedValue(strategy =GenerationType.SEQUENCE, generator = "OrderItemId")
 	@SequenceGenerator(name="OrderItemId", sequenceName = "ORDER_ITEM_ID_SEQ")
 	int id;
-	//TODO PAT: ASK ABOUT THIS
-	@OneToMany(mappedBy="orderItems")
+	@ManyToOne
+	@JoinColumn(name = "ORDER_ID", nullable = false)
 	Order order;
 	@ManyToOne
 	@JoinColumn(name = "TODO PAT", nullable = true)
