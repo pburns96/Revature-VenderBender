@@ -20,13 +20,13 @@ public class Album {
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="album_gen")
 	@SequenceGenerator(name="album_gen", sequenceName="ALBUM_SEQ")
 	private int id;
-	@Column(name="ALBUM_TITLE")
+	@Column(name="ALBUM_TITLE", nullable=false)
 	private String title;
-	@Column(name="ALBUM_ARTIST")
+	@Column(name="ALBUM_ARTIST", nullable=false)
 	private String artist;
 	@Column(name="ALBUM_TRACKS")
 	private List<String> tracks;
-	@Column(name="ALBUM_YEAR")
+	@Column(name="ALBUM_YEAR", nullable=false)
 	private short year;
 	@Column(name="ALBUM_PRICE")
 	private double price;
