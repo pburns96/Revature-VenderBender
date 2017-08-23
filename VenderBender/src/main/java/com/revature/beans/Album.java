@@ -3,17 +3,25 @@
  */
 package com.revature.beans;
 
+import java.util.HashSet;
 import java.util.List;
+
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
 
 /**
  * @author Russ Barnes
  * Album bean. Holds all the standard information needed for an album.
  */
+@Entity
+@Table
 public class Album {
 	@Id
 	@Column(name="ALBUM_ID")
@@ -30,6 +38,9 @@ public class Album {
 	private short year;
 	@Column(name="ALBUM_PRICE")
 	private double price;
+	
+	@OneToMany(mappedBy ="album")
+	private HashSet<OrderItem> orderItems;
 	
 	public Album() {
 		super();

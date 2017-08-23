@@ -29,7 +29,7 @@ public class Concert {
 	@Column(name = "CONCERT_PRICE", nullable = false)
 	private double price;
 	
-	@OneToMany(mappedBy="orderItem")
+	@OneToMany(mappedBy="concertTicket")
 	private OrderItem orderItem;
 
 	public Concert() {

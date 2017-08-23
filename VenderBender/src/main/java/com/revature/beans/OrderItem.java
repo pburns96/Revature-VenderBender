@@ -24,7 +24,7 @@ public class OrderItem {
 	@JoinColumn(name = "ORDER_ID", nullable = false)
 	Order order;
 	@ManyToOne
-	@JoinColumn(name = "TODO PAT", nullable = true)
+	@JoinColumn(name = "ALBUM_ID", nullable = true)
 	Album album;
 	@ManyToOne
 	@JoinColumn(name = "CONCERT_ID", nullable = true)
@@ -82,8 +82,54 @@ public class OrderItem {
 	public void setQuantity(int quantity) {
 		this.quantity = quantity;
 	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((album == null) ? 0 : album.hashCode());
+		result = prime * result + ((concertTicket == null) ? 0 : concertTicket.hashCode());
+		result = prime * result + ((order == null) ? 0 : order.hashCode());
+		result = prime * result + quantity;
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		OrderItem other = (OrderItem) obj;
+		if (album == null) {
+			if (other.album != null)
+				return false;
+		} else if (!album.equals(other.album))
+			return false;
+		if (concertTicket == null) {
+			if (other.concertTicket != null)
+				return false;
+		} else if (!concertTicket.equals(other.concertTicket))
+			return false;
+		if (order == null) {
+			if (other.order != null)
+				return false;
+		} else if (!order.equals(other.order))
+			return false;
+		if (quantity != other.quantity)
+			return false;
+		return true;
+	}
+
+	@Override
+	public String toString() {
+		return "OrderItem [id=" + id + ", order=" + order + ", album=" + album + ", concertTicket=" + concertTicket
+				+ ", quantity=" + quantity + "]";
+	}
 	
 	
 
-	//TODO PAT: add generated methhods once class fully implemented
+	
 }

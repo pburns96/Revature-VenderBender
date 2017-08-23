@@ -1,7 +1,7 @@
 package com.revature.beans;
 
 import java.sql.Timestamp;
-import java.util.Set;
+import java.util.HashSet;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -24,10 +24,10 @@ public class Order {
 	int id;
 
 	@OneToMany(mappedBy="order")
-	private Set<OrderItem> orderItems;
+	private HashSet<OrderItem> orderItems;
 	
 	@ManyToOne
-	@JoinColumn(nullable = true, name = "TODO")
+	@JoinColumn(nullable = true, name = "CUSTOMER_ID")
 	Customer owner;
 	
 	@Column(name = "ORDER_TIMEORDERED")
