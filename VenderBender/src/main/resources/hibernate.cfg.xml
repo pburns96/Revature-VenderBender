@@ -23,6 +23,7 @@
 		</property>
 		<mapping class="com.revature.beans.Customer"/>
 		<mapping class="com.revature.beans.Concert"/>
+		<mapping class="com.revature.beans.Album"/>
 		
 	</session-factory>
 </hibernate-configuration>
