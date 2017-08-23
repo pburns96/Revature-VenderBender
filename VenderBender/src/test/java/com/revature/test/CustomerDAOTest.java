@@ -8,16 +8,16 @@ public class CustomerDAOTest {
 	
 	@Test
 	public void testGetCustomer1(){
-		
+		log.debug("Testing the getCustomer(int id) method");
 	}
 	
 	@Test
 	public void testGetCustomer2(){
-		
+		log.debug("Testing the getCustomer(String username) method");
 	}
 	
 	@Test
 	public void testCreateCustomer(){
-		
+		log.debug("Testing the createCustomemr(Customer customer) method");
 	}
 }
