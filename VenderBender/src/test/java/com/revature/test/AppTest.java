@@ -1,4 +1,4 @@
-package com.revature.home;
+package com.revature.test;
 
 import junit.framework.Test;
 import junit.framework.TestCase;
