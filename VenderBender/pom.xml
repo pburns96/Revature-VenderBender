@@ -3,11 +3,11 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>com.revature</groupId>
-	<artifactId>home</artifactId>
+	<artifactId>VenderBender</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
-	<name>home</name>
+	<name>VenderBender</name>
 	<url>http://maven.apache.org</url>
 
 	<properties>
@@ -51,7 +51,7 @@
 
 	</dependencies>
 	<build>
-		<finalName>home</finalName>
+		<finalName>VenderBender</finalName>
 		<pluginManagement>
 			<plugins>
 				<plugin>
