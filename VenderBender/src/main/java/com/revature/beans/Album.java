@@ -4,17 +4,31 @@
 package com.revature.beans;
 
 import java.util.List;
+import javax.persistence.Column;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
 
 /**
  * @author Russ Barnes
  * Album bean. Holds all the standard information needed for an album.
  */
 public class Album {
+	@Id
+	@Column(name="ALBUM_ID")
+	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="album_gen")
+	@SequenceGenerator(name="album_gen", sequenceName="ALBUM_SEQ")
 	private int id;
+	@Column
 	private String title;
+	@Column
 	private String artist;
+	@Column
 	private List<String> tracks;
+	@Column
 	private short year;
+	@Column
 	private double price;
 	
 	public Album() {
