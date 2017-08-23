@@ -13,7 +13,7 @@ public class Customer {
 	public Customer() {
 		super();
 	}
-
+ 
 	public Customer(String username, String password, String firstname, String lastname, boolean manager) {
 		super();
 		this.username = username;
