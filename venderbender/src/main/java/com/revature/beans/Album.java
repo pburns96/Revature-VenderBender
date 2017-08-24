@@ -5,13 +5,13 @@ package com.revature.beans;
 
 import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
@@ -32,8 +32,8 @@ public class Album {
 	private String title;
 	@Column(name="ALBUM_ARTIST", nullable=false)
 	private String artist;
-	@Column(name="ALBUM_TRACKS")
-	private List<String> tracks;
+	//@Column(name="ALBUM_TRACKS")
+	//private Set<String> tracks;
 	@Column(name="ALBUM_YEAR", nullable=false)
 	private short year;
 	@Column(name="ALBUM_PRICE")
@@ -41,19 +41,19 @@ public class Album {
 	private String imagePath;
 	
 	@OneToMany(mappedBy ="album")
-	private HashSet<OrderItem> orderItems;
+	private Set<OrderItem> orderItems;
 	
 	public Album() {
 		super();
 	}
 
 
-	public Album(String title, String artist, List<String> tracks, short year, double price, String imagePath,
-			HashSet<OrderItem> orderItems) {
+	public Album(String title, String artist, short year, double price, String imagePath,
+			Set<OrderItem> orderItems) {
 		super();
 		this.title = title;
 		this.artist = artist;
-		this.tracks = tracks;
+		//this.tracks = tracks;
 		this.year = year;
 		this.price = price;
 		this.imagePath = imagePath;
@@ -85,13 +85,13 @@ public class Album {
 		this.artist = artist;
 	}
 
-	public List<String> getTracks() {
+	/*public Set<String> getTracks() {
 		return tracks;
 	}
 
-	public void setTracks(List<String> tracks) {
+	public void setTracks(Set<String> tracks) {
 		this.tracks = tracks;
-	}
+	}*/
 
 	public short getYear() {
 		return year;
@@ -120,12 +120,12 @@ public class Album {
 	}
 
 
-	public HashSet<OrderItem> getOrderItems() {
+	public Set<OrderItem> getOrderItems() {
 		return orderItems;
 	}
 
 
-	public void setOrderItems(HashSet<OrderItem> orderItems) {
+	public void setOrderItems(Set<OrderItem> orderItems) {
 		this.orderItems = orderItems;
 	}
 

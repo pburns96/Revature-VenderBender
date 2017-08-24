@@ -1,7 +1,7 @@
 package com.revature.beans;
 
 import java.sql.Timestamp;
-import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -19,21 +19,22 @@ import javax.persistence.Table;
 public class Order {
 	@Id
 	@Column(name = "ORDER_ID")
-	@GeneratedValue(strategy =GenerationType.SEQUENCE, generator = "OrderId")
-	@SequenceGenerator(name="OrderId", sequenceName = "ORDER_ID_SEQ")
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "OrderId")
+	@SequenceGenerator(name = "OrderId", sequenceName = "ORDER_ID_SEQ")
 	int id;
 
-	@OneToMany(mappedBy="order")
-	private HashSet<OrderItem> orderItems;
-	
+	@OneToMany(mappedBy = "order")
+	private Set<OrderItem> orderItems;
+
 	@ManyToOne
 	@JoinColumn(nullable = true, name = "CUSTOMER_ID")
 	Customer owner;
-	
+
 	@Column(name = "ORDER_TIMEORDERED")
 	Timestamp timeOrdered;
-	
-	public Order() {}
+
+	public Order() {
+	}
 
 	public Order(Customer owner, Timestamp timeOrdered) {
 		super();
@@ -77,6 +78,5 @@ public class Order {
 		return "Order [id=" + id + ", orderItems=" + orderItems + ", owner=" + owner + ", timeOrdered=" + timeOrdered
 				+ "]";
 	}
-	
 
 }

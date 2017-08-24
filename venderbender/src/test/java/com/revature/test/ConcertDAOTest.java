@@ -4,7 +4,8 @@ package com.revature.test;
 import org.apache.log4j.Logger;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import com.revature.data.ConcertDAO;
 
@@ -12,21 +13,18 @@ public class ConcertDAOTest {
 	private static final Logger log = Logger.getLogger(ConcertDAOTest.class);
 	
 	private ConcertDAO concertDao;
-	
-	public void setConcertDao(ConcertDAO concertDao){
-		log.debug("Setting the DAO!!");
-		this.concertDao = concertDao;
-	}
+	private static ApplicationContext context;
 	
 	@BeforeClass
 	public static void beforeClass(){
-		
+		context = new ClassPathXmlApplicationContext("bender.xml");
 	}
 	
 	
 	@Test
 	public void testGetConcert(){
 		log.debug("Testing the getConcert(int id) method");
+		concertDao = (ConcertDAO)context.getBean("concertDAO");
 		//log.debug(concertDao.print());
 	}
 	

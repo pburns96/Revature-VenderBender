@@ -1,6 +1,7 @@
 package com.revature.beans;
 
 import java.util.Date;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -30,7 +31,7 @@ public class Concert {
 	private double price;
 	
 	@OneToMany(mappedBy="concertTicket")
-	private OrderItem orderItem;
+	private Set<OrderItem> orderItem;
 
 	public Concert() {
 		super();
@@ -46,11 +47,11 @@ public class Concert {
 	
 	
 
-	public OrderItem getOrderItem() {
+	public Set<OrderItem> getOrderItem() {
 		return orderItem;
 	}
 
-	public void setOrderItem(OrderItem orderItem) {
+	public void setOrderItem(Set<OrderItem> orderItem) {
 		this.orderItem = orderItem;
 	}
 

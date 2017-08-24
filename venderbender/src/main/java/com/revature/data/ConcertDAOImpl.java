@@ -18,11 +18,7 @@ public class ConcertDAOImpl implements ConcertDAO{
 	public void setSessionFactory(SessionFactory sessionFactory) {
 		this.sessionFactory = sessionFactory;
 	}
-	
-	public ConcertDAOImpl(){
-		System.out.println("Dao impl");
-	}
-	
+
 	public String print(){
 		return "Test";
 	}
