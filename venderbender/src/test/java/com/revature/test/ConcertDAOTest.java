@@ -2,14 +2,32 @@ package com.revature.test;
 
 
 import org.apache.log4j.Logger;
+import org.junit.BeforeClass;
 import org.junit.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.revature.data.ConcertDAO;
 
 public class ConcertDAOTest {
 	private static final Logger log = Logger.getLogger(ConcertDAOTest.class);
 	
+	private ConcertDAO concertDao;
+	
+	public void setConcertDao(ConcertDAO concertDao){
+		log.debug("Setting the DAO!!");
+		this.concertDao = concertDao;
+	}
+	
+	@BeforeClass
+	public static void beforeClass(){
+		
+	}
+	
+	
 	@Test
 	public void testGetConcert(){
 		log.debug("Testing the getConcert(int id) method");
+		//log.debug(concertDao.print());
 	}
 	
 	@Test
