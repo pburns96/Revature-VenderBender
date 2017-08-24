@@ -57,5 +57,8 @@
 	<bean name="customerDAO" class="com.revature.data.CustomerDAOImpl">
 		<property name="sessionFactory" ref="sessionFactory"></property>
 	</bean>
+	<bean name = "orderDAO" class = "com.revature.data.OrderDAOImpl">
+		<property name="sessionFactory" ref = "sessionFactory"></property>
+	</bean>
 	
 </beans>
