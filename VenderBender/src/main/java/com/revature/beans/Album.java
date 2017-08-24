@@ -38,6 +38,7 @@ public class Album {
 	private short year;
 	@Column(name="ALBUM_PRICE")
 	private double price;
+	private String imagePath;
 	
 	@OneToMany(mappedBy ="album")
 	private HashSet<OrderItem> orderItems;
@@ -46,14 +47,19 @@ public class Album {
 		super();
 	}
 
-	public Album(String title, String artist, List<String> tracks, short year, double price) {
+
+	public Album(String title, String artist, List<String> tracks, short year, double price, String imagePath,
+			HashSet<OrderItem> orderItems) {
 		super();
-		this.setTitle(title);
-		this.setArtist(artist);
-		this.setTracks(tracks);
-		this.setYear(year);
-		this.setPrice(price);
+		this.title = title;
+		this.artist = artist;
+		this.tracks = tracks;
+		this.year = year;
+		this.price = price;
+		this.imagePath = imagePath;
+		this.orderItems = orderItems;
 	}
+
 
 	public int getId() {
 		return id;
@@ -102,6 +108,27 @@ public class Album {
 	public void setPrice(double price) {
 		this.price = price;
 	}
+	
+
+	public String getImagePath() {
+		return imagePath;
+	}
+
+
+	public void setImagePath(String imagePath) {
+		this.imagePath = imagePath;
+	}
+
+
+	public HashSet<OrderItem> getOrderItems() {
+		return orderItems;
+	}
+
+
+	public void setOrderItems(HashSet<OrderItem> orderItems) {
+		this.orderItems = orderItems;
+	}
+
 
 	@Override
 	public String toString() {
