@@ -39,11 +39,10 @@ public class Album {
 	@NotBlank
 	@Column(name="ALBUM_ARTIST", nullable=false)
 	private String artist;
-	//@Column(name="ALBUM_TRACKS")
-	//private Set<String> tracks;
-	@NotNull
-	@Column(name="ALBUM_TRACKS")
-	private List<String> tracks;
+
+//	@NotNull
+//	@Column(name="ALBUM_TRACKS")
+//	private List<String> tracks;
 	@Min(value=1900)
 	@Column(name="ALBUM_YEAR", nullable=false)
 	private short year;
