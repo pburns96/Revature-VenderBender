@@ -1,0 +1,135 @@
+package com.revature.beans;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
+
+@Entity
+@Table
+public class OrderItem {
+	
+	@Id
+	@Column(name = "ORDER_ITEM_ID")
+	@GeneratedValue(strategy =GenerationType.SEQUENCE, generator = "OrderItemId")
+	@SequenceGenerator(name="OrderItemId", sequenceName = "ORDER_ITEM_ID_SEQ")
+	int id;
+	@ManyToOne
+	@JoinColumn(name = "ORDER_ID", nullable = false)
+	Order order;
+	@ManyToOne
+	@JoinColumn(name = "ALBUM_ID", nullable = true)
+	Album album;
+	@ManyToOne
+	@JoinColumn(name = "CONCERT_ID", nullable = true)
+	Concert concertTicket;
+	@Column(name = "ORDER_ITEM_QUANTITY")
+	int quantity;
+	
+	public OrderItem() {
+		// TODO Auto-generated constructor stub
+	}
+
+	public OrderItem(Album album, Concert concertTicket, int quantity) {
+		super();
+		this.album = album;
+		this.concertTicket = concertTicket;
+		this.quantity = quantity;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public Order getOrder() {
+		return order;
+	}
+
+	public void setOrder(Order order) {
+		this.order = order;
+	}
+
+	public Album getAlbum() {
+		return album;
+	}
+
+	public void setAlbum(Album album) {
+		this.album = album;
+	}
+
+	public Concert getConcertTicket() {
+		return concertTicket;
+	}
+
+	public void setConcertTicket(Concert concertTicket) {
+		this.concertTicket = concertTicket;
+	}
+
+	public int getQuantity() {
+		return quantity;
+	}
+
+	public void setQuantity(int quantity) {
+		this.quantity = quantity;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((album == null) ? 0 : album.hashCode());
+		result = prime * result + ((concertTicket == null) ? 0 : concertTicket.hashCode());
+		result = prime * result + ((order == null) ? 0 : order.hashCode());
+		result = prime * result + quantity;
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		OrderItem other = (OrderItem) obj;
+		if (album == null) {
+			if (other.album != null)
+				return false;
+		} else if (!album.equals(other.album))
+			return false;
+		if (concertTicket == null) {
+			if (other.concertTicket != null)
+				return false;
+		} else if (!concertTicket.equals(other.concertTicket))
+			return false;
+		if (order == null) {
+			if (other.order != null)
+				return false;
+		} else if (!order.equals(other.order))
+			return false;
+		if (quantity != other.quantity)
+			return false;
+		return true;
+	}
+
+	@Override
+	public String toString() {
+		return "OrderItem [id=" + id + ", order=" + order + ", album=" + album + ", concertTicket=" + concertTicket
+				+ ", quantity=" + quantity + "]";
+	}
+	
+	
+
+	
+}
