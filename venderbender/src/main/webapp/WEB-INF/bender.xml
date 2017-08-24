@@ -57,10 +57,12 @@
 		<property name="sessionFactory" ref="sessionFactory"></property>
 	</bean>
 
-
-
 	<!-- Test Beans -->
 	<bean name="concertDaoTest" class="com.revature.test.ConcertDAOTest" scope="prototype">
 		<property name="concertDao" ref="concertDAO"></property>
+	</bean>
+	
+	<bean name = "orderDAO" class = "com.revature.data.OrderDAOImpl">
+		<property name="sessionFactory" ref = "sessionFactory"></property>
 	</bean>
 </beans>
