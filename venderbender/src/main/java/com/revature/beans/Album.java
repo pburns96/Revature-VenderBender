@@ -11,10 +11,14 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.validation.constraints.DecimalMin;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+
+import org.hibernate.validator.constraints.NotBlank;
 
 /**
  * @author Russ Barnes
@@ -28,16 +32,22 @@ public class Album {
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="album_gen")
 	@SequenceGenerator(name="album_gen", sequenceName="ALBUM_SEQ")
 	private int id;
+	@NotBlank
 	@Column(name="ALBUM_TITLE", nullable=false)
 	private String title;
+	@NotBlank
 	@Column(name="ALBUM_ARTIST", nullable=false)
 	private String artist;
+	@NotNull
 	@Column(name="ALBUM_TRACKS")
 	private List<String> tracks;
+	@Min(value=1900)
 	@Column(name="ALBUM_YEAR", nullable=false)
 	private short year;
+	@DecimalMin(value="0")
 	@Column(name="ALBUM_PRICE")
 	private double price;
+	@Column
 	private String imagePath;
 	
 	@OneToMany(mappedBy ="album")
