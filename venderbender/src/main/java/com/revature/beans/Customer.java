@@ -1,10 +1,14 @@
 package com.revature.beans;
 
+import java.util.Set;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 import org.mindrot.jbcrypt.BCrypt;
 
@@ -33,6 +37,9 @@ public class Customer {
 	
 	@Column(name="CUSTOMER_MANAGER", nullable=false)
 	private boolean manager;
+	
+	@OneToMany(mappedBy = "owner", cascade = CascadeType.REMOVE)
+	private Set<Order> orders;
  
 	public Customer() {
 		super();
