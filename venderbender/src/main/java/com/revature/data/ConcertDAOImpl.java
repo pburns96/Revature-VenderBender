@@ -67,4 +67,11 @@ public class ConcertDAOImpl implements ConcertDAO{
 	public void createConcert(Concert concert) {
 		sessionFactory.getCurrentSession().save(concert);
 	}
+	
+	@Override
+	@Transactional(isolation=Isolation.READ_COMMITTED, propagation=Propagation.REQUIRED,rollbackFor=Exception.class)
+	public void deleteConcert(Concert concert) {
+		sessionFactory.getCurrentSession().delete(concert);
+	}
+	
 }

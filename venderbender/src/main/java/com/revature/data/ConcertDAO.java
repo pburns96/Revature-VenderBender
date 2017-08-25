@@ -14,4 +14,5 @@ public interface ConcertDAO {
 	public List<Concert> getConcertsByLocation(String location);
 	
 	public void createConcert(Concert concert);
+	public void deleteConcert(Concert concert);
 }

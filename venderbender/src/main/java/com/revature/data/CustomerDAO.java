@@ -8,4 +8,5 @@ public interface CustomerDAO {
 	public Customer getCustomer(String username);
 	
 	public void createCustomer(Customer customer);
+	public void deleteCustomer(Customer customer);
 }
