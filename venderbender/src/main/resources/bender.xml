@@ -64,7 +64,9 @@
 		<property name="sessionFactory" ref = "sessionFactory"></property>
 	</bean>
 	
-	
+	<!-- Beans -->
+	<bean name="concert" class="com.revature.beans.Concert"></bean>
+	<bean name="customer" class="com.revature.beans.Customer"></bean>
 	<!-- Test Beans -->
 	
 </beans>
