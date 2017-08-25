@@ -60,6 +60,9 @@
 	<bean name = "orderDAO" class = "com.revature.data.OrderDAOImpl">
 		<property name="sessionFactory" ref = "sessionFactory"></property>
 	</bean>
+	<bean name = "albumDAO" class = "com.revature.data.AlbumDAOImpl">
+		<property name="sessionFactory" ref = "sessionFactory"></property>
+	</bean>
 	
 	
 	<!-- Test Beans -->
