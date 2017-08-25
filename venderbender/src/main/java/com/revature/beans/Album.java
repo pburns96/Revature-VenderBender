@@ -19,6 +19,8 @@ import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotBlank;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 /**
  * @author Russ Barnes
  * Album bean. Holds all the standard information needed for an album.
@@ -48,6 +50,7 @@ public class Album {
 	private double price;
 	@Column
 	private String imagePath;
+	@JsonIgnore
 	@OneToMany(mappedBy ="album")
 	private Set<OrderItem> orderItems;
 	@Column(name="IS_CD_OR_NOT")
