@@ -25,6 +25,7 @@ public class AlbumDAOImpl implements AlbumDAO {
 	}
 
 	@Override
+	@Transactional
 	public Album getAlbumById(int idNumber) {
 		int id = idNumber;
 		if(id < 1){
@@ -35,6 +36,7 @@ public class AlbumDAOImpl implements AlbumDAO {
 	}
 
 	@Override
+	@Transactional
 	public List<Album> getAlbumsByArtist(String artist) {
 		Criteria query = sessionFactory.getCurrentSession().createCriteria(Album.class);
 		query.add(Restrictions.ilike("artist", artist));
@@ -42,6 +44,7 @@ public class AlbumDAOImpl implements AlbumDAO {
 	}
 
 	@Override
+	@Transactional
 	public List<Album> getAlbumsByType(boolean cd) {
 		Criteria query = sessionFactory.getCurrentSession().createCriteria(Album.class);
 		query.add(Restrictions.ilike("cd", cd));
@@ -49,11 +52,13 @@ public class AlbumDAOImpl implements AlbumDAO {
 	}
 
 	@Override
+	@Transactional
 	public List<Album> getAllAlbums() {
 		return sessionFactory.getCurrentSession().createQuery("FROM ALBUM").list();
 	}
 
 	@Override
+	@Transactional
 	public List<Album> getAlbumsByGenre(String genre) {
 		Criteria query = sessionFactory.getCurrentSession().createCriteria(Album.class);
 		query.add(Restrictions.ilike("genre", genre));
