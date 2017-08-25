@@ -1,5 +1,6 @@
 package com.revature.beans;
 
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -10,8 +11,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.Min;
-
-import org.hibernate.validator.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table
@@ -24,7 +24,7 @@ public class OrderItem {
 	int id;
 	@ManyToOne
 	@JoinColumn(name = "ORDER_ID", nullable = false)
-	@NotBlank
+	@NotNull
 	Order order;
 	@ManyToOne
 	@JoinColumn(name = "ALBUM_ID", nullable = true)

@@ -1,9 +1,15 @@
 package com.revature.data;
 
-import java.sql.Date;
+import java.util.Date;
 import java.util.Set;
 
+import javax.validation.UnexpectedTypeException;
+
 import org.hibernate.SessionFactory;
+import org.springframework.dao.InvalidDataAccessApiUsageException;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.revature.beans.Album;
 import com.revature.beans.Concert;
@@ -20,19 +26,18 @@ public class OrderDAOImpl implements OrderDAO {
 	}
 
 	@Override
-	public Order createOrder(Customer customer, Date date) {
-		// TODO Auto-generated method stub
-		return null;
+	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
+	public void createOrder(Order order) throws InvalidDataAccessApiUsageException, UnexpectedTypeException {
+		sessionFactory.getCurrentSession().save(order);
 	}
 
 	@Override
-	public OrderItem createOrderItem(Order order, Album album, Concert concert, int quantity) {
-		// TODO Auto-generated method stub
-		return null;
+	public void createOrderItem(OrderItem orderItem) {
+		
 	}
 
 	@Override
-	public Set<OrderItem> getOrderItems(Customer customer, Order order) {
+	public Set<OrderItem> getOrderItems(Order order) {
 		// TODO Auto-generated method stub
 		return null;
 	}

@@ -9,10 +9,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.revature.beans.Customer;
 
-public class CustomerDAOImpl implements CustomerDAO{
+public class CustomerDAOImpl implements CustomerDAO {
 
 	private SessionFactory sessionFactory;
-	
+
 	public void setSessionFactory(SessionFactory sessionFactory) {
 		this.sessionFactory = sessionFactory;
 	}
@@ -28,14 +28,15 @@ public class CustomerDAOImpl implements CustomerDAO{
 	public Customer getCustomer(String username) {
 		Criteria query = sessionFactory.getCurrentSession().createCriteria(Customer.class);
 		query.add(Restrictions.eq("username", username));
-		return (Customer) query.list().get(0);
+		if (query.list().size() > 0) 
+			return (Customer) query.list().get(0);
+		return null;
 	}
 
 	@Override
-	@Transactional(isolation=Isolation.READ_COMMITTED, propagation=Propagation.REQUIRED,rollbackFor=Exception.class)
+	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public void createCustomer(Customer customer) {
 		sessionFactory.getCurrentSession().save(customer);
 	}
-	
-	
+
 }
