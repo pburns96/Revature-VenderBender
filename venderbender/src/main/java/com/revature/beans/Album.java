@@ -3,8 +3,6 @@
  */
 package com.revature.beans;
 
-import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -39,7 +37,6 @@ public class Album {
 	@NotBlank
 	@Column(name="ALBUM_ARTIST", nullable=false)
 	private String artist;
-
 	@NotNull
 	@Column(name="ALBUM_TRACKS")
 	private String tracks;
@@ -51,10 +48,13 @@ public class Album {
 	private double price;
 	@Column
 	private String imagePath;
-	
 	@OneToMany(mappedBy ="album")
 	private Set<OrderItem> orderItems;
+	@Column(name="IS_CD_OR_NOT")
+	private boolean cd;
 	
+
+
 	public Album() {
 		super();
 	}
@@ -73,6 +73,25 @@ public class Album {
 	}
 
 
+	public String getTracks() {
+		return tracks;
+	}
+	
+	
+	public void setTracks(String tracks) {
+		this.tracks = tracks;
+	}
+	
+	
+	public boolean isCd() {
+		return cd;
+	}
+	
+	
+	public void setCd(boolean cd) {
+		this.cd = cd;
+	}
+	
 	public int getId() {
 		return id;
 	}
@@ -96,14 +115,6 @@ public class Album {
 	public void setArtist(String artist) {
 		this.artist = artist;
 	}
-
-	/*public Set<String> getTracks() {
-		return tracks;
-	}
-
-	public void setTracks(Set<String> tracks) {
-		this.tracks = tracks;
-	}*/
 
 	public short getYear() {
 		return year;
