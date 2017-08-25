@@ -1,6 +1,6 @@
 package com.revature.beans;
 
-import java.sql.Timestamp;
+import java.sql.Date;
 import java.util.HashSet;
 
 import javax.persistence.Column;
@@ -31,11 +31,11 @@ public class Order {
 	Customer owner;
 	
 	@Column(name = "ORDER_TIMEORDERED")
-	Timestamp timeOrdered;
+	Date timeOrdered;
 	
 	public Order() {}
 
-	public Order(Customer owner, Timestamp timeOrdered) {
+	public Order(Customer owner, Date timeOrdered) {
 		super();
 		this.owner = owner;
 		this.timeOrdered = timeOrdered;
