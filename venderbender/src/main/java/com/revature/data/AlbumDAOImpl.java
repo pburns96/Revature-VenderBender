@@ -6,6 +6,9 @@ import java.util.Set;
 import org.hibernate.Criteria;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.revature.beans.Album;
 
@@ -47,14 +50,35 @@ public class AlbumDAOImpl implements AlbumDAO {
 
 	@Override
 	public List<Album> getAllAlbums() {
-		// TODO Auto-generated method stub
-		return null;
+		return sessionFactory.getCurrentSession().createQuery("FROM ALBUM").list();
 	}
 
 	@Override
 	public List<Album> getAlbumsByGenre(String genre) {
-		// TODO Auto-generated method stub
-		return null;
+		Criteria query = sessionFactory.getCurrentSession().createCriteria(Album.class);
+		query.add(Restrictions.ilike("genre", genre));
+		return query.list();
+	}
+
+	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
+	@Override
+	public void createAlbum(Album album) {
+		sessionFactory.getCurrentSession().save(album);
+
+	}
+
+	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
+	@Override
+	public void updateAlbum(Album album) {
+		sessionFactory.getCurrentSession().saveOrUpdate(album);
+		
+	}
+
+	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
+	@Override
+	public void deleteAlbum(Album album) {
+		sessionFactory.getCurrentSession().delete(album);
+		
 	}
 
 }
