@@ -1,17 +1,17 @@
 package com.revature.data;
 
 import java.util.Date;
-import java.util.Set;
+import java.util.List;
 
 import com.revature.beans.Concert;
 
 public interface ConcertDAO {
 
 	public Concert getConcert(int id);
-	public Set<Concert> getConcertsStarting(Date date);
-	public Set<Concert> getConcertsByDates(Date start, Date end);
-	public Set<Concert> getConcertsByBand(String band);
-	public Set<Concert> getConcertsByLocation(String location);
+	public List<Concert> getConcertsStarting(Date date);
+	public List<Concert> getConcertsByDates(Date start, Date end);
+	public List<Concert> getConcertsByBand(String band);
+	public List<Concert> getConcertsByLocation(String location);
 	
 	public void createConcert(Concert concert);
 }

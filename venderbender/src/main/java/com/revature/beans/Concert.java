@@ -1,6 +1,7 @@
 package com.revature.beans;
 
 import java.util.Date;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -8,13 +9,15 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
 
 @Entity
 public class Concert {
 
 	@Id
 	@Column(name = "CONCERT_ID")
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ConcertId")
+	@SequenceGenerator(name = "ConcertId", sequenceName = "CONCERT_ID_SEQ")
 	private int id;
 
 	@Column(name = "CONCERT_DATE", nullable = false)
@@ -30,7 +33,7 @@ public class Concert {
 	private double price;
 	
 	@OneToMany(mappedBy="concertTicket")
-	private OrderItem orderItem;
+	private Set<OrderItem> orderItem;
 
 	public Concert() {
 		super();
@@ -46,11 +49,11 @@ public class Concert {
 	
 	
 
-	public OrderItem getOrderItem() {
+	public Set<OrderItem> getOrderItem() {
 		return orderItem;
 	}
 
-	public void setOrderItem(OrderItem orderItem) {
+	public void setOrderItem(Set<OrderItem> orderItem) {
 		this.orderItem = orderItem;
 	}
 
@@ -141,6 +144,6 @@ public class Concert {
 
 	@Override
 	public String toString() {
-		return "Concert [date=" + date + ", location=" + location + ", band=" + band + ", price=" + price + ", orderItem " + orderItem + "]";
+		return "Concert [date=" + date + ", location=" + location + ", band=" + band + ", price=" + price + "]";
 	}
 }

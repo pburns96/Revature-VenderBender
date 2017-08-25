@@ -3,18 +3,23 @@
  */
 package com.revature.beans;
 
-import java.util.HashSet;
-import java.util.List;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.validation.constraints.DecimalMin;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+
+import org.hibernate.validator.constraints.NotBlank;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 /**
  * @author Russ Barnes
@@ -28,32 +33,42 @@ public class Album {
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="album_gen")
 	@SequenceGenerator(name="album_gen", sequenceName="ALBUM_SEQ")
 	private int id;
+	@NotBlank
 	@Column(name="ALBUM_TITLE", nullable=false)
 	private String title;
+	@NotBlank
 	@Column(name="ALBUM_ARTIST", nullable=false)
 	private String artist;
+	@NotNull
 	@Column(name="ALBUM_TRACKS")
-	private List<String> tracks;
+	private String tracks;
+	@Min(value=1900)
 	@Column(name="ALBUM_YEAR", nullable=false)
 	private short year;
+	@DecimalMin(value="0")
 	@Column(name="ALBUM_PRICE")
 	private double price;
+	@Column
 	private String imagePath;
-	
+	@JsonIgnore
 	@OneToMany(mappedBy ="album")
-	private HashSet<OrderItem> orderItems;
+	private Set<OrderItem> orderItems;
+	@Column(name="IS_CD_OR_NOT")
+	private boolean cd;
 	
+
+
 	public Album() {
 		super();
 	}
 
 
-	public Album(String title, String artist, List<String> tracks, short year, double price, String imagePath,
-			HashSet<OrderItem> orderItems) {
+	public Album(String title, String artist, short year, double price, String imagePath,
+			Set<OrderItem> orderItems) {
 		super();
 		this.title = title;
 		this.artist = artist;
-		this.tracks = tracks;
+		//this.tracks = tracks;
 		this.year = year;
 		this.price = price;
 		this.imagePath = imagePath;
@@ -61,6 +76,25 @@ public class Album {
 	}
 
 
+	public String getTracks() {
+		return tracks;
+	}
+	
+	
+	public void setTracks(String tracks) {
+		this.tracks = tracks;
+	}
+	
+	
+	public boolean isCd() {
+		return cd;
+	}
+	
+	
+	public void setCd(boolean cd) {
+		this.cd = cd;
+	}
+	
 	public int getId() {
 		return id;
 	}
@@ -83,14 +117,6 @@ public class Album {
 
 	public void setArtist(String artist) {
 		this.artist = artist;
-	}
-
-	public List<String> getTracks() {
-		return tracks;
-	}
-
-	public void setTracks(List<String> tracks) {
-		this.tracks = tracks;
 	}
 
 	public short getYear() {
@@ -120,12 +146,12 @@ public class Album {
 	}
 
 
-	public HashSet<OrderItem> getOrderItems() {
+	public Set<OrderItem> getOrderItems() {
 		return orderItems;
 	}
 
 
-	public void setOrderItems(HashSet<OrderItem> orderItems) {
+	public void setOrderItems(Set<OrderItem> orderItems) {
 		this.orderItems = orderItems;
 	}
 
