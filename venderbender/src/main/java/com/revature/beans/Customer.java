@@ -6,6 +6,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+import org.mindrot.jbcrypt.BCrypt;
+
 @Entity
 public class Customer {
 
@@ -77,7 +79,7 @@ public class Customer {
 	}
 
 	public void setPassword(String password) {
-		this.password = password;
+		this.password = BCrypt.hashpw(password, BCrypt.gensalt(12));;
 	}
 
 	public String getFirstname() {
