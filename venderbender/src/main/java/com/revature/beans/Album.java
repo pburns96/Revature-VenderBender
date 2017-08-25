@@ -5,6 +5,7 @@ package com.revature.beans;
 
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -50,8 +51,11 @@ public class Album {
 	private double price;
 	@Column
 	private String imagePath;
+	@Column
+	private String genre;
+
 	@JsonIgnore
-	@OneToMany(mappedBy ="album")
+	@OneToMany(mappedBy ="album", cascade = CascadeType.DETACH)
 	private Set<OrderItem> orderItems;
 	@Column(name="IS_CD_OR_NOT")
 	private boolean cd;
@@ -62,19 +66,14 @@ public class Album {
 		super();
 	}
 
-
-	public Album(String title, String artist, short year, double price, String imagePath,
-			Set<OrderItem> orderItems) {
-		super();
-		this.title = title;
-		this.artist = artist;
-		//this.tracks = tracks;
-		this.year = year;
-		this.price = price;
-		this.imagePath = imagePath;
-		this.orderItems = orderItems;
+	public String getGenre() {
+		return genre;
 	}
-
+	
+	
+	public void setGenre(String genre) {
+		this.genre = genre;
+	}
 
 	public String getTracks() {
 		return tracks;

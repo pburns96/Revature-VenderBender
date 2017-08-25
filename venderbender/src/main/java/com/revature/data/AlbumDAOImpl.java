@@ -38,9 +38,12 @@ public class AlbumDAOImpl implements AlbumDAO {
 	@Override
 	@Transactional
 	public List<Album> getAlbumsByArtist(String artist) {
-		Criteria query = sessionFactory.getCurrentSession().createCriteria(Album.class);
-		query.add(Restrictions.ilike("artist", artist));
-		return query.list();
+		if (artist.length() > 0) {
+			Criteria query = sessionFactory.getCurrentSession().createCriteria(Album.class);
+			query.add(Restrictions.ilike("artist", artist));
+			return query.list();
+		}
+		return null;
 	}
 
 	@Override
@@ -60,14 +63,22 @@ public class AlbumDAOImpl implements AlbumDAO {
 	@Override
 	@Transactional
 	public List<Album> getAlbumsByGenre(String genre) {
-		Criteria query = sessionFactory.getCurrentSession().createCriteria(Album.class);
-		query.add(Restrictions.ilike("genre", genre));
-		return query.list();
+		if (genre.length() > 0) {
+			Criteria query = sessionFactory.getCurrentSession().createCriteria(Album.class);
+			query.add(Restrictions.ilike("genre", genre));
+			return query.list();
+		}
+		return null;
 	}
 
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	@Override
 	public void createAlbum(Album album) {
+		if(album.getArtist() == null){
+			//Should throw an exception.
+			return;
+		}
+		
 		sessionFactory.getCurrentSession().save(album);
 
 	}

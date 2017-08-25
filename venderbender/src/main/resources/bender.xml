@@ -65,6 +65,7 @@
 	</bean>
 	
 	<!-- Beans -->
+	<bean name="album" class="com.revature.beans.Album"></bean>
 	<bean name="concert" class="com.revature.beans.Concert"></bean>
 	<bean name="customer" class="com.revature.beans.Customer"></bean>
 	<!-- Test Beans -->
