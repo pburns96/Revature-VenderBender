@@ -40,8 +40,9 @@ public class AlbumDAOImpl implements AlbumDAO {
 
 	@Override
 	public List<Album> getAlbumsByType(boolean cd) {
-		// TODO Auto-generated method stub
-		return null;
+		Criteria query = sessionFactory.getCurrentSession().createCriteria(Album.class);
+		query.add(Restrictions.ilike("cd", cd));
+		return query.list();
 	}
 
 	@Override
