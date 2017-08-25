@@ -22,7 +22,7 @@ public class ConcertDAOImpl implements ConcertDAO{
 	@Override
 	@Transactional
 	public Concert getConcert(int id) {
-		return (Concert) sessionFactory.getCurrentSession().load(Concert.class, id);
+		return (Concert) sessionFactory.getCurrentSession().get(Concert.class, id);
 	}
 
 	@SuppressWarnings("unchecked")

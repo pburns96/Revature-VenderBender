@@ -20,7 +20,7 @@ public class CustomerDAOImpl implements CustomerDAO{
 	@Override
 	@Transactional
 	public Customer getCustomer(int id) {
-		return (Customer) sessionFactory.getCurrentSession().load(Customer.class, id);
+		return (Customer) sessionFactory.getCurrentSession().get(Customer.class, id);
 	}
 
 	@Override
