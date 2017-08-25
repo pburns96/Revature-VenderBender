@@ -1,12 +1,15 @@
 package com.revature.test;
 
 
+import java.util.Date;
+
 import org.apache.log4j.Logger;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import com.revature.beans.Concert;
 import com.revature.data.ConcertDAO;
 
 public class ConcertDAOTest {
@@ -25,7 +28,8 @@ public class ConcertDAOTest {
 	public void testGetConcert(){
 		log.debug("Testing the getConcert(int id) method");
 		concertDao = (ConcertDAO)context.getBean("concertDAO");
-		//log.debug(concertDao.print());
+		//concertDao.createConcert(new Concert(new Date(), "Washington DC", "Tool", 60));
+		log.debug(concertDao.getConcertsByBand("Tool"));
 	}
 	
 	@Test
