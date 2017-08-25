@@ -28,32 +28,44 @@ public class ConcertDAOTest {
 	public void testGetConcert(){
 		log.debug("Testing the getConcert(int id) method");
 		concertDao = (ConcertDAO)context.getBean("concertDAO");
-		//concertDao.createConcert(new Concert(new Date(), "Washington DC", "Tool", 60));
-		log.debug(concertDao.getConcertsByBand("Tool"));
+		log.debug(concertDao.getConcert(100));
 	}
 	
 	@Test
 	public void testGetConcertsStarting(){
 		log.debug("Testing the getConcertsStarting(Date date) method");
+		concertDao = (ConcertDAO)context.getBean("concertDAO");
+		log.debug(concertDao.getConcertsStarting(new Date()));
 	}
 	
 	@Test
 	public void testGetConcertsByDates(){
 		log.debug("Testing the getConcertsByDates(Date start, Date end) method");
+		concertDao = (ConcertDAO)context.getBean("concertDAO");
+		log.debug(concertDao.getConcertsByDates(new Date(), new Date()));
 	}
 	
 	@Test
 	public void testGetConcertsByBand(){
 		log.debug("Testing the getConcertsByBand(String band) method");
+		concertDao = (ConcertDAO)context.getBean("concertDAO");
 	}
 	
 	@Test
 	public void testGetConcertsByLocation(){
 		log.debug("Testing the getConcertsByLoaction(String location) method");
+		concertDao = (ConcertDAO)context.getBean("concertDAO");
 	}
 	
 	@Test
 	public void testCreateConcert(){
 		log.debug("Testing the createConcert(Concert concert) method");
+		concertDao = (ConcertDAO)context.getBean("concertDAO");
+		Concert concert = (Concert)context.getBean("concert");
+		concert.setDate(new Date());
+		concert.setLocation("Washington DC");
+		concert.setBand("Yes");
+		concert.setPrice(50);
+		concertDao.createConcert(concert);
 	}
 }

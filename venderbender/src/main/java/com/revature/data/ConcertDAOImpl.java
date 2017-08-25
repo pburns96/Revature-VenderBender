@@ -20,24 +20,27 @@ public class ConcertDAOImpl implements ConcertDAO{
 	}
 
 	@Override
+	@Transactional
 	public Concert getConcert(int id) {
-		return (Concert) sessionFactory.getCurrentSession().get(Concert.class, id);
+		return (Concert) sessionFactory.getCurrentSession().load(Concert.class, id);
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
+	@Transactional
 	public List<Concert> getConcertsStarting(Date date) {
 		Criteria query = sessionFactory.getCurrentSession().createCriteria(Concert.class);
-		query.add(Restrictions.gt("date", date));
+		query.add(Restrictions.ge("date", date));
 		return query.list();
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
+	@Transactional
 	public List<Concert> getConcertsByDates(Date start, Date end) {
 		Criteria query = sessionFactory.getCurrentSession().createCriteria(Concert.class);
-		query.add(Restrictions.gt("date",start));
-		query.add(Restrictions.lt("date", end));
+		query.add(Restrictions.ge("date",start));
+		query.add(Restrictions.le("date", end));
 		return query.list();
 	}
 
@@ -52,6 +55,7 @@ public class ConcertDAOImpl implements ConcertDAO{
 
 	@SuppressWarnings("unchecked")
 	@Override
+	@Transactional
 	public List<Concert> getConcertsByLocation(String location) {
 		Criteria query = sessionFactory.getCurrentSession().createCriteria(Concert.class);
 		query.add(Restrictions.eq("location", location));
