@@ -105,4 +105,8 @@ public class AlbumDAOImpl implements AlbumDAO {
 		
 	}
 
+	public void setSessionFactory(SessionFactory sessionFactory) {
+		this.sessionFactory = sessionFactory;
+	}
+
 }
