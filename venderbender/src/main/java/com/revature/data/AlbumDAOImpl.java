@@ -86,6 +86,10 @@ public class AlbumDAOImpl implements AlbumDAO {
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	@Override
 	public void updateAlbum(Album album) {
+		if(album.getArtist() == null){
+			//Should throw an exception.
+			return;
+		}
 		sessionFactory.getCurrentSession().saveOrUpdate(album);
 		
 	}
@@ -93,6 +97,10 @@ public class AlbumDAOImpl implements AlbumDAO {
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	@Override
 	public void deleteAlbum(Album album) {
+		if(album.getArtist() == null){
+			//Should throw an exception.
+			return;
+		}
 		sessionFactory.getCurrentSession().delete(album);
 		
 	}

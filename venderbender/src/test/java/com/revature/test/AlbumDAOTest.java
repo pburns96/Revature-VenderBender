@@ -1,6 +1,12 @@
 package com.revature.test;
 
+import static org.junit.Assert.assertEquals;
+
+import java.util.Iterator;
+import java.util.List;
+
 import org.apache.log4j.Logger;
+import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
@@ -34,7 +40,39 @@ public class AlbumDAOTest {
 		
 		//Test findByArtist
 		
+		List<Album> albumList = api.getAlbumsByArtist("Jet");
+		int testId = 0;
+		for(Album item : albumList){
+			Assert.assertEquals(item.getArtist(), "Jet");
+		}
 		
+		//Test getByGenre
+		albumList = api.getAlbumsByGenre("Rock");
+		for(Album item : albumList){
+			Assert.assertEquals(item.getGenre(), "Rock");
+		}
+		//Test getAll
+		albumList = api.getAllAlbums();
+		for(Album item : albumList){
+			Assert.assertNotNull(item);
+		}
+		//Test getByCD
+		albumList = api.getAlbumsByType(true);
+		for(Album item : albumList){
+			Assert.assertTrue(item.isCd());
+			testId = item.getId();
+		}
+		//test getById
+		testAlbum = api.getAlbumById(testId);
+		Assert.assertEquals(new Integer(testId), new Integer(testAlbum.getId()));
+		//test update
+		testAlbum.setImagePath("Somepath");
+		api.updateAlbum(testAlbum);
+		testAlbum = api.getAlbumById(testId);
+		Assert.assertEquals(testAlbum.getImagePath(), "Somepath");
+		//Test delete
+		api.deleteAlbum(testAlbum);
+		Assert.assertNull(api.getAlbumById(testId));
 	}
 
 }
