@@ -38,8 +38,9 @@
 		<property name="packagesToScan" value="com.revature.beans" /> <!-- Find anything with @Entity -->
 		<property name="hibernateProperties">
 			<props>
-				<prop key="hibernate.hdm2ddl.auto">update</prop>
+				<prop key="hibernate.hbm2ddl.auto">update</prop>
 				<prop key="hibernate.dialect">org.hibernate.dialect.Oracle10gDialect</prop>
+				<prop key="hibernate.show_sql">true</prop>
 			</props>
 		</property>
 	</bean>

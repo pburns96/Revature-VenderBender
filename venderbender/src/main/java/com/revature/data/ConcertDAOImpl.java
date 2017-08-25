@@ -19,19 +19,13 @@ public class ConcertDAOImpl implements ConcertDAO{
 		this.sessionFactory = sessionFactory;
 	}
 
-	public String print(){
-		return "Test";
-	}
-
 	@Override
-	@Transactional(isolation=Isolation.READ_COMMITTED, propagation=Propagation.REQUIRED,rollbackFor=Exception.class)
 	public Concert getConcert(int id) {
-		return (Concert) sessionFactory.getCurrentSession().load(Concert.class, id);
+		return (Concert) sessionFactory.getCurrentSession().get(Concert.class, id);
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
-	@Transactional(isolation=Isolation.READ_COMMITTED, propagation=Propagation.REQUIRED,rollbackFor=Exception.class)
 	public List<Concert> getConcertsStarting(Date date) {
 		Criteria query = sessionFactory.getCurrentSession().createCriteria(Concert.class);
 		query.add(Restrictions.gt("date", date));
@@ -40,7 +34,6 @@ public class ConcertDAOImpl implements ConcertDAO{
 
 	@SuppressWarnings("unchecked")
 	@Override
-	@Transactional(isolation=Isolation.READ_COMMITTED, propagation=Propagation.REQUIRED,rollbackFor=Exception.class)
 	public List<Concert> getConcertsByDates(Date start, Date end) {
 		Criteria query = sessionFactory.getCurrentSession().createCriteria(Concert.class);
 		query.add(Restrictions.gt("date",start));
@@ -50,7 +43,7 @@ public class ConcertDAOImpl implements ConcertDAO{
 
 	@SuppressWarnings("unchecked")
 	@Override
-	@Transactional(isolation=Isolation.READ_COMMITTED, propagation=Propagation.REQUIRED,rollbackFor=Exception.class)
+	@Transactional
 	public List<Concert> getConcertsByBand(String band) {
 		Criteria query = sessionFactory.getCurrentSession().createCriteria(Concert.class);
 		query.add(Restrictions.eq("band",band));
@@ -59,7 +52,6 @@ public class ConcertDAOImpl implements ConcertDAO{
 
 	@SuppressWarnings("unchecked")
 	@Override
-	@Transactional(isolation=Isolation.READ_COMMITTED, propagation=Propagation.REQUIRED,rollbackFor=Exception.class)
 	public List<Concert> getConcertsByLocation(String location) {
 		Criteria query = sessionFactory.getCurrentSession().createCriteria(Concert.class);
 		query.add(Restrictions.eq("location", location));
