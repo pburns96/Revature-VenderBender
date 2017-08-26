@@ -65,9 +65,11 @@
 	</bean>
 	
 	<!-- Beans -->
-	<bean name="album" class="com.revature.beans.Album"></bean>
-	<bean name="concert" class="com.revature.beans.Concert"></bean>
-	<bean name="customer" class="com.revature.beans.Customer"></bean>
+	<bean name="album" class="com.revature.beans.Album" scope = "prototype"></bean>
+	<bean name="concert" class="com.revature.beans.Concert" scope = "prototype"></bean>
+	<bean name="customer" class="com.revature.beans.Customer" scope = "prototype"></bean>
+	<bean name="orderItem" class = "com.revature.beans.OrderItem" scope = "prototype"/>
+	<bean name="order" class = "com.revature.beans.Order" scope = "prototype"/>
 	<!-- Test Beans -->
 	
 </beans>

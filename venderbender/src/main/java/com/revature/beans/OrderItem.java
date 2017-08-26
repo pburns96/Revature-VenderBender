@@ -1,5 +1,6 @@
 package com.revature.beans;
 
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -7,9 +8,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table
@@ -22,6 +24,7 @@ public class OrderItem {
 	int id;
 	@ManyToOne
 	@JoinColumn(name = "ORDER_ID", nullable = false)
+	@NotNull
 	Order order;
 	@ManyToOne
 	@JoinColumn(name = "ALBUM_ID", nullable = true)
@@ -29,11 +32,12 @@ public class OrderItem {
 	@ManyToOne
 	@JoinColumn(name = "CONCERT_ID", nullable = true)
 	Concert concertTicket;
-	@Column(name = "ORDER_ITEM_QUANTITY")
+	@Min(value =1)
+	@Column(name = "ORDER_ITEM_QUANTITY", nullable = false)
 	int quantity;
 	
 	public OrderItem() {
-		// TODO Auto-generated constructor stub
+		super();
 	}
 
 	public OrderItem(Album album, Concert concertTicket, int quantity) {
@@ -45,10 +49,6 @@ public class OrderItem {
 
 	public int getId() {
 		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
 	}
 
 	public Order getOrder() {
