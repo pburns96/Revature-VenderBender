@@ -1,8 +1,6 @@
 package com.revature.test;
 
-import static org.junit.Assert.assertEquals;
 
-import java.util.Iterator;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -17,7 +15,7 @@ import com.revature.data.AlbumDAO;
 
 public class AlbumDAOTest {
 	private static final Logger log = Logger.getLogger(ConcertDAOTest.class);
-	private AlbumDAO api;
+	private AlbumDAO albumDAO;
 	private static ApplicationContext context;
 	
 	@BeforeClass
@@ -27,52 +25,56 @@ public class AlbumDAOTest {
 	@Test
 	public void testCreate(){
 		log.debug("Testing Album create...");
-		api = (AlbumDAO) context.getBean("albumDAO");
+		albumDAO = (AlbumDAO) context.getBean("albumDAO");
 		Album testAlbum = (Album) context.getBean("album");
-		testAlbum.setArtist("Jet");
+		testAlbum.setArtist("Fuel");
 		testAlbum.setCd(true);
-		testAlbum.setTitle("Get Born");
-		testAlbum.setPrice(12.49);
-		testAlbum.setYear((short)2003);
-		testAlbum.setTracks("01-Some Track,02-Some Other Track,03-Are You Gunna Be My Girl");
+		testAlbum.setTitle("Hemorrhage (In My Hands)");
+		testAlbum.setPrice(5.17d);
+		testAlbum.setYear((short)2000);
+		testAlbum.setTracks("01-Hemorrhage");
 		testAlbum.setGenre("Rock");
-		api.createAlbum(testAlbum);
-		
+		albumDAO.createAlbum(testAlbum);
+		log.debug("Album created...");
 		//Test findByArtist
 		
-		List<Album> albumList = api.getAlbumsByArtist("Jet");
+		List<Album> albumList = albumDAO.getAlbumsByArtist("Fuel");
 		int testId = 0;
 		for(Album item : albumList){
-			Assert.assertEquals(item.getArtist(), "Jet");
+			log.debug(item.getArtist());
+			Assert.assertEquals(item.getArtist(), "Fuel");
 		}
 		
 		//Test getByGenre
-		albumList = api.getAlbumsByGenre("Rock");
+		albumList = albumDAO.getAlbumsByGenre("Rock");
 		for(Album item : albumList){
+			log.debug(item.getGenre());
 			Assert.assertEquals(item.getGenre(), "Rock");
 		}
 		//Test getAll
-		albumList = api.getAllAlbums();
+		albumList = albumDAO.getAllAlbums();
 		for(Album item : albumList){
 			Assert.assertNotNull(item);
+			log.debug(item.getArtist());
 		}
 		//Test getByCD
-		albumList = api.getAlbumsByType(true);
+		albumList = albumDAO.getAlbumsByType(true);
 		for(Album item : albumList){
 			Assert.assertTrue(item.isCd());
 			testId = item.getId();
+			log.debug(testId);
 		}
 		//test getById
-		testAlbum = api.getAlbumById(testId);
+		testAlbum = albumDAO.getAlbumById(testId);
 		Assert.assertEquals(new Integer(testId), new Integer(testAlbum.getId()));
 		//test update
 		testAlbum.setImagePath("Somepath");
-		api.updateAlbum(testAlbum);
-		testAlbum = api.getAlbumById(testId);
+		albumDAO.updateAlbum(testAlbum);
+		testAlbum = albumDAO.getAlbumById(testId);
 		Assert.assertEquals(testAlbum.getImagePath(), "Somepath");
 		//Test delete
-		api.deleteAlbum(testAlbum);
-		Assert.assertNull(api.getAlbumById(testId));
+		albumDAO.deleteAlbum(testAlbum);
+		Assert.assertNull(albumDAO.getAlbumById(testId));
 	}
 
 }

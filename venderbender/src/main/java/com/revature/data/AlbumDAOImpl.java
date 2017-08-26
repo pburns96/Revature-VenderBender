@@ -57,7 +57,7 @@ public class AlbumDAOImpl implements AlbumDAO {
 	@Override
 	@Transactional
 	public List<Album> getAllAlbums() {
-		return sessionFactory.getCurrentSession().createQuery("FROM ALBUM").list();
+		return sessionFactory.getCurrentSession().createQuery("FROM Album").list();
 	}
 
 	@Override
@@ -78,8 +78,7 @@ public class AlbumDAOImpl implements AlbumDAO {
 			//Should throw an exception.
 			return;
 		}
-		
-		sessionFactory.getCurrentSession().save(album);
+		sessionFactory.getCurrentSession().saveOrUpdate(album);
 
 	}
 

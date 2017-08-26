@@ -18,6 +18,7 @@ import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
+import org.hibernate.annotations.Type;
 import org.hibernate.validator.constraints.NotBlank;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -49,15 +50,16 @@ public class Album {
 	@DecimalMin(value="0")
 	@Column(name="ALBUM_PRICE")
 	private double price;
-	@Column
+	@Column(name="ALBUM_IMAGE_PATH")
 	private String imagePath;
-	@Column
+	@Column(nullable=false)
 	private String genre;
 
 	@JsonIgnore
 	@OneToMany(mappedBy ="album", cascade = CascadeType.DETACH)
 	private Set<OrderItem> orderItems;
 	@Column(name="IS_CD_OR_NOT")
+	@Type(type="yes_no")
 	private boolean cd;
 	
 
@@ -84,12 +86,12 @@ public class Album {
 		this.tracks = tracks;
 	}
 	
-	
+	@Type(type="yes_no")
 	public boolean isCd() {
 		return cd;
 	}
 	
-	
+	@Type(type="yes_no")
 	public void setCd(boolean cd) {
 		this.cd = cd;
 	}
