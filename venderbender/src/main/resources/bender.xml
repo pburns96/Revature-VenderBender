@@ -60,8 +60,12 @@
 	<bean name = "orderDAO" class = "com.revature.data.OrderDAOImpl">
 		<property name="sessionFactory" ref = "sessionFactory"></property>
 	</bean>
+	<bean name = "albumDAO" class = "com.revature.data.AlbumDAOImpl">
+		<property name="sessionFactory" ref = "sessionFactory"></property>
+	</bean>
 	
 	<!-- Beans -->
+	<bean name="album" class="com.revature.beans.Album" scope = "prototype"></bean>
 	<bean name="concert" class="com.revature.beans.Concert" scope = "prototype"></bean>
 	<bean name="customer" class="com.revature.beans.Customer" scope = "prototype"></bean>
 	<bean name="orderItem" class = "com.revature.beans.OrderItem" scope = "prototype"/>

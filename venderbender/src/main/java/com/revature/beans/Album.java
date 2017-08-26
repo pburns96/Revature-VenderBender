@@ -5,6 +5,7 @@ package com.revature.beans;
 
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -17,6 +18,7 @@ import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
+import org.hibernate.annotations.Type;
 import org.hibernate.validator.constraints.NotBlank;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -46,15 +48,19 @@ public class Album {
 	@Column(name="ALBUM_YEAR", nullable=false)
 	private short year;
 	@DecimalMin(value="0")
-	@Column(name="ALBUM_PRICE")
+	@Column(name="ALBUM_PRICE", nullable=false)
 	private double price;
-	@Column
+	@Column(name="ALBUM_IMAGE_PATH")
 	private String imagePath;
+	@Column(nullable=false)
+	private String genre;
+
 	@JsonIgnore
-	@OneToMany(mappedBy ="album")
+	@OneToMany(mappedBy ="album", cascade = CascadeType.DETACH)
 	private Set<OrderItem> orderItems;
 	@Column(name="IS_CD_OR_NOT")
-	private boolean cd;
+	//@Type(type="yes_no")
+	private byte cd;
 	
 
 
@@ -62,19 +68,14 @@ public class Album {
 		super();
 	}
 
-
-	public Album(String title, String artist, short year, double price, String imagePath,
-			Set<OrderItem> orderItems) {
-		super();
-		this.title = title;
-		this.artist = artist;
-		//this.tracks = tracks;
-		this.year = year;
-		this.price = price;
-		this.imagePath = imagePath;
-		this.orderItems = orderItems;
+	public String getGenre() {
+		return genre;
 	}
-
+	
+	
+	public void setGenre(String genre) {
+		this.genre = genre;
+	}
 
 	public String getTracks() {
 		return tracks;
@@ -86,15 +87,14 @@ public class Album {
 	}
 	
 	
-	public boolean isCd() {
+	public byte getCd() {
 		return cd;
 	}
-	
-	
-	public void setCd(boolean cd) {
+
+	public void setCd(byte cd) {
 		this.cd = cd;
 	}
-	
+
 	public int getId() {
 		return id;
 	}

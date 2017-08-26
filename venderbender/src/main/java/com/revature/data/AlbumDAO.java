@@ -29,7 +29,7 @@ public interface AlbumDAO {
 	 * @param cd true for CD false for Vinyl  
 	 * @return a set of all the albums found.
 	 */
-	public List<Album> getAlbumsByType(boolean cd);
+	public List<Album> getAlbumsByType(byte cd);
 	/**
 	 * gets every album in the database. We try to split this up once we learn how.
 	 * @return a set of all albums.
@@ -41,5 +41,20 @@ public interface AlbumDAO {
 	 * @return a set of all the albums found.
 	 */
 	public List<Album> getAlbumsByGenre(String genre);
+	/**
+	 * Adds a single album to the database.
+	 * @param album the album to be added.
+	 */
+	public void createAlbum(Album album);
+	/**
+	 * Updates the input album.
+	 * @param album the album that needs updating.
+	 */
+	public void updateAlbum(Album album);
+	/**
+	 * Completely removes the album from the database.
+	 * @param album the album to be deleted.
+	 */
+	public void deleteAlbum(Album album);
 
 }
