@@ -1,6 +1,11 @@
 package com.revature.test;
 
+import static org.junit.Assert.assertArrayEquals;
+import static org.junit.Assert.assertEquals;
+
+import java.util.Calendar;
 import java.util.Date;
+import java.util.Set;
 
 import javax.validation.UnexpectedTypeException;
 
@@ -9,7 +14,6 @@ import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.dao.InvalidDataAccessApiUsageException;
-import org.springframework.util.Assert;
 
 import com.revature.beans.Customer;
 import com.revature.beans.Order;
@@ -78,7 +82,7 @@ public class OrderDAOTest {
 		// Testing OrderItem creation
 
 		// positive testing
-		/*OrderItem item = (OrderItem) context.getBean("orderItem");
+		OrderItem item = (OrderItem) context.getBean("orderItem");
 		order.setOwner(customer);
 		order.setTimeOrdered(new Date());
 		dao.createOrder(order);
@@ -100,14 +104,55 @@ public class OrderDAOTest {
 		} catch (UnexpectedTypeException e) {
 			// passes if throws Exception
 		}
-*/
+
 		// When deleteing a customer, it deletes all the Orders and orderitems
 		customerDao.deleteCustomer(customer);
 	}
 
 	@Test
 	public void getOrderAndItemTest() {
+		OrderDAO dao = (OrderDAO) context.getBean("orderDAO");
+		Customer customer = (Customer) context.getBean("customer");
+		customer.setFirstname("Patrick");
+		customer.setLastname("Burns");
+		customer.setEmail("pburns96@live.com");
+		customer.setManager(false);
+		customer.setUsername("Pburns");
+		customer.setPassword("thisismypassword");
+		CustomerDAO customerDao = (CustomerDAO) context.getBean("customerDAO");
+		Customer customerPat = customerDao.getCustomer("Pburns");
+		if (customerPat == null) {
+			customerDao.createCustomer(customer);
+		} else {
+			customer = customerPat;
+		}
 
+		// positive test
+		// Test against a real customer
+		Order order = (Order) context.getBean("order");
+		Date date = new Date();
+		Calendar calendar = new Calendar.Builder().build();
+		calendar.set(2000,11,11);
+		order.setTimeOrdered(calendar.getTime());
+		order.setOwner(customer);
+		dao.createOrder(order);
+		
+		Set<Order> orders = dao.getOrders(customer);
+		for(Order actual :orders)
+		{
+			assertEquals(actual, order);
+		}
+		
+		OrderItem item = (OrderItem) context.getBean("orderItem");
+		item.setOrder(order);
+		item.setQuantity(2);
+		dao.createOrderItem(item);
+		Set<OrderItem>items = dao.getOrderItems(order);
+		for(OrderItem i : items)
+		{
+			assertEquals(i,item);
+		}
+		
 	}
 
 	@Test
