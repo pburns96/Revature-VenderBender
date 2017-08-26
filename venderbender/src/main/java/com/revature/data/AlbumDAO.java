@@ -29,7 +29,7 @@ public interface AlbumDAO {
 	 * @param cd true for CD false for Vinyl  
 	 * @return a set of all the albums found.
 	 */
-	public List<Album> getAlbumsByType(boolean cd);
+	public List<Album> getAlbumsByType(byte cd);
 	/**
 	 * gets every album in the database. We try to split this up once we learn how.
 	 * @return a set of all albums.

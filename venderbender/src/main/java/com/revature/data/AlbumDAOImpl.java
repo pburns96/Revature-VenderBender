@@ -1,7 +1,6 @@
 package com.revature.data;
 
 import java.util.List;
-import java.util.Set;
 
 import org.hibernate.Criteria;
 import org.hibernate.SessionFactory;
@@ -29,7 +28,7 @@ public class AlbumDAOImpl implements AlbumDAO {
 	public Album getAlbumById(int idNumber) {
 		int id = idNumber;
 		if(id < 1){
-			//We may want to throw an exception here.
+			//TODO We may want to throw an exception here.
 			return null;
 		}
 		return (Album) sessionFactory.getCurrentSession().get(Album.class, id);
@@ -40,17 +39,18 @@ public class AlbumDAOImpl implements AlbumDAO {
 	public List<Album> getAlbumsByArtist(String artist) {
 		if (artist.length() > 0) {
 			Criteria query = sessionFactory.getCurrentSession().createCriteria(Album.class);
-			query.add(Restrictions.ilike("artist", artist));
+			query.add(Restrictions.like("artist", artist));
 			return query.list();
 		}
+		//TODO We may want to throw an exception here.
 		return null;
 	}
 
 	@Override
 	@Transactional
-	public List<Album> getAlbumsByType(boolean cd) {
+	public List<Album> getAlbumsByType(byte cd) {
 		Criteria query = sessionFactory.getCurrentSession().createCriteria(Album.class);
-		query.add(Restrictions.ilike("cd", cd));
+		query.add(Restrictions.like("cd", cd));
 		return query.list();
 	}
 
@@ -65,9 +65,10 @@ public class AlbumDAOImpl implements AlbumDAO {
 	public List<Album> getAlbumsByGenre(String genre) {
 		if (genre.length() > 0) {
 			Criteria query = sessionFactory.getCurrentSession().createCriteria(Album.class);
-			query.add(Restrictions.ilike("genre", genre));
+			query.add(Restrictions.like("genre", genre));
 			return query.list();
 		}
+		//TODO We may want to throw an exception here.
 		return null;
 	}
 
@@ -75,7 +76,7 @@ public class AlbumDAOImpl implements AlbumDAO {
 	@Override
 	public void createAlbum(Album album) {
 		if(album.getArtist() == null){
-			//Should throw an exception.
+			//TODO We may want to throw an exception here.
 			return;
 		}
 		sessionFactory.getCurrentSession().saveOrUpdate(album);
@@ -86,7 +87,7 @@ public class AlbumDAOImpl implements AlbumDAO {
 	@Override
 	public void updateAlbum(Album album) {
 		if(album.getArtist() == null){
-			//Should throw an exception.
+			//TODO We may want to throw an exception here.
 			return;
 		}
 		sessionFactory.getCurrentSession().saveOrUpdate(album);
@@ -97,7 +98,7 @@ public class AlbumDAOImpl implements AlbumDAO {
 	@Override
 	public void deleteAlbum(Album album) {
 		if(album.getArtist() == null){
-			//Should throw an exception.
+			//TODO We may want to throw an exception here.
 			return;
 		}
 		sessionFactory.getCurrentSession().delete(album);

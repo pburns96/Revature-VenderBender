@@ -48,7 +48,7 @@ public class Album {
 	@Column(name="ALBUM_YEAR", nullable=false)
 	private short year;
 	@DecimalMin(value="0")
-	@Column(name="ALBUM_PRICE")
+	@Column(name="ALBUM_PRICE", nullable=false)
 	private double price;
 	@Column(name="ALBUM_IMAGE_PATH")
 	private String imagePath;
@@ -59,8 +59,8 @@ public class Album {
 	@OneToMany(mappedBy ="album", cascade = CascadeType.DETACH)
 	private Set<OrderItem> orderItems;
 	@Column(name="IS_CD_OR_NOT")
-	@Type(type="yes_no")
-	private boolean cd;
+	//@Type(type="yes_no")
+	private byte cd;
 	
 
 
@@ -86,16 +86,15 @@ public class Album {
 		this.tracks = tracks;
 	}
 	
-	@Type(type="yes_no")
-	public boolean isCd() {
+	
+	public byte getCd() {
 		return cd;
 	}
-	
-	@Type(type="yes_no")
-	public void setCd(boolean cd) {
+
+	public void setCd(byte cd) {
 		this.cd = cd;
 	}
-	
+
 	public int getId() {
 		return id;
 	}

@@ -28,7 +28,7 @@ public class AlbumDAOTest {
 		albumDAO = (AlbumDAO) context.getBean("albumDAO");
 		Album testAlbum = (Album) context.getBean("album");
 		testAlbum.setArtist("Fuel");
-		testAlbum.setCd(true);
+		testAlbum.setCd((byte)0);
 		testAlbum.setTitle("Hemorrhage (In My Hands)");
 		testAlbum.setPrice(5.17d);
 		testAlbum.setYear((short)2000);
@@ -58,9 +58,10 @@ public class AlbumDAOTest {
 			log.debug(item.getArtist());
 		}
 		//Test getByCD
-		albumList = albumDAO.getAlbumsByType(true);
+		albumList = albumDAO.getAlbumsByType((byte)0);
 		for(Album item : albumList){
-			Assert.assertTrue(item.isCd());
+			log.debug("   ————»»»" + item.getCd());
+			Assert.assertEquals(new Byte((byte) 0),new Byte(item.getCd()) );
 			testId = item.getId();
 			log.debug(testId);
 		}
