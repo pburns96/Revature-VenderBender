@@ -1,6 +1,7 @@
 package com.revature.beans;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -16,6 +17,8 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
+
+
 @Entity
 @Table(name = "ORDER_TABLE")
 public class Order {
@@ -26,10 +29,11 @@ public class Order {
 	int id;
 
 	@OneToMany(mappedBy = "order", cascade=CascadeType.REMOVE)
-	private Set<OrderItem> orderItems;
+	private List<OrderItem> orderItems;
 
 	@ManyToOne
 	@JoinColumn(nullable = true, name = "CUSTOMER_ID")
+	@NotNull
 	Customer owner;
 
 	@NotNull
@@ -45,13 +49,22 @@ public class Order {
 		this.owner = owner;
 		this.timeOrdered = timeOrdered;
 	}
+	
 
-	public Set<OrderItem> getOrderItems() {
+	public int getId() {
+		return id;
+	}
+	public List<OrderItem> getOrderItems() {
 		return orderItems;
 	}
 
-	public void setOrderItems(Set<OrderItem> orderItems) {
+	public void setOrderItems(List<OrderItem> orderItems) {
 		this.orderItems = orderItems;
+	}
+	
+	public void addOrderItem(OrderItem item)
+	{
+		this.orderItems.add(item);
 	}
 
 	public Customer getOwner() {

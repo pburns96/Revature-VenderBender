@@ -1,12 +1,12 @@
 package com.revature.test;
 
-import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 
 import java.util.Calendar;
 import java.util.Date;
-import java.util.Set;
+import java.util.List;
 
+import javax.validation.ConstraintViolationException;
 import javax.validation.UnexpectedTypeException;
 
 import org.junit.BeforeClass;
@@ -63,45 +63,48 @@ public class OrderDAOTest {
 		badcustomer.setManager(false);
 		badcustomer.setUsername("ooyea");
 		badcustomer.setPassword("thisismypassword");
-		order.setOwner(badcustomer);
+		Order order2 = (Order) context.getBean("order");
+		order2.setOwner(badcustomer);
 		try {
 			// test with bad user
-			dao.createOrder(order);
+			dao.createOrder(order2);
 		} catch (InvalidDataAccessApiUsageException e) {
 			// passed if it didnt find user
 		}
 
 		try {
 			// try setting bad date
-			order.setOwner(customer);
-			order.setTimeOrdered(null);
+			order2.setOwner(customer);
+			order2.setTimeOrdered(null);
 		} catch (UnexpectedTypeException e) {
 			// passed if didnt except null
 		}
 
 		// Testing OrderItem creation
-
+	
 		// positive testing
 		OrderItem item = (OrderItem) context.getBean("orderItem");
-		order.setOwner(customer);
-		order.setTimeOrdered(new Date());
-		dao.createOrder(order);
+		System.out.println("Adding order Item");
 		item.setOrder(order);
 		item.setQuantity('1');
 		dao.createOrderItem(item);
+		//order.addOrderItem(item);
+
+		
+		
 
 		OrderItem item2 = (OrderItem) context.getBean("orderItem");
 		try {
 			item2.setOrder(null);
 			dao.createOrderItem(item2);
-		} catch (UnexpectedTypeException e) {
+		} catch (ConstraintViolationException e) {
 			// passes if throws Exception
 		}
 		try {
 			item2.setOrder(order);
 			item2.setQuantity(-1);
 			dao.createOrderItem(item2);
-		} catch (UnexpectedTypeException e) {
+		} catch (ConstraintViolationException e) {
 			// passes if throws Exception
 		}
 
@@ -137,27 +140,25 @@ public class OrderDAOTest {
 		order.setOwner(customer);
 		dao.createOrder(order);
 		
-		Set<Order> orders = dao.getOrders(customer);
-		for(Order actual :orders)
-		{
-			assertEquals(actual, order);
-		}
+		List<Order> orders = dao.getOrders(customer);
+		assertEquals(orders.get(0),order);
 		
 		OrderItem item = (OrderItem) context.getBean("orderItem");
 		item.setOrder(order);
 		item.setQuantity(2);
 		dao.createOrderItem(item);
-		Set<OrderItem>items = dao.getOrderItems(order);
-		for(OrderItem i : items)
-		{
-			assertEquals(i,item);
-		}
+		List<OrderItem>items = dao.getOrderItems(order);
+		
+		assertEquals(items.get(0),item);
+		
 		
 	}
 
 	@Test
 	public void updateOrderItemTest() {
-
+		
+		
+		
 	}
 
 	@Test
