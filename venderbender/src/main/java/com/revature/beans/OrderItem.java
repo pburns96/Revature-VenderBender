@@ -51,10 +51,6 @@ public class OrderItem {
 		return id;
 	}
 
-	public void setId(int id) {
-		this.id = id;
-	}
-
 	public Order getOrder() {
 		return order;
 	}

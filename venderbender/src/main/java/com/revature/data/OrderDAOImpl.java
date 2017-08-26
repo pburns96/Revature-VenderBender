@@ -32,8 +32,9 @@ public class OrderDAOImpl implements OrderDAO {
 	}
 
 	@Override
+	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public void createOrderItem(OrderItem orderItem) {
-		
+		sessionFactory.getCurrentSession().save(orderItem);
 	}
 
 	@Override

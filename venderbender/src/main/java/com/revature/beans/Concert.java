@@ -3,6 +3,7 @@ package com.revature.beans;
 import java.util.Date;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -32,7 +33,7 @@ public class Concert {
 	@Column(name = "CONCERT_PRICE", nullable = false)
 	private double price;
 	
-	@OneToMany(mappedBy="concertTicket")
+	@OneToMany(mappedBy="concertTicket", cascade = CascadeType.DETACH)
 	private Set<OrderItem> orderItem;
 
 	public Concert() {
