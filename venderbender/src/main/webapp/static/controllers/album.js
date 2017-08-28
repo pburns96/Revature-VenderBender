@@ -1,8 +1,8 @@
-angular.module("VenderBender").controller("homeController",function(){
+angular.module("VenderBender").controller("albumController",function(){
 	//Will need the http request here.
 	$scope.filteredAlbums = []
 	  ,$scope.currentPage = 1
-	  ,$scope.numPerPage = 10
+	  ,$scope.numPerPage = 15
 	  ,$scope.maxSize = 5;
 	  
 	  

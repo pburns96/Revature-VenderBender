@@ -8,6 +8,9 @@ angular.module("VenderBender").config(function($locationProvider, $routeProvider
 	$routeProvider.when("/store", {
 		templateUrl:"store.html",
 		controller:"storeController"
+	}).when("/albumView", {
+		templateUrl:"albumView.html",
+		controller:"albumController"
 	}).otherwise(
 	{
 		templateUrl: "pages/home.html",
