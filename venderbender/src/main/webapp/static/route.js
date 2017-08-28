@@ -2,9 +2,9 @@
  * 
  */
 
-angular.module("VenderBender", ["ng-Route"])
-angular.module("VenderBender").config(function($locationProvider, $scope){
-	locationProvider.hashPrefix("");
+angular.module("VenderBender", ["ngRoute"])
+angular.module("VenderBender").config(function($locationProvider, $routeProvider){
+	$locationProvider.hashPrefix("");
 	$routeProvider.when("/store", {
 		templateUrl:"store.html",
 		controller:"storeController"
