@@ -1,12 +1,12 @@
 package com.revature.test;
 
+import static org.junit.Assert.assertEquals;
+
 import org.apache.log4j.Logger;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
-
-import static org.junit.Assert.assertEquals;
+import org.springframework.context.support.FileSystemXmlApplicationContext;
 
 import com.revature.beans.Customer;
 import com.revature.data.CustomerDAO;
@@ -19,7 +19,7 @@ public class CustomerDAOTest {
 	
 	@BeforeClass
 	public static void beforeClass(){
-		context = new ClassPathXmlApplicationContext("bender.xml");
+		context = new FileSystemXmlApplicationContext("/src/main/webapp/WEB-INF/bender.xml");
 	}
 	
 	@Test
