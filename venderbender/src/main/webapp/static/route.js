@@ -4,7 +4,7 @@
 
 angular.module("VenderBender", ["ngRoute"])
 angular.module("VenderBender").config(function($locationProvider, $routeProvider){
-	locationProvider.hashPrefix("");
+	$locationProvider.hashPrefix("");
 	$routeProvider.when("/store", {
 		templateUrl:"store.html",
 		controller:"storeController"
