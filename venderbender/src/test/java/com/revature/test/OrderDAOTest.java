@@ -18,6 +18,7 @@ import org.springframework.dao.InvalidDataAccessApiUsageException;
 
 import com.revature.beans.Customer;
 import com.revature.beans.Order;
+import com.revature.beans.OrderItem;
 import com.revature.data.CustomerDAO;
 import com.revature.data.OrderDAO;
 
@@ -114,6 +115,7 @@ public class OrderDAOTest {
 	}
 
 	@Test
+	@Ignore
 	public void getOrderAndItemTest() {
 		OrderDAO dao = (OrderDAO) context.getBean("orderDAO");
 		Customer customer = (Customer) context.getBean("customer");
