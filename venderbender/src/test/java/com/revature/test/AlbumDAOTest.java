@@ -8,7 +8,7 @@ import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.context.support.FileSystemXmlApplicationContext;
 
 import com.revature.beans.Album;
 import com.revature.data.AlbumDAO;
@@ -20,7 +20,7 @@ public class AlbumDAOTest {
 	
 	@BeforeClass
 	public static void setup(){
-		context = new ClassPathXmlApplicationContext("bender.xml");
+		context =  new FileSystemXmlApplicationContext("/src/main/webapp/WEB-INF/bender.xml");
 	}
 	@Test
 	public void testCreate(){

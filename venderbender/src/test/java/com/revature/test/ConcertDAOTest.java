@@ -11,7 +11,7 @@ import org.apache.log4j.Logger;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.context.support.FileSystemXmlApplicationContext;
 
 import com.revature.beans.Concert;
 import com.revature.data.ConcertDAO;
@@ -24,7 +24,7 @@ public class ConcertDAOTest {
 	
 	@BeforeClass
 	public static void beforeClass(){
-		context = new ClassPathXmlApplicationContext("bender.xml");
+		context = new FileSystemXmlApplicationContext("/src/main/webapp/WEB-INF/bender.xml");
 	}
 	
 	

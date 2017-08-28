@@ -14,6 +14,7 @@ import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.context.support.FileSystemXmlApplicationContext;
 import org.springframework.dao.InvalidDataAccessApiUsageException;
 
 import com.revature.beans.Customer;
@@ -28,7 +29,7 @@ public class OrderDAOTest {
 
 	@BeforeClass
 	public static void Init() {
-		context = new ClassPathXmlApplicationContext("bender.xml");
+		context = new FileSystemXmlApplicationContext("/src/main/webapp/WEB-INF/bender.xml");
 	}
 
 	@Ignore
