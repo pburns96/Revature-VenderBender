@@ -10,6 +10,7 @@ import javax.validation.ConstraintViolationException;
 import javax.validation.UnexpectedTypeException;
 
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -17,7 +18,6 @@ import org.springframework.dao.InvalidDataAccessApiUsageException;
 
 import com.revature.beans.Customer;
 import com.revature.beans.Order;
-import com.revature.beans.OrderItem;
 import com.revature.data.CustomerDAO;
 import com.revature.data.OrderDAO;
 
@@ -30,6 +30,7 @@ public class OrderDAOTest {
 		context = new ClassPathXmlApplicationContext("bender.xml");
 	}
 
+	@Ignore
 	@Test
 	public void createOrderandItemTest() {
 		OrderDAO dao = (OrderDAO) context.getBean("orderDAO");

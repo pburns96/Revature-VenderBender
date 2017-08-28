@@ -131,8 +131,6 @@ public class Concert {
 				return false;
 		} else if (!date.equals(other.date))
 			return false;
-		if (id != other.id)
-			return false;
 		if (location == null) {
 			if (other.location != null)
 				return false;
