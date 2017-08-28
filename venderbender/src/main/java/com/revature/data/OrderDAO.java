@@ -1,6 +1,6 @@
 package com.revature.data;
 
-import java.util.Set;
+import java.util.List;
 
 import javax.validation.UnexpectedTypeException;
 
@@ -17,12 +17,11 @@ public interface OrderDAO {
 	void createOrder(Order order) throws InvalidDataAccessApiUsageException, UnexpectedTypeException;
 	void createOrderItem(OrderItem orderItem);
 	//Select
-	Set<OrderItem> getOrderItems(Order order);
-	Set<Order>getOrders(Customer customer);
-	OrderItem getOrderItemById(Order order, int id);
+	List<OrderItem> getOrderItems(Order order);
+	List<Order>getOrders(Customer customer);
 	//Update
 	void updateOrderItemQuantity(OrderItem item, int quantity);
 	//Delete
-	void deleteOrder(Customer customer, Order order);
-	void deleteOrderItem(Order order, int id);
+	void deleteOrder(Order order);
+	void deleteOrderItem(OrderItem item);
 }
