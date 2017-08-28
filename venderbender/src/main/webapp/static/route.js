@@ -2,7 +2,7 @@
  * 
  */
 
-angular.module("VenderBender", ["ng-Route"])
+angular.module("VenderBender", ["ngRoute"])
 angular.module("VenderBender").config(function($locationProvider, $scope){
 	locationProvider.hashPrefix("");
 	$routeProvider.when("/store", {
