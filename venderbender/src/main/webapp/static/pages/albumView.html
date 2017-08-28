@@ -1,0 +1,13 @@
+<div>
+<h1>Albums</h1>
+    <h4>{{Albums.length}} results.</h4>
+    <ul>
+      <li ng-repeat="album in filteredAlbums">{{album.title}}</li>
+    </ul>
+    <pagination 
+      ng-model="currentPage"
+      total-items="albums.length"
+      max-size="maxSize"  
+      boundary-links="true">
+    </pagination>
+</div>
