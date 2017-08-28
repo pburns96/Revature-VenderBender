@@ -102,7 +102,7 @@ public class OrderDAOTest {
 		}
 */
 		// When deleteing a customer, it deletes all the Orders and orderitems
-		customerDao.deleteCustomer(customer);
+		customerDao.deleteCustomer(customerDao.getCustomer("Pburns"));
 	}
 
 	@Test
