@@ -86,7 +86,7 @@ public class Customer {
 	}
 
 	public void setPassword(String password) {
-		this.password = BCrypt.hashpw(password, BCrypt.gensalt(12));;
+		this.password = BCrypt.hashpw(password, BCrypt.gensalt(12));
 	}
 
 	public String getFirstname() {
