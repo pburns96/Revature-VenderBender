@@ -114,7 +114,8 @@ public class OrderDAOTest {
 		// When deleteing a customer, it deletes all the Orders and orderitems
 		customerDao.deleteCustomer(customerDao.getCustomer("Pburns"));
 	}
-
+ 
+	
 	@Test
 	public void getOrderAndItemTest() {
 		OrderDAO dao = (OrderDAO) context.getBean("orderDAO");
