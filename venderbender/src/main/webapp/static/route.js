@@ -1,7 +1,10 @@
 angular.module("VenderBender", ["ngRoute"])
 angular.module("VenderBender").config(function($locationProvider, $routeProvider){
 	$locationProvider.hashPrefix("");
-	$routeProvider.when("/store", {
+	$routeProvider.when("/login",{
+		templateUrl:"pages/login.html",
+		controller:"loginController"
+	}).when("/store", {
 		templateUrl:"store.html",
 		controller:"storeController"
 	}).when("/albumView", {

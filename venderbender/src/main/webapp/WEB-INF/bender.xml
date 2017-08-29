@@ -20,8 +20,9 @@
 	</bean> 
 
 	<!-- Spring core/context: find beans and auto-register -->
-	<context:component-scan base-package="com.revature.beans" />
-	<context:component-scan base-package="com.revature.controllers"/>
+	<context:component-scan base-package="com.revature"/>
+	
+	<!-- <aop:scoped-proxy></aop:scoped-proxy>  -->
 
 
 	<tx:annotation-driven />
@@ -64,7 +65,9 @@
 	<bean name = "albumDAO" class = "com.revature.data.AlbumDAOImpl">
 		<property name="sessionFactory" ref = "sessionFactory"></property>
 	</bean>
-	<bean name = "dataService" class = "com.revature.data.DataService">
+	<bean name = "dataService" class = "com.revature.services.DataService">
+	</bean>
+	<bean name = "authenticationService" class = "com.revature.services.AuthenticationService">
 	</bean>
 	
 	<!-- Beans -->
