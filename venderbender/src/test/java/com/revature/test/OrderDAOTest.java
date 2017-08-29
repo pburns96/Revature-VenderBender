@@ -32,9 +32,9 @@ public class OrderDAOTest {
 		context = new FileSystemXmlApplicationContext("/src/main/webapp/WEB-INF/bender.xml");
 	}
 
-	@Ignore
+	
 	@Test
-	public void createOrderandItemTest() {
+	public void createAndDeleteOrderAndItemTest() {
 		OrderDAO dao = (OrderDAO) context.getBean("orderDAO");
 		Customer customer = (Customer) context.getBean("customer");
 		customer.setFirstname("Patrick");
@@ -116,7 +116,6 @@ public class OrderDAOTest {
 	}
 
 	@Test
-	@Ignore
 	public void getOrderAndItemTest() {
 		OrderDAO dao = (OrderDAO) context.getBean("orderDAO");
 		Customer customer = (Customer) context.getBean("customer");
@@ -144,13 +143,16 @@ public class OrderDAOTest {
 		order.setOwner(customer);
 		dao.createOrder(order);
 		
+		customer = customerDao.getCustomer("Pburns");
 		List<Order> orders = dao.getOrders(customer);
+		order = dao.getOrders(customer).get(0);
 		assertEquals(orders.get(0),order);
 		
 		OrderItem item = (OrderItem) context.getBean("orderItem");
 		item.setOrder(order);
 		item.setQuantity(2);
 		dao.createOrderItem(item);
+		order = dao.getOrders(customer).get(0);
 		List<OrderItem>items = dao.getOrderItems(order);
 		
 		assertEquals(items.get(0),item);
@@ -161,13 +163,48 @@ public class OrderDAOTest {
 	@Test
 	public void updateOrderItemTest() {
 		
+		OrderDAO dao = (OrderDAO) context.getBean("orderDAO");
+		Customer customer = (Customer) context.getBean("customer");
+		customer.setFirstname("Patrick");
+		customer.setLastname("Burns");
+		customer.setEmail("pburns96@live.com");
+		customer.setManager(false);
+		customer.setUsername("Pburns");
+		customer.setPassword("thisismypassword");
+		CustomerDAO customerDao = (CustomerDAO) context.getBean("customerDAO");
+		Customer customerPat = customerDao.getCustomer("Pburns");
+		if (customerPat == null) {
+			customerDao.createCustomer(customer);
+		} else {
+			customer = customerPat;
+		}
+
+		// positive test
+		// Test against a real customer
+		Order order = (Order) context.getBean("order");
+		Date date = new Date();
+		Calendar calendar = new Calendar.Builder().build();
+		calendar.set(9999,11,11);
+		order.setTimeOrdered(calendar.getTime());
+		order.setOwner(customer);
+		dao.createOrder(order);
+		
+		
+		
+		OrderItem item = (OrderItem) context.getBean("orderItem");
+		item.setOrder(order);
+		item.setQuantity(2);
+		dao.createOrderItem(item);
+		
+		item.setQuantity(3);
+		dao.updateOrderItem(item);
+		customer = customerDao.getCustomer("Pburns");
+		List<Order>orders = dao.getOrders(customer);
+		List<OrderItem>items = dao.getOrderItems(order);
+		assertEquals(items.get(0).getQuantity(),3);
 		
 		
 	}
 
-	@Test
-	public void deleteOrdersAndItemTest() {
-
-	}
 
 }

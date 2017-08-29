@@ -1,6 +1,6 @@
 package com.revature.beans;
 
-import java.util.Set;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -39,7 +39,7 @@ public class Customer {
 	private boolean manager;
 	
 	@OneToMany(mappedBy = "owner", cascade = CascadeType.REMOVE)
-	private Set<Order> orders;
+	private List<Order> orders;
  
 	public Customer() {
 		super();

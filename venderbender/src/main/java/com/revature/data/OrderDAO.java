@@ -20,7 +20,7 @@ public interface OrderDAO {
 	List<OrderItem> getOrderItems(Order order);
 	List<Order>getOrders(Customer customer);
 	//Update
-	void updateOrderItemQuantity(OrderItem item, int quantity);
+	void updateOrderItem(OrderItem item);
 	//Delete
 	void deleteOrder(Order order);
 	void deleteOrderItem(OrderItem item);

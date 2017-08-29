@@ -37,30 +37,33 @@ public class OrderDAOImpl implements OrderDAO {
 
 	@SuppressWarnings("unchecked")
 	@Override
+	@Transactional
 	public List<OrderItem> getOrderItems(Order order) {
-		return sessionFactory.getCurrentSession().createCriteria(OrderItem.class).add(Restrictions.eq("ORDER_ID", order.getId())).list();
+		return sessionFactory.getCurrentSession().createCriteria(OrderItem.class).add(Restrictions.eq("order.id", order.getId())).list();
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
+	@Transactional
 	public List<Order> getOrders(Customer customer) {
-		return sessionFactory.getCurrentSession().createCriteria(Order.class).add(Restrictions.eq("CUSTOMER_ID", customer.getId())).list();
+		return sessionFactory.getCurrentSession().createCriteria(Order.class).add(Restrictions.eq("owner.id", customer.getId())).list();
 	}
 
 
 	@Override
-	public void updateOrderItemQuantity(OrderItem item, int quantity) {
-		item.setQuantity(quantity);
+	@Transactional
+	public void updateOrderItem(OrderItem item) {
 		sessionFactory.getCurrentSession().update(item);
-		
 	}
 
 	@Override
+	@Transactional
 	public void deleteOrder(Order order) {
 		sessionFactory.getCurrentSession().delete(order);
 	}
 
 	@Override
+	@Transactional
 	public void deleteOrderItem(OrderItem item) {
 		sessionFactory.getCurrentSession().delete(item);
 	}
