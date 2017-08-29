@@ -64,6 +64,8 @@
 	<bean name = "albumDAO" class = "com.revature.data.AlbumDAOImpl">
 		<property name="sessionFactory" ref = "sessionFactory"></property>
 	</bean>
+	<bean name = "dataService" class = "com.revature.data.DataService">
+	</bean>
 	
 	<!-- Beans -->
 	<bean name="album" class="com.revature.beans.Album" scope = "prototype"></bean> 
