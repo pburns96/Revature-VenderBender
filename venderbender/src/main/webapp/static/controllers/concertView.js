@@ -1,6 +1,6 @@
-angular.module("VenderBender").controller("albumController",function(){
+angular.module("VenderBender").controller("concertViewController",function(){
 	//Will need the http request here.
-	$scope.filteredAlbums = []
+	$scope.filteredConcerts = []
 	  ,$scope.currentPage = 1
 	  ,$scope.numPerPage = 15
 	  ,$scope.maxSize = 5;
@@ -10,6 +10,6 @@ angular.module("VenderBender").controller("albumController",function(){
 	    var begin = (($scope.currentPage - 1) * $scope.numPerPage)
 	    , end = begin + $scope.numPerPage;
 	    
-	    $scope.filteredTodos = $scope.todos.slice(begin, end);
+	    $scope.filteredConcerts = $scope.concerts.slice(begin, end);
 	  });
 });

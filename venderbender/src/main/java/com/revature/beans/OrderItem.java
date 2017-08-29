@@ -23,14 +23,14 @@ public class OrderItem {
 	@GeneratedValue(strategy =GenerationType.SEQUENCE, generator = "OrderItemId")
 	@SequenceGenerator(name="OrderItemId", sequenceName = "ORDER_ITEM_ID_SEQ")
 	int id;
-	@ManyToOne
+	@ManyToOne(cascade=CascadeType.REMOVE)
 	@JoinColumn(name = "ORDER_ID", nullable = false)
 	@NotNull
 	Order order;
-	@ManyToOne
+	@ManyToOne(cascade=CascadeType.REMOVE)
 	@JoinColumn(name = "ALBUM_ID", nullable = true)
 	Album album;
-	@ManyToOne
+	@ManyToOne(cascade=CascadeType.REMOVE)
 	@JoinColumn(name = "CONCERT_ID", nullable = true)
 	Concert concertTicket;
 	@Min(value =1)

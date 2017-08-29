@@ -31,7 +31,7 @@ public class Order {
 	@OneToMany(mappedBy = "order", cascade=CascadeType.REMOVE)
 	private List<OrderItem> orderItems;
 
-	@ManyToOne
+	@ManyToOne(cascade=CascadeType.REMOVE)
 	@JoinColumn(nullable = true, name = "CUSTOMER_ID")
 	@NotNull
 	Customer owner;

@@ -1,8 +1,8 @@
 <div>
-<h1>Albums</h1>
-    <h4>{{albums.length}} results.</h4>
+<h1>Concerts</h1>
+    <h4>{{concerts.length}} results.</h4>
     <ul>
-      <li ng-repeat="album in filteredAlbums">{{album.title}}</li>
+      <li ng-repeat="concert in filteredConcerts">{{concert.band}}</li>
     </ul>
     <pagination 
       ng-model="currentPage"
