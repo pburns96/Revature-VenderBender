@@ -67,6 +67,18 @@ public class OrderDAOImpl implements OrderDAO {
 	public void deleteOrderItem(OrderItem item) {
 		sessionFactory.getCurrentSession().delete(item);
 	}
+
+	@Override
+	@Transactional
+	public Order getOrder(int id) {
+		return (Order) sessionFactory.getCurrentSession().get(Order.class, id);
+	}
+
+	@Override
+	@Transactional
+	public OrderItem getOrderItem(int id) {
+		return (OrderItem) sessionFactory.getCurrentSession().get(OrderItem.class, id);
+	}
 	
 	
 }

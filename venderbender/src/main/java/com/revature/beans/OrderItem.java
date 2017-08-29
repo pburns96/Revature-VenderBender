@@ -27,10 +27,10 @@ public class OrderItem {
 	@JoinColumn(name = "ORDER_ID", nullable = false)
 	@NotNull
 	Order order;
-	@ManyToOne(cascade=CascadeType.REMOVE)
+	@ManyToOne(cascade=CascadeType.DETACH)
 	@JoinColumn(name = "ALBUM_ID", nullable = true)
 	Album album;
-	@ManyToOne(cascade=CascadeType.REMOVE)
+	@ManyToOne(cascade=CascadeType.DETACH)
 	@JoinColumn(name = "CONCERT_ID", nullable = true)
 	Concert concertTicket;
 	@Min(value =1)
