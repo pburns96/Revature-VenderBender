@@ -19,6 +19,8 @@ public interface OrderDAO {
 	//Select
 	List<OrderItem> getOrderItems(Order order);
 	List<Order>getOrders(Customer customer);
+	Order getOrder(int id);
+	OrderItem getOrderItem(int id);
 	//Update
 	void updateOrderItem(OrderItem item);
 	//Delete

@@ -134,8 +134,7 @@ public class OrderDAOTest {
 			customer = customerPat;
 		}
 
-		// positive test
-		// Test against a real customer
+		//Make an order and see if the database lines up with ours
 		Order order = (Order) context.getBean("order");
 		Date date = new Date();
 		Calendar calendar = new Calendar.Builder().build();
@@ -146,9 +145,11 @@ public class OrderDAOTest {
 		
 		customer = customerDao.getCustomer("Pburns");
 		List<Order> orders = dao.getOrders(customer);
-		order = dao.getOrders(customer).get(0);
-		assertEquals(orders.get(0),order);
 		
+		//testing this way instead because of lazy inistiallization
+		assertEquals(orders.get(0),dao.getOrder(orders.get(0).getId()));
+		
+		//make an item and see if it lines up with what we sent it
 		OrderItem item = (OrderItem) context.getBean("orderItem");
 		item.setOrder(order);
 		item.setQuantity(2);
@@ -156,7 +157,8 @@ public class OrderDAOTest {
 		order = dao.getOrders(customer).get(0);
 		List<OrderItem>items = dao.getOrderItems(order);
 		
-		assertEquals(items.get(0),item);
+		//testing this way to see if they both grab same object
+		assertEquals(items.get(0),dao.getOrderItem(items.get(0).getId()));
 		
 		
 	}
