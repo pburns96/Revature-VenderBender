@@ -1,4 +1,3 @@
-
 angular.module("VenderBender", ["ngRoute"])
 angular.module("VenderBender").config(function($locationProvider, $routeProvider){
 	$locationProvider.hashPrefix("");
@@ -17,6 +16,12 @@ angular.module("VenderBender").config(function($locationProvider, $routeProvider
 	}).when("/cart",{
 		templateUrl:"pages/cart.html",
 		controller:"cartController"
+	}).when("/createAlbums",{
+		templateUrl:"pages/createAlbums.html",
+		controller:"createAlbumsController"
+	}).when("/createConcerts",{
+		templateUrl:"pages/createConcerts.html",
+		controller:"createConcertsController"
 	}).otherwise(
 	{
 		templateUrl: "pages/home.html",

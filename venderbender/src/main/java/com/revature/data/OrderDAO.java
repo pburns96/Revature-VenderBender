@@ -14,16 +14,16 @@ public interface OrderDAO {
 
 	
 	//Create
-	void createOrder(Order order) throws InvalidDataAccessApiUsageException, UnexpectedTypeException;
-	void createOrderItem(OrderItem orderItem);
+	public void createOrder(Order order) throws InvalidDataAccessApiUsageException, UnexpectedTypeException;
+	public void createOrderItem(OrderItem orderItem);
 	//Select
-	List<OrderItem> getOrderItems(Order order);
-	List<Order>getOrders(Customer customer);
+	public List<OrderItem> getOrderItems(Order order);
+	public List<Order>getOrders(Customer customer);
 	Order getOrder(int id);
 	OrderItem getOrderItem(int id);
 	//Update
-	void updateOrderItem(OrderItem item);
+	public void updateOrderItem(OrderItem item);
 	//Delete
-	void deleteOrder(Order order);
-	void deleteOrderItem(OrderItem item);
+	public void deleteOrder(Order order);
+	public void deleteOrderItem(OrderItem item);
 }
