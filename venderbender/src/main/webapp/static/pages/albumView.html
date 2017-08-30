@@ -8,7 +8,7 @@
                 class="glyphicon glyphicon-th"></span>Grid</a>
         </div>
     </div>
-    <div ng-repeat="album in filteredAlbums" class="row list-group">
+    <div ng-repeat="album in albums" class="row list-group">
         <div class="item  col-xs-4 col-lg-4">
             <div class="thumbnail">
                 <img class="group list-group-image" src="{{album.imagePath}}" alt="Image of {{album.title}}" />
@@ -25,7 +25,7 @@
                     <div class="row">
                         <div class="col-xs-12 col-md-6">
                             <p class="lead">
-                                {{album.price | money}}</p>
+                                {{album.price | currency}}</p>
                         </div>
                         <div class="col-xs-12 col-md-6">
                             <button class="btn btn-success" ng-click="addToCart(album)">Add to cart!</button>
