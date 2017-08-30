@@ -48,6 +48,13 @@ public class OrderDAOImpl implements OrderDAO {
 	public List<Order> getOrders(Customer customer) {
 		return sessionFactory.getCurrentSession().createCriteria(Order.class).add(Restrictions.eq("owner.id", customer.getId())).list();
 	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	@Transactional
+	public List<Order> getOrders() {
+		return sessionFactory.getCurrentSession().createCriteria(OrderItem.class).list();
+	}
 
 
 	@Override
@@ -79,6 +86,7 @@ public class OrderDAOImpl implements OrderDAO {
 	public OrderItem getOrderItem(int id) {
 		return (OrderItem) sessionFactory.getCurrentSession().get(OrderItem.class, id);
 	}
+
 	
 	
 }

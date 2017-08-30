@@ -18,9 +18,12 @@ public interface OrderDAO {
 	public void createOrderItem(OrderItem orderItem);
 	//Select
 	public List<OrderItem> getOrderItems(Order order);
+	//Gets all orders from a particular customer
 	public List<Order>getOrders(Customer customer);
-	Order getOrder(int id);
-	OrderItem getOrderItem(int id);
+	//Gets All orders from all customers
+	public List<Order>getOrders();
+	public Order getOrder(int id);
+	public OrderItem getOrderItem(int id);
 	//Update
 	public void updateOrderItem(OrderItem item);
 	//Delete
