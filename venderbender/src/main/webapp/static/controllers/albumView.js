@@ -9,7 +9,7 @@ angular.module("VenderBender").controller("albumViewController",function($http,$
 	});
 	$scope.filteredAlbums = [];
 	$scope.currentPage = 1;
-	$scope.numPerPage = 15;
+	$scope.numPerPage = 5;
 	$scope.maxSize = 5;
 	$scope.$watch('currentPage + numPerPage', function() {
 	    var begin = (($scope.currentPage - 1) * $scope.numPerPage);

@@ -1,43 +1,50 @@
-<div>
-    <div class="well well-sm">
-        <strong>Albums:</strong>
-    	<h4>{{albums.length}} results.</h4>
-        <div class="btn-group">
-            <a href="#" id="list" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-th-list">
-            </span>List</a> <a href="#" id="grid" class="btn btn-default btn-sm"><span
-                class="glyphicon glyphicon-th"></span>Grid</a>
-        </div>
-    </div>
-    <div ng-repeat="album in albums" class="row list-group">
-        <div class="item  col-xs-4 col-lg-4">
-            <div class="thumbnail">
-                <img class="group list-group-image" src="{{album.imagePath}}" alt="Image of {{album.title}}" />
-                <div class="caption">
-                    <h4 class="group inner list-group-item-heading">{{album.title}}</h4>
-                    <p class="group inner list-group-item-text">
-                        Artist: {{album.artist}}</p>
-                    <p class="group inner list-group-item-text">
-                        Genre: {{album.genre}}</p>
-                    <p class="group inner list-group-item-text">
-                        Release year: {{album.year}}</p>
-                    <p class="group inner list-group-item-text">
-                        Track listing: {{album.tracks}}</p>
-                    <div class="row">
-                        <div class="col-xs-12 col-md-6">
-                            <p class="lead">
-                                {{album.price | currency}}</p>
-                        </div>
-                        <div class="col-xs-12 col-md-6">
-                            <button class="btn btn-success" ng-click="addToCart(album)">Add to cart!</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    <pagination 
-      ng-model="currentPage"
-      total-items="albums.length"
-      max-size="maxSize"  
-      boundary-links="true">
-    </pagination>
+<div >
+	<div class="well well-sm">
+		<strong>Albums:</strong>
+		<h4>{{albums.length}} results.</h4>
+		<div class="btn-group">
+			<a href="#" id="list" class="btn btn-default btn-sm"><span
+				class="glyphicon glyphicon-th-list"> </span>List</a> <a href="#"
+				id="grid" class="btn btn-default btn-sm"><span
+				class="glyphicon glyphicon-th"></span>Grid</a>
+		</div>
+	</div>
+	<div class="col-lg-3">
+
+		<h1 class="my-4">Disc Vender</h1>
+		<div class="list-group">
+			<a href="#" class="list-group-item">Category 1</a> <a href="#"
+				class="list-group-item">Category 2</a> <a href="#"
+				class="list-group-item">Category 3</a>
+		</div>
+	</div>
+	<div class="row row-offcanvas row-offcanvas-right">
+		<div ng-repeat="album in albums" div class="col-12 col-md-9">
+			<div class="row">
+				<div class="thumbnail">
+					<img class="group list-group-image" src="{{album.imagePath}}"
+						alt="Image of {{album.title}}" />
+					<div class="caption">
+						<h4 class="group inner list-group-item-heading">{{album.title}}</h4>
+						<p class="group inner list-group-item-text">
+							Artist: {{album.artist}}<br /> Genre: {{album.genre}}<br />
+							Release year: {{album.year}}<br /> Track listing:
+							{{album.tracks}}
+						</p>
+						<div class="row">
+							<div class="col-xs-12 col-md-6">
+								<p class="lead">{{album.price | currency}}</p>
+							</div>
+							<div class="col-xs-12 col-md-6">
+								<button class="btn btn-success" ng-click="addToCart(album)">Add
+									to cart!</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<pagination ng-model="currentPage" total-items="albums.length"
+				max-size="maxSize" boundary-links="true"> </pagination>
+		</div>
+	</div>
 </div>
