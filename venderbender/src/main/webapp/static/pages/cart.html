@@ -11,7 +11,7 @@
 						</tr>
 					</thead>
 					<tbody>
-						<tr ng-repeat ="item in orderitems">
+						<tr ng-repeat ="item in cart.order.items">
 							<td data-th="Product">
 								<div class="row">
 									<div class="col-sm-2 hidden-xs"><img src="http://placehold.it/100x100" alt="..." class="img-responsive"/></div>
@@ -24,7 +24,7 @@
 							<td data-th="Price" ng-if="!item.album">{{item.album.price | currency}}</td>
 							<td data-th="Price" ng-if="!item.concert">{{item.concert.price | currency}}</td>
 							<td data-th="Quantity">
-								<input type="number" class="form-control text-center" value="item.quantity">
+								<input type="number" class="form-control text-center" value="item.quantity" ng-model ="item.quantity">
 							</td>
 							<td data-th="Subtotal" class="text-center" ng-if="!item.album"><span ng-model="item.album.subtotal = item.quantity * item.album.price"/></span>{{(item.subtotal | currency}}</td>
 							<td data-th="Subtotal" class="text-center" ng-if="!item.concert"><span ng-model="item.concert.subtotal = item.quantity * item.concert.price"/></span>{{(item.subtotal | currency}}</td>
