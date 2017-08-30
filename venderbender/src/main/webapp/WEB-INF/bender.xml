@@ -21,9 +21,6 @@
 
 	<!-- Spring core/context: find beans and auto-register -->
 	<context:component-scan base-package="com.revature"/>
-	
-	<!-- <aop:scoped-proxy></aop:scoped-proxy>  -->
-
 
 	<tx:annotation-driven />
 	<!-- 1. DataSource -->
@@ -76,5 +73,5 @@
 	<bean name="customer" class="com.revature.beans.Customer" scope = "prototype"></bean> 
 	<bean name="orderItem" class = "com.revature.beans.OrderItem" scope = "prototype"/> 
 	<bean name="order" class = "com.revature.beans.Order" scope = "prototype"/> 
-	
+	<bean name="sessionObject" class = "com.revature.beans.SessionObject" scope = "session"></bean>
 </beans>
