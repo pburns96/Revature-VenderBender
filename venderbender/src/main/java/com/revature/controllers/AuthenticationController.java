@@ -24,7 +24,7 @@ public class AuthenticationController {
 	private AuthenticationService authenticationService;
 	
 	//@Autowired
-	//SessionObject sessionObject;
+	public SessionObject sessionObject;
 	
 	public void setDataService(DataService dataService) {
 		this.dataService = dataService;
@@ -40,11 +40,11 @@ public class AuthenticationController {
 		//SessionObject session = getSessionObject();
 		Customer validCustomer = authenticationService.authenticate(customer);
 		if(validCustomer != null){
-			//session.setCustomer(validCustomer);
+			sessionObject.setCustomer(validCustomer);
 			return new ResponseEntity<Customer>(validCustomer,HttpStatus.OK);
 		}
 		else{
-			//session.inValidate();
+			sessionObject.inValidate();
 			return new ResponseEntity<Customer>(HttpStatus.NO_CONTENT);
 		}
 	}
