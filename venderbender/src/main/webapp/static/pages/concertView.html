@@ -8,7 +8,17 @@
                 class="glyphicon glyphicon-th"></span>Grid</a>
         </div>
     </div>
-    <div ng-repeat="concert in concerts" class="row list-group">
+    <div class="col-lg-3">
+
+          <h1 class="my-4">Shop Name</h1>
+          <div class="list-group">
+            <a href="#" class="list-group-item">Category 1</a>
+            <a href="#" class="list-group-item">Category 2</a>
+            <a href="#" class="list-group-item">Category 3</a>
+          </div>
+
+        </div>
+    <div ng-repeat="concert in concerts" class="col-lg-9">
         <div class="item  col-xs-4 col-lg-4">
             <div class="thumbnail">
                 <img class="group list-group-image" src="images/concert/Rock_Live.jpg" alt="Image of {{concert.band}}" />
