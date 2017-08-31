@@ -1,6 +1,6 @@
 angular.module("VenderBender").controller("albumViewController",
 		function($http, $scope) {
-			$scope.concertLook = function() {//No point.
+			$scope.concertLook = function() {
 				$scope.albums = [];
 				$http({
 					method : "GET",
@@ -106,7 +106,8 @@ angular.module("VenderBender").controller("albumViewController",
 				});
 				
 			};
-			$scope.AddItemToCart(item,isAlbum,$rootScope);
+			$scope.addToCart(item,isAlbum) = function{
+				AddItemToCart(item,isAlbum,$rootScope);
 		};
 });
 

@@ -55,10 +55,11 @@ public class Album {
 	private String genre;
 
 	@JsonIgnore
-	@OneToMany(mappedBy = "album", cascade = CascadeType.DETACH)
+	@OneToMany(mappedBy ="album", cascade = CascadeType.DETACH)
 	private List<OrderItem> orderItems;
-	@Column(name = "IS_CD_OR_NOT")
-	// @Type(type="yes_no")
+	@Column(name="IS_CD_OR_NOT")
+	//@Type(type="yes_no")
+
 	private byte cd;
 
 	public Album() {

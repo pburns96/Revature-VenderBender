@@ -10,17 +10,30 @@
 		</div>
 	</div>
 	<div class="row">
-	<div class="col-lg-3">
+		<div class="col-lg-3">
 
-		<h1 class="my-4">Disc Vender</h1>
-		<div class="list-group">
-			<a ng-click="concertLook()" class="list-group-item">View Concerts</a>
-			<a ng-click="albumLook()" class="list-group-item">View Albums</a>
-			<a ng-click="cdLook()" class="list-group-item">View CDs</a>
-			<a ng-click="lpLook()" class="list-group-item">View Vinyls</a>
+			<h1 class="my-4">Disc Vender</h1>
+			<div class="btn-group-vertical" role="group">
+				<button ng-click="concertLook()" class="list-group-item">View Concerts</button>
+				<button ng-click="albumLook()" class="list-group-item">View Albums</button>
+				<button ng-click="cdLook()" class="list-group-item">View CDs</button>
+				<button ng-click="lpLook()" class="list-group-item">View Vinyls</button>
+				<div class="input-group">
+					<span class="input-group-btn">
+						<button class="btn btn-default" type="button" ng-click="artistLook(artist)">Go!</button>
+					</span>
+					<input type="text" class="form-control" placeholder="Artist Search" name="artist">
+				</div><!-- /input-group -->
+				<div class="input-group">
+					<span class="input-group-btn">
+						<button class="btn btn-default" type="button" ng-click="artistLook(artist)">Go!</button>
+					</span>
+					<input type="date" class="form-control" placeholder="Artist Search" name="fromDate">
+					<input type="date" class="form-control" placeholder="Artist Search" name="toDate">
+				</div><!-- /input-group -->
+			</div>
 		</div>
-	</div>
-	<div class="col-lg-3" ng-repeat="album in col1">
+		<div class="col-lg-3" ng-repeat="album in col1">
 			<div class="row row-offcanvas row-offcanvas-right">
 				<div class="thumbnail">
 					<img class="group list-group-image" src="{{album.imagePath}}"
