@@ -84,7 +84,7 @@ angular.module("VenderBender").controller("albumViewController",
 				$http({
 					method : "GET",
 					url : "AlbumsByType.do",
-					params :{type: 1}
+					params : {type: 1}
 				}).then(function(response) {
 					$scope.albums = response.data;
 					$scope.col1 = [];
