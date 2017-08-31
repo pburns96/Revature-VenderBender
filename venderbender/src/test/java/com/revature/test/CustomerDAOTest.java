@@ -10,6 +10,7 @@ import org.springframework.context.support.FileSystemXmlApplicationContext;
 
 import com.revature.beans.Customer;
 import com.revature.data.CustomerDAO;
+import com.revature.services.ApplicationContextService;
 
 public class CustomerDAOTest {
 	private static final Logger log = Logger.getLogger(CustomerDAOTest.class);
@@ -19,7 +20,7 @@ public class CustomerDAOTest {
 	
 	@BeforeClass
 	public static void beforeClass(){
-		context = new FileSystemXmlApplicationContext("/src/main/webapp/WEB-INF/bender.xml");
+		context = ApplicationContextService.getContext();
 	}
 	
 	@Test

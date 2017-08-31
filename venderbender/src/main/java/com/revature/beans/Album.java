@@ -23,35 +23,35 @@ import org.hibernate.validator.constraints.NotBlank;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 /**
- * @author Russ Barnes
- * Album bean. Holds all the standard information needed for an album.
+ * @author Russ Barnes Album bean. Holds all the standard information needed for
+ *         an album.
  */
 @Entity
 @Table
 public class Album {
 	@Id
-	@Column(name="ALBUM_ID")
-	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="album_gen")
-	@SequenceGenerator(name="album_gen", sequenceName="ALBUM_SEQ")
+	@Column(name = "ALBUM_ID")
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "album_gen")
+	@SequenceGenerator(name = "album_gen", sequenceName = "ALBUM_SEQ")
 	private int id;
 	@NotBlank
-	@Column(name="ALBUM_TITLE", nullable=false)
+	@Column(name = "ALBUM_TITLE", nullable = false)
 	private String title;
 	@NotBlank
-	@Column(name="ALBUM_ARTIST", nullable=false)
+	@Column(name = "ALBUM_ARTIST", nullable = false)
 	private String artist;
 	@NotNull
-	@Column(name="ALBUM_TRACKS")
+	@Column(name = "ALBUM_TRACKS")
 	private String tracks;
-	@Min(value=1900)
-	@Column(name="ALBUM_YEAR", nullable=false)
+	@Min(value = 1900)
+	@Column(name = "ALBUM_YEAR", nullable = false)
 	private short year;
-	@DecimalMin(value="0")
-	@Column(name="ALBUM_PRICE", nullable=false)
+	@DecimalMin(value = "0")
+	@Column(name = "ALBUM_PRICE", nullable = false)
 	private double price;
-	@Column(name="ALBUM_IMAGE_PATH")
+	@Column(name = "ALBUM_IMAGE_PATH")
 	private String imagePath;
-	@Column(nullable=false)
+	@Column(nullable = false)
 	private String genre;
 
 	@JsonIgnore
@@ -59,9 +59,8 @@ public class Album {
 	private List<OrderItem> orderItems;
 	@Column(name="IS_CD_OR_NOT")
 	//@Type(type="yes_no")
-	private byte cd;
-	
 
+	private byte cd;
 
 	public Album() {
 		super();
@@ -70,8 +69,7 @@ public class Album {
 	public String getGenre() {
 		return genre;
 	}
-	
-	
+
 	public void setGenre(String genre) {
 		this.genre = genre;
 	}
@@ -79,13 +77,11 @@ public class Album {
 	public String getTracks() {
 		return tracks;
 	}
-	
-	
+
 	public void setTracks(String tracks) {
 		this.tracks = tracks;
 	}
-	
-	
+
 	public byte getCd() {
 		return cd;
 	}
@@ -133,27 +129,22 @@ public class Album {
 	public void setPrice(double price) {
 		this.price = price;
 	}
-	
 
 	public String getImagePath() {
 		return imagePath;
 	}
 
-
 	public void setImagePath(String imagePath) {
 		this.imagePath = imagePath;
 	}
-
 
 	public List<OrderItem> getOrderItems() {
 		return orderItems;
 	}
 
-
 	public void setOrderItems(List<OrderItem> orderItems) {
 		this.orderItems = orderItems;
 	}
-
 
 	@Override
 	public String toString() {

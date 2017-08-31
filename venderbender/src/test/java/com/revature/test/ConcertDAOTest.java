@@ -15,6 +15,7 @@ import org.springframework.context.support.FileSystemXmlApplicationContext;
 
 import com.revature.beans.Concert;
 import com.revature.data.ConcertDAO;
+import com.revature.services.ApplicationContextService;
 
 public class ConcertDAOTest {
 	private static final Logger log = Logger.getLogger(ConcertDAOTest.class);
@@ -24,7 +25,7 @@ public class ConcertDAOTest {
 	
 	@BeforeClass
 	public static void beforeClass(){
-		context = new FileSystemXmlApplicationContext("/src/main/webapp/WEB-INF/bender.xml");
+		context = ApplicationContextService.getContext();
 	}
 	
 	

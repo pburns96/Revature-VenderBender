@@ -8,10 +8,10 @@ import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.FileSystemXmlApplicationContext;
 
 import com.revature.beans.Album;
 import com.revature.data.AlbumDAO;
+import com.revature.services.ApplicationContextService;
 
 public class AlbumDAOTest {
 	private static final Logger log = Logger.getLogger(ConcertDAOTest.class);
@@ -20,7 +20,7 @@ public class AlbumDAOTest {
 	
 	@BeforeClass
 	public static void setup(){
-		context =  new FileSystemXmlApplicationContext("/src/main/webapp/WEB-INF/bender.xml");
+		context =  ApplicationContextService.getContext();
 	}
 	@Test
 	public void testCreate(){
