@@ -1,6 +1,11 @@
 package com.revature.controllers;
 
+import java.io.IOException;
+
+import javax.servlet.FilterChain;
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
@@ -31,13 +36,15 @@ public class ManagerController {
 		this.dataService = dataService;
 	}
 	
-	@RequestMapping(value="/pages/creatConcerts.html")
-	public ResponseEntity<Void> createConcertValidation(HttpServletRequest request){
+	//@RequestMapping(value="/pages/createConcerts.html")
+	public ResponseEntity<Void> createConcertValidation(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException{
 		log.info("Validating createConcert access");
 		HttpSession session = request.getSession(false);
 		if(session != null){
 			Customer customer = (Customer) session.getAttribute("customer");
-			if(customer.isManager()){
+			if(customer != null && customer.isManager()){
+				log.info("Valid");
+				request.getRequestDispatcher("/createConcerts").forward(request, response);
 				return new ResponseEntity<Void>(HttpStatus.OK);
 			}
 		}
@@ -50,7 +57,7 @@ public class ManagerController {
 		HttpSession session = request.getSession(false);
 		if(session != null){
 			Customer customer = (Customer) session.getAttribute("customer");
-			if(customer.isManager()){
+			if(customer != null && customer.isManager()){
 				log.info("Creating Concert");
 				dataService.createConcert(concert);
 				return new ResponseEntity<S>(HttpStatus.CREATED);
@@ -65,7 +72,7 @@ public class ManagerController {
 		HttpSession session = request.getSession(false);
 		if(session != null){
 			Customer customer = (Customer) session.getAttribute("customer");
-			if(customer.isManager()){
+			if(customer != null && customer.isManager()){
 				log.info("Creating Album");
 				dataService.createAlbum(album);
 				return new ResponseEntity<S>(HttpStatus.CREATED);

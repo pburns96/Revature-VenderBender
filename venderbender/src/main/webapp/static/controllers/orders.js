@@ -1,7 +1,7 @@
 /**
  * 
  */
-angular.module("VenderBeder").controller("ordersController",function($scope,$http){
+angular.module("VenderBender").controller("ordersController",function($scope,$http){
 	
 	$http.get("/getAllOrders").then(function(response) {
 		$orderHistory.orders = response.data;

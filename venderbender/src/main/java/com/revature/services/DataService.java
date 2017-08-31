@@ -91,6 +91,10 @@ public class DataService {
 		return concertDao.getConcertsByLocation(location);
 	}
 	
+	public List<Concert> getAllConcerts(){
+		return concertDao.getAllConcerts();
+	}
+	
 	public void createConcert(Concert concert){
 		concertDao.createConcert(concert);
 	}

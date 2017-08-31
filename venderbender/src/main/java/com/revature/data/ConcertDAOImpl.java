@@ -61,6 +61,13 @@ public class ConcertDAOImpl implements ConcertDAO{
 		query.add(Restrictions.eq("location", location));
 		return query.list();
 	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	@Transactional
+	public List<Concert> getAllConcerts(){
+		return sessionFactory.getCurrentSession().createCriteria(Concert.class).list();
+	}
 
 	@Override
 	@Transactional(isolation=Isolation.READ_COMMITTED, propagation=Propagation.REQUIRED,rollbackFor=Exception.class)
