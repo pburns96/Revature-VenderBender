@@ -46,7 +46,7 @@ public class OrderController {
 		if(session!=null){ //If no session, fail to fetch orders
 			Customer customer = (Customer) session.getAttribute("customer");
 			if(customer!=null){ //if no customer, fail to fetch orders
-				if(customer.isManager()){ //if manager, fetch all orders
+				if(customer.isManager()){ //if manager, fetch all orders.
 					return new ResponseEntity<List<Order>>(this.dataService.getOrders(),HttpStatus.OK);
 				}
 				else{ //if not manager, fetch orders by customers
