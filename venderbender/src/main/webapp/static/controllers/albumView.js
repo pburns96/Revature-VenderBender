@@ -21,9 +21,29 @@ angular.module("VenderBender").controller("albumViewController",function($rootSc
 		};
 });
 
-AddItemToCart = function(item,isAlbum,$rootScope)
+AddItemToCart = function(item,isAlbum,$rootScope,$http)
 {
-	//addItem method(item) and check for similarity
+	
+	var orderItem = {
+			id:-1,
+			album : null,
+			concert:null,
+			quantity:1,
+			owner:null
+		};
+		if(isAlbum)
+		{
+			orderItem.album = item;					
+		}
+		else
+		{
+			orderItem.concert = item;
+		}
+	
+	http.post("/cart/add", orderItem).then(function(response) {
+		$rootScope.cartOrder = response.data;
+	});
+	/*//addItem method(item) and check for similarity
 	//Adds item to cart.order.items
 		console.log("Attempting to add to cart!");
 		console.log($rootScope.cart.order.items.length)
@@ -73,7 +93,7 @@ AddItemToCart = function(item,isAlbum,$rootScope)
 			{
 			console.log("added New Item to cart!");
 		$rootScope.cart.order.items.push(orderItem);
-			}
+			}*/
 	
 }
 /*

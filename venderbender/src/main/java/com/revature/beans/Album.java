@@ -3,6 +3,7 @@
  */
 package com.revature.beans;
 
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -18,7 +19,6 @@ import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
-import org.hibernate.annotations.Type;
 import org.hibernate.validator.constraints.NotBlank;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -57,7 +57,7 @@ public class Album {
 
 	@JsonIgnore
 	@OneToMany(mappedBy ="album", cascade = CascadeType.DETACH)
-	private Set<OrderItem> orderItems;
+	private List<OrderItem> orderItems;
 	@Column(name="IS_CD_OR_NOT")
 	//@Type(type="yes_no")
 	private byte cd;
@@ -146,12 +146,12 @@ public class Album {
 	}
 
 
-	public Set<OrderItem> getOrderItems() {
+	public List<OrderItem> getOrderItems() {
 		return orderItems;
 	}
 
 
-	public void setOrderItems(Set<OrderItem> orderItems) {
+	public void setOrderItems(List<OrderItem> orderItems) {
 		this.orderItems = orderItems;
 	}
 

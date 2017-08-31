@@ -11,7 +11,7 @@
 						</tr>
 					</thead>
 					<tbody>
-						<tr ng-repeat ="item in cart.order.items">
+						<tr ng-repeat ="item in cartOrder.items">
 							<td data-th="Product">
 								<div class="row">
 									<div class="col-sm-2 hidden-xs"><img src="http://placehold.it/100x100" alt="..." class="img-responsive"/></div>
@@ -29,8 +29,8 @@
 							<td data-th="Subtotal" class="text-center" ng-if="!item.album"><span ng-model="item.album.subtotal = item.quantity * item.album.price"/></span>{{(item.subtotal | currency}}</td>
 							<td data-th="Subtotal" class="text-center" ng-if="!item.concert"><span ng-model="item.concert.subtotal = item.quantity * item.concert.price"/></span>{{(item.subtotal | currency}}</td>
 							<td class="actions" data-th="">
-								<button class="btn btn-info btn-sm"><i class="fa fa-refresh"></i></button>
-								<button class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i></button>								
+								<button class="btn btn-info btn-sm"><i class="fa fa-refresh" ng-click ="updateOrderItem(item)"></i></button>
+								<button class="btn btn-danger btn-sm"><i class="fa fa-trash-o" ng-click = "removeOrderItem(item)"></i></button>								
 							</td>
 						</tr>
 					</tbody>
@@ -39,7 +39,7 @@
 							<td><a href="#" class="btn btn-warning"><i class="fa fa-angle-left"></i> Continue Shopping</a></td>
 							<td colspan="2" class="hidden-xs"></td>
 							<td class="hidden-xs text-center"><strong>{{cart.total | currency}}</strong></td>
-							<td><a href="#" class="btn btn-success btn-block">Checkout <i class="fa fa-angle-right"></i></a></td>
+							<td><a href="#" class="btn btn-success btn-block" ng-click="buyOrder()">Checkout <i class="fa fa-angle-right"></i></a></td>
 						</tr>
 					</tfoot>
 				</table>
