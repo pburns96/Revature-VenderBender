@@ -55,9 +55,9 @@ public class CustomerViewController {
 		return new ResponseEntity<List<Album>>(dataService.getAlbumsByType((byte)type), HttpStatus.OK);
 		
 	}
-	@RequestMapping(value="/ConcertsAll.do", method=RequestMethod.GET,produces=MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value="/ConcertsAll.do", method=RequestMethod.GET, produces=MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
-	public ResponseEntity<List<Concert>> getAllConcerts(@RequestBody int type){
+	public ResponseEntity<List<Concert>> getAllConcerts(){
 		return new ResponseEntity<List<Concert>>(dataService.getAllConcerts(), HttpStatus.OK);
 		
 	}

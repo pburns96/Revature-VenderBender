@@ -12,9 +12,10 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table
@@ -29,6 +30,7 @@ public class OrderItem {
 	@ManyToOne(cascade=CascadeType.REMOVE)
 	@JoinColumn(name = "ORDER_ID", nullable = false)
 	@NotNull
+	@JsonIgnore
 	Order order;
 	
 	@ManyToOne(cascade=CascadeType.DETACH, fetch=FetchType.EAGER)

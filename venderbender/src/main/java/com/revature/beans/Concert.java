@@ -1,7 +1,7 @@
 package com.revature.beans;
 
 import java.util.Date;
-import java.util.Set;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -11,6 +11,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 
 @Entity
 public class Concert {
@@ -33,8 +36,9 @@ public class Concert {
 	@Column(name = "CONCERT_PRICE", nullable = false)
 	private double price;
 	
+	@JsonIgnore
 	@OneToMany(mappedBy="concertTicket", cascade = CascadeType.DETACH)
-	private Set<OrderItem> orderItem;
+	private List<OrderItem> orderItem;
 
 	public Concert() {
 		super();
@@ -50,11 +54,11 @@ public class Concert {
 	
 	
 
-	public Set<OrderItem> getOrderItem() {
+	public List<OrderItem> getOrderItem() {
 		return orderItem;
 	}
 
-	public void setOrderItem(Set<OrderItem> orderItem) {
+	public void setOrderItem(List<OrderItem> orderItem) {
 		this.orderItem = orderItem;
 	}
 

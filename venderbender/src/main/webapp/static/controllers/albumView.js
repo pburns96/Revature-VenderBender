@@ -1,6 +1,7 @@
 angular.module("VenderBender").controller("albumViewController",
-		function($http, $scope) {
+		function($http, $scope, $location) {
 			$scope.concertLook = function() {
+				$location.path("concertView");
 				$scope.albums = [];
 				$http({
 					method : "GET",
@@ -28,6 +29,7 @@ angular.module("VenderBender").controller("albumViewController",
 			};
 			$scope.albumLook = function() {
 				$scope.albums = [];
+				$location.path("albumView");
 				$http({
 					method : "GET",
 					url : "AlbumsAll.do"
@@ -53,6 +55,7 @@ angular.module("VenderBender").controller("albumViewController",
 				
 			};
 			$scope.artistLook = function(search) {
+				$location.path("albumView");
 				$scope.albums = [];
 				$http({
 					method : "GET",
@@ -79,6 +82,7 @@ angular.module("VenderBender").controller("albumViewController",
 				});			
 			};
 			$scope.cdLook = function() {
+				$location.path("albumView");
 				$scope.albums = [];
 				$http({
 					method : "GET",
@@ -106,6 +110,7 @@ angular.module("VenderBender").controller("albumViewController",
 				
 			};
 			$scope.lpLook = function() {
+				$location.path("albumView");
 				$scope.albums = [];
 				$http({
 					method : "GET",
