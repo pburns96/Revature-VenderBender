@@ -4,7 +4,9 @@ import java.util.List;
 
 import javax.validation.UnexpectedTypeException;
 
+import org.hibernate.Criteria;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.dao.InvalidDataAccessApiUsageException;
 import org.springframework.transaction.annotation.Isolation;
@@ -46,14 +48,18 @@ public class OrderDAOImpl implements OrderDAO {
 	@Override
 	@Transactional
 	public List<Order> getOrders(Customer customer) {
-		return sessionFactory.getCurrentSession().createCriteria(Order.class).add(Restrictions.eq("owner.id", customer.getId())).list();
+		Criteria query = sessionFactory.getCurrentSession().createCriteria(Order.class).add(Restrictions.eq("owner.id", customer.getId()));
+		query.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
+		return query.list();
 	}
 	
 	@SuppressWarnings("unchecked")
 	@Override
 	@Transactional
 	public List<Order> getOrders() {
-		return sessionFactory.getCurrentSession().createCriteria(OrderItem.class).list();
+		Criteria query = sessionFactory.getCurrentSession().createCriteria(Order.class);
+		query.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
+		return query.list();
 	}
 
 
