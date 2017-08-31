@@ -106,7 +106,7 @@ angular.module("VenderBender").controller("albumViewController",
 				});
 				
 			};
-			$scope.addToCart(item,isAlbum) = function{
+			$scope.addToCart = function(item,isAlbum){
 				AddItemToCart(item,isAlbum,$rootScope);
 		};
 });
