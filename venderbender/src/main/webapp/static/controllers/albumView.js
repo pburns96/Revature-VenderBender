@@ -1,6 +1,5 @@
 angular.module("VenderBender").controller("albumViewController",
-		function($http, $scope,$rootScope) {
-
+		function($http, $scope, $location, $rootScope) {
 			$scope.concertLook = function() {
 				$location.path("concertView");
 				$scope.albums = [];
