@@ -1,23 +1,112 @@
-angular.module("VenderBender").controller("albumViewController",function($rootScope,$http,$scope){
-	// Will need the http request here.
-	$scope.albums = [];
-	$http({
-		method : "GET",
-		url : "AlbumsAll.do"
-	}).then(function(response) {
-		$scope.albums = response.data;
-	});
-	$scope.filteredAlbums = [];
-	$scope.currentPage = 1;
-	$scope.numPerPage = 5;
-	$scope.maxSize = 5;
-	$scope.$watch('currentPage + numPerPage', function() {
-	    var begin = (($scope.currentPage - 1) * $scope.numPerPage);
-	    var end = begin + $scope.numPerPage;
-	    $scope.filteredAlbums = $scope.albums.slice(begin, end);
-	  });
-	  $scope.addToCart = function(item,isAlbum) {
-		  AddItemToCart(item,isAlbum,$rootScope);
+angular.module("VenderBender").controller("albumViewController",
+		function($http, $scope) {
+			$scope.concertLook = function() {//No point.
+				$scope.albums = [];
+				$http({
+					method : "GET",
+					url : "ConcertsAll.do"
+				}).then(function(response) {
+					$scope.albums = response.data;
+					$scope.col1 = [];
+					$scope.col2 = [];
+					$scope.col3 = [];
+					while($scope.albums.length > 0){
+						$scope.col1.push($scope.albums.pop());
+						if($scope.albums.length > 0){
+							$scope.col2.push($scope.albums.pop());
+						}else{
+							break;
+						}
+						if($scope.albums.length > 0){
+							$scope.col3.push($scope.albums.pop());
+						}else{
+							break;
+						}
+					}
+				});
+
+			};
+			$scope.albumLook = function() {
+				$scope.albums = [];
+				$http({
+					method : "GET",
+					url : "AlbumsAll.do"
+				}).then(function(response) {
+					$scope.albums = response.data;
+					$scope.col1 = [];
+					$scope.col2 = [];
+					$scope.col3 = [];
+					while($scope.albums.length > 0){
+						$scope.col1.push($scope.albums.pop());
+						if($scope.albums.length > 0){
+							$scope.col2.push($scope.albums.pop());
+						}else{
+							break;
+						}
+						if($scope.albums.length > 0){
+							$scope.col3.push($scope.albums.pop());
+						}else{
+							break;
+						}
+					}
+				});
+				
+			};
+			$scope.cdLook = function() {
+				$scope.albums = [];
+				$http({
+					method : "GET",
+					url : "AlbumsByType.do",
+					params :{type: 0}
+				}).then(function(response) {
+					$scope.albums = response.data;
+					$scope.col1 = [];
+					$scope.col2 = [];
+					$scope.col3 = [];
+					while($scope.albums.length > 0){
+						$scope.col1.push($scope.albums.pop());
+						if($scope.albums.length > 0){
+							$scope.col2.push($scope.albums.pop());
+						}else{
+							break;
+						}
+						if($scope.albums.length > 0){
+							$scope.col3.push($scope.albums.pop());
+						}else{
+							break;
+						}
+					}
+				});
+				
+			};
+			$scope.lpLook = function() {
+				$scope.albums = [];
+				$http({
+					method : "GET",
+					url : "AlbumsByType.do",
+					params :{type: 1}
+				}).then(function(response) {
+					$scope.albums = response.data;
+					$scope.col1 = [];
+					$scope.col2 = [];
+					$scope.col3 = [];
+					while($scope.albums.length > 0){
+						$scope.col1.push($scope.albums.pop());
+						if($scope.albums.length > 0){
+							$scope.col2.push($scope.albums.pop());
+						}else{
+							break;
+						}
+						if($scope.albums.length > 0){
+							$scope.col3.push($scope.albums.pop());
+						}else{
+							break;
+						}
+					}
+				});
+				
+			};
+			$scope.AddItemToCart(item,isAlbum,$rootScope);
 		};
 });
 
@@ -76,11 +165,3 @@ AddItemToCart = function(item,isAlbum,$rootScope)
 			}
 	
 }
-/*
- * I need to re write these $(document).ready(function() {
- * $('#list').click(function(event){event.preventDefault();$('#products
- * .item').addClass('list-group-item');});
- * $('#grid').click(function(event){event.preventDefault();$('#products
- * .item').removeClass('list-group-item');$('#products
- * .item').addClass('grid-group-item');}); });
- */
