@@ -32,7 +32,6 @@ public class OrderItem {
 	@ManyToOne(cascade=CascadeType.REMOVE)
 	@JoinColumn(name = "ORDER_ID", nullable = false)
 	@NotNull
-	@JsonIgnore
 	Order order;
 	
 	@ManyToOne(cascade=CascadeType.DETACH, fetch=FetchType.EAGER)

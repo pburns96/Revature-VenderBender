@@ -131,6 +131,11 @@ public class DataService {
 		order.setOwner(customer);
 		order.setTimeOrdered(new Date());
 		orderDao.createOrder(order);
+		for(OrderItem item : order.getOrderItems())
+		{
+			item.setOrder(order);
+			createOrderItem(item);
+		}
 	}
 	
 	public void createOrderItem(OrderItem orderItem){

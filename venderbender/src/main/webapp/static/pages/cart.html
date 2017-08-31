@@ -26,8 +26,8 @@
 							<td data-th="Quantity">
 								<input type="number" class="form-control text-center" value="item.quantity" ng-model ="item.quantity">
 							</td>
-							<td data-th="Subtotal" class="text-center" ng-if="!item.album.price"><span ng-model="item.subtotal = item.quantity * item.album.price"/></span>{{item.subtotal | currency}}</td>
-							<td data-th="Subtotal" class="text-center" ng-if="!item.concert.price"><span ng-model="item.subtotal = item.quantity * item.concert.price"/></span>{{item.subtotal | currency}}</td>
+							<!--<td data-th="Subtotal" class="text-center" ng-if="!item.album.price"><span ng-model="item.subtotal = item.quantity * item.album.price"/></span>{{item.subtotal | currency}}</td>
+							<td data-th="Subtotal" class="text-center" ng-if="!item.concert.price"><span ng-model="item.subtotal = item.quantity * item.concert.price"/></span>{{item.subtotal | currency}}</td>-->
 							<td class="actions" data-th="">
 								<button class="btn btn-info btn-sm"><i class="fa fa-refresh" ng-click ="updateOrderItem(item)"></i></button>
 								<button class="btn btn-danger btn-sm"><i class="fa fa-trash-o" ng-click = "removeOrderItem(item)"></i></button>								
