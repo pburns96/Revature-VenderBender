@@ -27,29 +27,22 @@ public class AlbumDAOTest {
 		log.info("»Testing Album create...");
 		albumDAO = (AlbumDAO) context.getBean("albumDAO");
 		Album testAlbum = (Album) context.getBean("album");
-		testAlbum.setArtist("Red Hot Chili Peppers");
+		testAlbum.setArtist("AlbumDAOTest");
 		testAlbum.setCd((byte)0);
-		testAlbum.setTitle("Stadium Arcadium");
-		testAlbum.setPrice(8.92d);
-		testAlbum.setYear((short)2006);
-		testAlbum.setTracks("01-Dani California");
-		testAlbum.setGenre("Rock");
+		testAlbum.setTitle("Test Album");
+		testAlbum.setPrice(1.11d);
+		testAlbum.setYear((short)2018);
+		testAlbum.setTracks("01-Test Track");
+		testAlbum.setGenre("Test");
 		albumDAO.createAlbum(testAlbum);
 		log.info("Album created...");
 		log.info("»Test findByArtist");
 		
-		List<Album> albumList = albumDAO.getAlbumsByArtist("Red Hot Chili Peppers");
+		List<Album> albumList = albumDAO.getAlbumsByArtist("AlbumDAOTest");
 		int testId = 0;
 		for(Album item : albumList){
-			log.info("getAlbumsByArtist(\"Red Hot Chili Peppers\") = " + item.getArtist());
-			Assert.assertEquals(item.getArtist(), "Red Hot Chili Peppers");
-		}
-		
-		log.info("»Test getByGenre");
-		albumList = albumDAO.getAlbumsByGenre("Rock");
-		for(Album item : albumList){
-			log.info("getAlbumsByGenre(\"Rock\") = " + item.getGenre());
-			Assert.assertEquals(item.getGenre(), "Rock");
+			log.info("getAlbumsByArtist(\"AlbumDAOTest\") = " + item.getArtist());
+			Assert.assertEquals(item.getArtist(), "AlbumDAOTest");
 		}
 		log.info("»Test getAll");
 		albumList = albumDAO.getAllAlbums();
@@ -62,8 +55,15 @@ public class AlbumDAOTest {
 		for(Album item : albumList){
 			log.info("getAlbumsByType((byte)0) = " + item.getCd());
 			Assert.assertEquals(new Byte((byte) 0),new Byte(item.getCd()) );
-			testId = item.getId();
 			log.info("id from the album in the list is = " + testId);
+		}
+		
+		log.info("»Test getByGenre");
+		albumList = albumDAO.getAlbumsByGenre("Test");
+		for(Album item : albumList){
+			log.info("getAlbumsByGenre(\"Test\") = " + item.getGenre());
+			testId = item.getId();
+			Assert.assertEquals(item.getGenre(), "Test");
 		}
 		log.info("test getById");
 		testAlbum = albumDAO.getAlbumById(testId);
