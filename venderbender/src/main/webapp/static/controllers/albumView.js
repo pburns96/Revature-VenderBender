@@ -1,5 +1,6 @@
 angular.module("VenderBender").controller("albumViewController",
 		function($http, $scope, $location) {
+		function($http, $scope,$rootScope) {
 			$scope.concertLook = function() {
 				$location.path("concertView");
 				$scope.albums = [];
@@ -138,21 +139,15 @@ angular.module("VenderBender").controller("albumViewController",
 				
 			};
 			$scope.addToCart = function(item,isAlbum){
-				AddItemToCart(item,isAlbum,$rootScope);
+				AddItemToCart(item,isAlbum,$rootScope,$http);
 		};
 });
 
-AddItemToCart = function(item,isAlbum,$rootScope)
+AddItemToCart = function(item,isAlbum,$rootScope,$http)
 {
-	//addItem method(item) and check for similarity
-	//Adds item to cart.order.items
-		console.log("Attempting to add to cart!");
-		console.log($rootScope.cart.order.items.length)
-		
-		var orderItem = {
+	console.log(item);
+	var orderItem = {
 			id:-1,
-			album : null,
-			concert:null,
 			quantity:1
 		};
 		if(isAlbum)
@@ -163,37 +158,12 @@ AddItemToCart = function(item,isAlbum,$rootScope)
 		{
 			orderItem.concert = item;
 		}
-		//Check and see if the item already exist
-		var exist = false;
-		if($rootScope.cart.order.items.length > 0)
-			{
-		angular.forEach($rootScope.cart.order.items, function(listItem, index) {
-				//If the item already exist then add to the existing quantity
-			if(isAlbum)
-			{
-			  if(listItem.album.id==orderItem.album.id)
-			  	{
-				  exist = true;
-				  console.log("found already added item! adding to quantity to cart!");
-				  $rootScope.cart.order.items[index].quantity += 1;
-				}
-			}
-			else
-			{
-				if(listItem.concert.id==orderItem.concert.id)
-				  {
-					  exist = true;
-					  console.log("found already added item! adding to quantity to cart!");
-					  $rootScope.cart.order.items[index].quantity += 1;
-					}
-			}
-			});
-			}
 		
-		if(exist ==false)
-			{
-			console.log("added New Item to cart!");
-		$rootScope.cart.order.items.push(orderItem);
-			}
+	console.log(orderItem);
+	
+	$http.post("cart/add", orderItem).then(function(response) {
+		$rootScope.cartOrder = response.data;
+		console.log($rootScope.cartOrder.orderItems);
+	});
 	
 }

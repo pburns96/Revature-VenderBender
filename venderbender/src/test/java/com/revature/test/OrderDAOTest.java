@@ -9,6 +9,7 @@ import java.util.List;
 import javax.validation.ConstraintViolationException;
 import javax.validation.UnexpectedTypeException;
 
+import org.apache.log4j.Logger;
 import org.junit.BeforeClass;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -20,6 +21,7 @@ import org.springframework.dao.InvalidDataAccessApiUsageException;
 import com.revature.beans.Customer;
 import com.revature.beans.Order;
 import com.revature.beans.OrderItem;
+import com.revature.controllers.OrderController;
 import com.revature.data.CustomerDAO;
 import com.revature.data.OrderDAO;
 import com.revature.services.ApplicationContextService;
@@ -27,6 +29,7 @@ import com.revature.services.ApplicationContextService;
 public class OrderDAOTest {
 
 	static ApplicationContext context;
+	private static final Logger log = Logger.getLogger(OrderDAOTest.class);
 
 	@BeforeClass
 	public static void Init() {
@@ -74,6 +77,7 @@ public class OrderDAOTest {
 			dao.createOrder(order2);
 		} catch (InvalidDataAccessApiUsageException e) {
 			// passed if it didnt find user
+			log.trace(e);
 		}
 
 		try {
@@ -82,6 +86,7 @@ public class OrderDAOTest {
 			order2.setTimeOrdered(null);
 		} catch (UnexpectedTypeException e) {
 			// passed if didnt except null
+			log.trace(e);
 		}
 
 		// Testing OrderItem creation
@@ -103,6 +108,7 @@ public class OrderDAOTest {
 			dao.createOrderItem(item2);
 		} catch (ConstraintViolationException e) {
 			// passes if throws Exception
+			log.trace(e);
 		}
 		try {
 			item2.setOrder(order);
@@ -110,6 +116,7 @@ public class OrderDAOTest {
 			dao.createOrderItem(item2);
 		} catch (ConstraintViolationException e) {
 			// passes if throws Exception
+			log.trace(e);
 		}
 
 		// When deleteing a customer, it deletes all the Orders and orderitems

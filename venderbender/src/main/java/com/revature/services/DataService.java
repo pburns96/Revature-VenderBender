@@ -127,8 +127,15 @@ public class DataService {
 	 *OrderDAO 
 	 */
 	
-	public void createOrder(Order order) throws InvalidDataAccessApiUsageException, UnexpectedTypeException{
+	public void createOrder(Order order,Customer customer) throws InvalidDataAccessApiUsageException, UnexpectedTypeException{
+		order.setOwner(customer);
+		order.setTimeOrdered(new Date());
 		orderDao.createOrder(order);
+		for(OrderItem item : order.getOrderItems())
+		{
+			item.setOrder(order);
+			createOrderItem(item);
+		}
 	}
 	
 	public void createOrderItem(OrderItem orderItem){

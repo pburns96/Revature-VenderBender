@@ -1,6 +1,7 @@
 package com.revature.beans;
 
 import java.util.Date;
+import java.util.LinkedList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -36,6 +37,7 @@ public class Order {
 	@ManyToOne(cascade=CascadeType.REMOVE)
 	@JoinColumn(nullable = true, name = "CUSTOMER_ID")
 	@NotNull
+	@JsonIgnore
 	Customer owner;
 
 	@NotNull
@@ -44,7 +46,7 @@ public class Order {
 
 	public Order()
 	{
-		super();
+		orderItems = new LinkedList<OrderItem>();
 	}
 	public Order(Customer owner, Date timeOrdered) {
 		super();
