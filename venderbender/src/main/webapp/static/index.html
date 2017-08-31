@@ -39,7 +39,7 @@
 
 	<!-- Navigation -->
 	<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
-		<div class="container">
+		<div class="container" ng-controller="homeController">
 			<a class="navbar-brand" href="#">Start Bootstrap</a>
 			<button class="navbar-toggler" type="button" data-toggle="collapse"
 				data-target="#navbarResponsive" aria-controls="navbarResponsive"
@@ -53,11 +53,12 @@
 					</a></li>
 					<li class="nav-item"><a class="nav-link" href="#shop">Shop</a>
 					</li>
-					<li class="nav-item"><a class="nav-link" href="#">Services</a>
+					<li ng-show="isManager" class="nav-item"><a  name = "managerIcon" class="nav-link" ng-click="manager()">Manager</a>
 					</li>
-					<li class="nav-item"><a class="nav-link" href="#/manager">Manager</a>
+					<li ng-show="isCustomer" class="nav-item"><a class="nav-link" ng-click="orders()">Orders</a>
 					</li>
-					<li class="nav-item"><a class="nav-link" href="#/login">Login</a>
+					<li ng-show="notLoggedIn" class="nav-item"><a class="nav-link" href="#/login">Login</a>
+					<li ng-show="loggedIn" class="nav-item"><a class="nav-link" ng-click="logout()">LogOut</a></li>
 					<li class="nav-item"><a class="nav-link" href="#cart" ><img src = "pages/Resources/cart.png"  height="20" width="20" /></a>
 					</li>
 				</ul>

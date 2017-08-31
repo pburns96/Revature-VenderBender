@@ -1,5 +1,9 @@
 package com.revature.controllers;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -11,41 +15,42 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.revature.beans.Customer;
-import com.revature.beans.SessionObject;
 import com.revature.services.AuthenticationService;
-import com.revature.services.DataService;
 
 @Controller
 public class AuthenticationController {
 	
-	@Autowired
-	private DataService dataService;
+	private static final Logger log = Logger.getLogger(AuthenticationController.class);
+	
 	@Autowired
 	private AuthenticationService authenticationService;
-	
-	//@Autowired
-	public SessionObject sessionObject;
-	
-	public void setDataService(DataService dataService) {
-		this.dataService = dataService;
-	}
-	
+
 	public void setAuthenticationService(AuthenticationService authenticationService) {
 		this.authenticationService = authenticationService;
 	}
 
 	@RequestMapping(value="/login.do", method=RequestMethod.POST, consumes=MediaType.APPLICATION_JSON_VALUE,produces=MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
-	public ResponseEntity<Customer> authenticate(@RequestBody Customer customer){
-		//SessionObject session = getSessionObject();
+	public ResponseEntity<Customer> authenticate(@RequestBody Customer customer, HttpServletRequest request){
+		log.debug("Logging in");
 		Customer validCustomer = authenticationService.authenticate(customer);
+		HttpSession session = request.getSession();
 		if(validCustomer != null){
-			sessionObject.setCustomer(validCustomer);
+			session.setAttribute("customer", validCustomer);
 			return new ResponseEntity<Customer>(validCustomer,HttpStatus.OK);
 		}
 		else{
-			sessionObject.inValidate();
+			session.invalidate();
 			return new ResponseEntity<Customer>(HttpStatus.NO_CONTENT);
 		}
+	}
+	
+	@RequestMapping(value="/logout.do", method=RequestMethod.GET)
+	@ResponseBody
+	public ResponseEntity<Void> logout(HttpServletRequest request){
+		log.debug("Logging out");
+		HttpSession session = request.getSession();
+		session.invalidate();
+		return new ResponseEntity<Void>(HttpStatus.OK);
 	}
 }	

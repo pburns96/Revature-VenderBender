@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.revature.beans.Customer;
-import com.revature.beans.SessionObject;
 
 @Service
 public class AuthenticationService {
