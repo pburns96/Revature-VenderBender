@@ -22,6 +22,7 @@ import com.revature.beans.Order;
 import com.revature.beans.OrderItem;
 import com.revature.data.CustomerDAO;
 import com.revature.data.OrderDAO;
+import com.revature.services.ApplicationContextService;
 
 public class OrderDAOTest {
 
@@ -29,7 +30,7 @@ public class OrderDAOTest {
 
 	@BeforeClass
 	public static void Init() {
-		context = new FileSystemXmlApplicationContext("/src/main/webapp/WEB-INF/bender.xml");
+		context = ApplicationContextService.getContext();
 	}
 
 	
