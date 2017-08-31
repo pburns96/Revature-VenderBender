@@ -7,25 +7,22 @@ angular.module("VenderBender").controller("albumViewController",
 				url : "AlbumsAll.do"
 			}).then(function(response) {
 				$scope.albums = response.data;
-				$scope.data = $scope.albums;
-				$scope.viewby = 10;
-				$scope.totalItems = $scope.data.length;
-				$scope.currentPage = 1;
-				$scope.itemsPerPage = $scope.viewby;
-				$scope.maxSize = 5; // Number of pager buttons to show
-				
-				$scope.setPage = function(pageNo) {
-					$scope.currentPage = pageNo;
-				};
-				
-				$scope.pageChanged = function() {
-					console.log('Page changed to: ' + $scope.currentPage);
-				};
-				
-				$scope.setItemsPerPage = function(num) {
-					$scope.itemsPerPage = num;
-					$scope.currentPage = 1; // reset to first paghe
-				};
+				$scope.col1 = [];
+				$scope.col2 = [];
+				$scope.col3 = [];
+				while($scope.albums.length > 0){
+					$scope.col1.push($scope.albums.pop());
+					if($scope.albums.length > 0){
+						$scope.col2.push($scope.albums.pop());
+					}else{
+						break;
+					}
+					if($scope.albums.length > 0){
+						$scope.col3.push($scope.albums.pop());
+					}else{
+						break;
+					}
+				}
 			});
 			$scope.addToCart = function(item) {
 				// TODO PAT:Code for adding item to cart here.

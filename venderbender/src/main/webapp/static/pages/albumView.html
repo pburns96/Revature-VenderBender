@@ -1,7 +1,7 @@
-<div class="container">
+<div>
 	<div class="well well-sm">
 		<strong>Albums:</strong>
-		<h4>{{albums.length}} results.</h4>
+		<h4>{{col1.length + col2.length + col3.length}} results.</h4>
 		<div class="btn-group">
 			<a href="#" id="list" class="btn btn-default btn-sm"><span
 				class="glyphicon glyphicon-th-list"> </span>List</a> <a href="#"
@@ -9,6 +9,7 @@
 				class="glyphicon glyphicon-th"></span>Grid</a>
 		</div>
 	</div>
+	<div class="row">
 	<div class="col-lg-3">
 
 		<h1 class="my-4">Disc Vender</h1>
@@ -18,8 +19,7 @@
 				class="list-group-item">Category 3</a>
 		</div>
 	</div>
-	<div class="col-lg-9">
-		<div ng-repeat="album in albums.slice(((currentPage-1)*itemsPerPage), ((currentPage)*itemsPerPage))" div class="col-12 col-md-9">
+	<div class="col-lg-3" ng-repeat="album in col1">
 			<div class="row row-offcanvas row-offcanvas-right">
 				<div class="thumbnail">
 					<img class="group list-group-image" src="{{album.imagePath}}"
@@ -43,17 +43,56 @@
 					</div>
 				</div>
 			</div>
-		</div>
 	</div>
-	<pagination total-items="totalItems" ng-model="currentPage"
-		max-size="maxSize" class="pagination-sm" boundary-links="true"
-		rotate="false" num-pages="numPages" items-per-page="itemsPerPage"></pagination>
-	View <select ng-model="viewby"
-		ng-change="setItemsPerPage(viewby)"><option>3</option>
-		<option>5</option>
-		<option>10</option>
-		<option>20</option>
-		<option>30</option>
-		<option>40</option>
-		<option>50</option></select> records at a time.
+	<div class="col-lg-3" ng-repeat="album in col2">
+			<div class="row row-offcanvas row-offcanvas-right">
+				<div class="thumbnail">
+					<img class="group list-group-image" src="{{album.imagePath}}"
+						alt="Image of {{album.title}}" />
+					<div class="caption">
+						<h4 class="group inner list-group-item-heading">{{album.title}}</h4>
+						<p class="group inner list-group-item-text">
+							Artist: {{album.artist}}<br /> Genre: {{album.genre}}<br />
+							Release year: {{album.year}}<br /> Track listing:
+							{{album.tracks}}
+						</p>
+						<div class="row">
+							<div class="col-xs-12 col-md-6">
+								<p class="lead">{{album.price | currency}}</p>
+							</div>
+							<div class="col-xs-12 col-md-6">
+								<button class="btn btn-success" ng-click="addToCart(album)">Add
+									to cart!</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+	</div>
+	<div class="col-lg-3" ng-repeat="album in col3">
+			<div class="row row-offcanvas row-offcanvas-right">
+				<div class="thumbnail">
+					<img class="group list-group-image" src="{{album.imagePath}}"
+						alt="Image of {{album.title}}" />
+					<div class="caption">
+						<h4 class="group inner list-group-item-heading">{{album.title}}</h4>
+						<p class="group inner list-group-item-text">
+							Artist: {{album.artist}}<br /> Genre: {{album.genre}}<br />
+							Release year: {{album.year}}<br /> Track listing:
+							{{album.tracks}}
+						</p>
+						<div class="row">
+							<div class="col-xs-12 col-md-6">
+								<p class="lead">{{album.price | currency}}</p>
+							</div>
+							<div class="col-xs-12 col-md-6">
+								<button class="btn btn-success" ng-click="addToCart(album)">Add
+									to cart!</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+	</div>
+	</div>
 </div>
