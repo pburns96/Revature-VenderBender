@@ -1,5 +1,6 @@
 package com.revature.controllers;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -59,6 +60,12 @@ public class CustomerViewController {
 	@ResponseBody
 	public ResponseEntity<List<Concert>> getAllConcerts(){
 		return new ResponseEntity<List<Concert>>(dataService.getAllConcerts(), HttpStatus.OK);
+		
+	}
+	@RequestMapping(value="/ConcertsByDate.do", method=RequestMethod.GET, produces=MediaType.APPLICATION_JSON_VALUE)
+	@ResponseBody
+	public ResponseEntity<List<Concert>> getConcertsByDates(@RequestParam("start") Date start,@RequestParam("end") Date end){
+		return new ResponseEntity<List<Concert>>(dataService.getConcertsByDates(start, end), HttpStatus.OK);
 		
 	}
 

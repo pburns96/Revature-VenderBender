@@ -25,7 +25,6 @@ angular.module("VenderBender").controller("albumViewController",
 						}
 					}
 				});
-
 			};
 			$scope.albumLook = function() {
 				$scope.albums = [];
@@ -51,8 +50,7 @@ angular.module("VenderBender").controller("albumViewController",
 							break;
 						}
 					}
-				});
-				
+				});				
 			};
 			$scope.artistLook = function(search) {
 				$location.path("albumView");
@@ -106,8 +104,7 @@ angular.module("VenderBender").controller("albumViewController",
 							break;
 						}
 					}
-				});
-				
+				});				
 			};
 			$scope.lpLook = function() {
 				$location.path("albumView");
@@ -134,8 +131,34 @@ angular.module("VenderBender").controller("albumViewController",
 							break;
 						}
 					}
-				});
-				
+				});				
+			};
+			$scope.lpLook = function() {
+				$location.path("albumView");
+				$scope.albums = [];
+				$http({
+					method : "GET",
+					url : "ConcertsByDate.do",
+					params : {start: $scope.fromDate, end: $scope.toDate}
+				}).then(function(response) {
+					$scope.albums = response.data;
+					$scope.col1 = [];
+					$scope.col2 = [];
+					$scope.col3 = [];
+					while($scope.albums.length > 0){
+						$scope.col1.push($scope.albums.pop());
+						if($scope.albums.length > 0){
+							$scope.col2.push($scope.albums.pop());
+						}else{
+							break;
+						}
+						if($scope.albums.length > 0){
+							$scope.col3.push($scope.albums.pop());
+						}else{
+							break;
+						}
+					}
+				});				
 			};
 			$scope.addToCart = function(item,isAlbum){
 				AddItemToCart(item,isAlbum,$rootScope,$http);
