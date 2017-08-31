@@ -47,5 +47,17 @@ public class CustomerViewController {
 		return new ResponseEntity<List<Album>>(dataService.getAlbumsByGenre(genre), HttpStatus.OK);
 		
 	}
+	@RequestMapping(value="/AlbumsByType.do", method=RequestMethod.GET,consumes=MediaType.TEXT_HTML_VALUE, produces=MediaType.APPLICATION_JSON_VALUE)
+	@ResponseBody
+	public ResponseEntity<List<Album>> getAlbumsByType(@RequestBody int type){
+		return new ResponseEntity<List<Album>>(dataService.getAlbumsByType((byte)type), HttpStatus.OK);
+		
+	}
+	/*@RequestMapping(value="/ConcertsAll.do", method=RequestMethod.GET,produces=MediaType.APPLICATION_JSON_VALUE)
+	@ResponseBody
+	public ResponseEntity<List<Album>> getAllConcerts(@RequestBody int type){
+		return new ResponseEntity<List<Album>>(dataService.getAllConcerts(), HttpStatus.OK);
+		
+	}*/
 
 }

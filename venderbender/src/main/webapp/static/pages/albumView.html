@@ -14,9 +14,10 @@
 
 		<h1 class="my-4">Disc Vender</h1>
 		<div class="list-group">
-			<a href="#" class="list-group-item">Category 1</a> <a href="#"
-				class="list-group-item">Category 2</a> <a href="#"
-				class="list-group-item">Category 3</a>
+			<a ng-click="concertLook()" class="list-group-item">View Concerts</a>
+			<a ng-click="albumLook()" class="list-group-item">View Albums</a>
+			<a ng-click="cdLook()" class="list-group-item">View CDs</a>
+			<a ng-click="lpLook()" class="list-group-item">View Vinyls</a>
 		</div>
 	</div>
 	<div class="col-lg-3" ng-repeat="album in col1">

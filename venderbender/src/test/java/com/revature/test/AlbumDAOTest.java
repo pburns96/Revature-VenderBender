@@ -24,59 +24,58 @@ public class AlbumDAOTest {
 	}
 	@Test
 	public void testCreate(){
-		log.debug("»Testing Album create...");
+		log.info("»Testing Album create...");
 		albumDAO = (AlbumDAO) context.getBean("albumDAO");
 		Album testAlbum = (Album) context.getBean("album");
-		testAlbum.setArtist("Fuel");
+		testAlbum.setArtist("Red Hot Chili Peppers");
 		testAlbum.setCd((byte)0);
-		testAlbum.setTitle("Hemorrhage (In My Hands)");
-		testAlbum.setPrice(5.17d);
-		testAlbum.setYear((short)2000);
-		testAlbum.setTracks("01-Hemorrhage");
+		testAlbum.setTitle("Stadium Arcadium");
+		testAlbum.setPrice(8.92d);
+		testAlbum.setYear((short)2006);
+		testAlbum.setTracks("01-Dani California");
 		testAlbum.setGenre("Rock");
 		albumDAO.createAlbum(testAlbum);
-		log.debug("Album created...");
-		log.debug("»Test findByArtist");
+		log.info("Album created...");
+		log.info("»Test findByArtist");
 		
-		List<Album> albumList = albumDAO.getAlbumsByArtist("Fuel");
+		List<Album> albumList = albumDAO.getAlbumsByArtist("Red Hot Chili Peppers");
 		int testId = 0;
 		for(Album item : albumList){
-			log.debug("getAlbumsByArtist(\"Fuel\") = " + item.getArtist());
-			Assert.assertEquals(item.getArtist(), "Fuel");
+			log.info("getAlbumsByArtist(\"Red Hot Chili Peppers\") = " + item.getArtist());
+			Assert.assertEquals(item.getArtist(), "Red Hot Chili Peppers");
 		}
 		
-		log.debug("»Test getByGenre");
+		log.info("»Test getByGenre");
 		albumList = albumDAO.getAlbumsByGenre("Rock");
 		for(Album item : albumList){
-			log.debug("getAlbumsByGenre(\"Rock\") = " + item.getGenre());
+			log.info("getAlbumsByGenre(\"Rock\") = " + item.getGenre());
 			Assert.assertEquals(item.getGenre(), "Rock");
 		}
-		log.debug("»Test getAll");
+		log.info("»Test getAll");
 		albumList = albumDAO.getAllAlbums();
 		for(Album item : albumList){
 			Assert.assertNotNull(item);
-			log.debug("getAllAlbums() = " + item.getArtist());
+			log.info("getAllAlbums() = " + item.getArtist());
 		}
-		log.debug("»Test getByCD");
+		log.info("»Test getByCD");
 		albumList = albumDAO.getAlbumsByType((byte)0);
 		for(Album item : albumList){
-			log.debug("getAlbumsByType((byte)0) = " + item.getCd());
+			log.info("getAlbumsByType((byte)0) = " + item.getCd());
 			Assert.assertEquals(new Byte((byte) 0),new Byte(item.getCd()) );
 			testId = item.getId();
-			log.debug("id from the album in the list is = " + testId);
+			log.info("id from the album in the list is = " + testId);
 		}
-		log.debug("test getById");
+		log.info("test getById");
 		testAlbum = albumDAO.getAlbumById(testId);
 		Assert.assertEquals(new Integer(testId), new Integer(testAlbum.getId()));
-		log.debug("»test update");
+		log.info("»test update");
 		testAlbum.setImagePath("Somepath");
 		albumDAO.updateAlbum(testAlbum);
 		testAlbum = albumDAO.getAlbumById(testId);
 		Assert.assertEquals(testAlbum.getImagePath(), "Somepath");
-		log.debug("Path from updated album = " + testAlbum.getImagePath());
-		log.debug("»Test delete");
+		log.info("Path from updated album = " + testAlbum.getImagePath());
+		log.info("»Test delete");
 		albumDAO.deleteAlbum(testAlbum);
 		Assert.assertNull(albumDAO.getAlbumById(testId));
 	}
-
 }
