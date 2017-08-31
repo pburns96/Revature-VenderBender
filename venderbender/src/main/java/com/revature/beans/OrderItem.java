@@ -28,6 +28,7 @@ public class OrderItem {
 	@SequenceGenerator(name="OrderItemId", sequenceName = "ORDER_ITEM_ID_SEQ")
 	int id;
 
+	@JsonIgnore
 	@ManyToOne(cascade=CascadeType.REMOVE)
 	@JoinColumn(name = "ORDER_ID", nullable = false)
 	@NotNull
@@ -37,9 +38,11 @@ public class OrderItem {
 	@ManyToOne(cascade=CascadeType.DETACH, fetch=FetchType.EAGER)
 	@JoinColumn(name = "ALBUM_ID", nullable = true)
 	Album album;
+	
 	@ManyToOne(cascade=CascadeType.DETACH, fetch=FetchType.EAGER)
 	@JoinColumn(name = "CONCERT_ID", nullable = true)
 	Concert concertTicket;
+	
 	@Min(value =1)
 	@Column(name = "ORDER_ITEM_QUANTITY", nullable = false)
 	int quantity;
