@@ -27,7 +27,6 @@ public class OrderItem {
 	@SequenceGenerator(name="OrderItemId", sequenceName = "ORDER_ITEM_ID_SEQ")
 	int id;
 
-	@JsonIgnore
 	@ManyToOne(cascade=CascadeType.REMOVE)
 	@JoinColumn(name = "ORDER_ID", nullable = false)
 	@NotNull
