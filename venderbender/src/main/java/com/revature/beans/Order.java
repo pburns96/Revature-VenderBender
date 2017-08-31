@@ -1,8 +1,8 @@
 package com.revature.beans;
 
 import java.util.Date;
+import java.util.LinkedList;
 import java.util.List;
-import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -17,6 +17,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 
 
@@ -35,6 +37,7 @@ public class Order {
 	@ManyToOne(cascade=CascadeType.REMOVE)
 	@JoinColumn(nullable = true, name = "CUSTOMER_ID")
 	@NotNull
+	@JsonIgnore
 	Customer owner;
 
 	@NotNull
@@ -43,7 +46,7 @@ public class Order {
 
 	public Order()
 	{
-		super();
+		orderItems = new LinkedList<OrderItem>();
 	}
 	public Order(Customer owner, Date timeOrdered) {
 		super();

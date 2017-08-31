@@ -18,10 +18,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.revature.beans.Album;
+import com.revature.beans.Concert;
 import com.revature.beans.Customer;
 import com.revature.beans.Order;
 import com.revature.beans.OrderItem;
-import com.revature.services.ApplicationContextService;
 import com.revature.services.DataService;
 
 @Controller
@@ -34,8 +35,6 @@ public class OrderController {
 	// session
 	
 	private static final Logger log = Logger.getLogger(OrderController.class);
-	
-	
 	
 
 	public void setDataService(DataService dataService) {
@@ -76,14 +75,15 @@ public class OrderController {
 
 	@RequestMapping(value = "/createOrder", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
-	public ResponseEntity<Void> createOrder(@RequestBody Order order) {
+	public ResponseEntity<Void> createOrder(@RequestBody Order order,  HttpServletRequest request) {
 		// Get customer from session
 		// If a customer isnt logged in the nredirect them to log in
-		// TODO PAT: replace with session customer
-		order.setOwner(this.dataService.getCustomer("William"));
-		// If a customer request for a order that isnt theirs throw an error
-		this.dataService.createOrder(order);
+		Customer customer = (Customer)request.getSession().getAttribute("customer");
+		if (customer != null) {
+		this.dataService.createOrder(order,customer);
 		return new ResponseEntity<Void>(HttpStatus.CREATED);
+		}
+		return new ResponseEntity<Void>(HttpStatus.FORBIDDEN);
 	}
 
 	@RequestMapping(value = "/cart/add", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -92,22 +92,24 @@ public class OrderController {
 		// If a customer isnt logged in the nredirect them to log in
 		if (request.getSession().getAttribute("customer") != null) {
 			//applicationContext = new FileSystemXmlApplicationContext("/src/main/webapp/WEB-INF/bender.xml");
-			Order cart = (Order) request.getSession().getAttribute("cart");
-			if(cart == null)
-			{
-				cart = (Order)ApplicationContextService.getContext().getBean("order");
-				request.getSession().setAttribute("cart",cart);
-			}
+			Order cart = getCart(request);
 			//If that item is already added then update the quantity instead
 			boolean found = false;
+	
 			for (OrderItem listItem : cart.getOrderItems()) {
-				if(listItem.getId() == item.getId())
+				Album listAlbum = listItem.getAlbum();
+				Album album = item.getAlbum();
+				Concert listConcert =  listItem.getConcertTicket();
+				Concert concert =  item.getConcertTicket();
+				if((album != null && listAlbum!= null  && (album.equals(listAlbum))) ||(
+					concert!= null && listConcert != null && (concert.getBand() == listConcert.getBand())))
 				{
 					found =true;
 					listItem.setQuantity(listItem.getQuantity() + 1);
 					break;
 				}
 			}
+			
 			if(!found)
 			{
 			cart.addOrderItem(item);
@@ -125,12 +127,8 @@ public class OrderController {
 		// If a customer isnt logged in the nredirect them to log in
 		if (request.getSession().getAttribute("customer") != null) {
 			//applicationContext = new FileSystemXmlApplicationContext("/src/main/webapp/WEB-INF/bender.xml");
-			Order cart = (Order) request.getSession().getAttribute("cart");
-			if(cart == null)
-			{
-				cart = (Order)ApplicationContextService.getContext().getBean("order");
-				request.getSession().setAttribute("cart",cart);
-			}
+			Order cart = getCart(request);
+			
 			cart.getOrderItems().remove(item);
 			request.getSession().setAttribute("cart",cart);
 			
@@ -146,15 +144,14 @@ public class OrderController {
 		// If a customer isnt logged in then redirect them to log in
 		if (request.getSession().getAttribute("customer") != null) {
 			//applicationContext = new FileSystemXmlApplicationContext("/src/main/webapp/WEB-INF/bender.xml");
-			Order cart = (Order) request.getSession().getAttribute("cart");
-			if(cart == null)
-			{
-				cart = (Order)ApplicationContextService.getContext().getBean("order");
-				request.getSession().setAttribute("cart",cart);
-			}
-			
+			Order cart = getCart(request);
 			for (OrderItem listItem : cart.getOrderItems()) {
-				if(listItem.getId() == item.getId())
+				Album listAlbum = listItem.getAlbum();
+				Album album = item.getAlbum();
+				Concert listConcert =  listItem.getConcertTicket();
+				Concert concert =  item.getConcertTicket();
+				if((album != null && listAlbum!= null  && (album.equals(listAlbum))) ||(
+					concert!= null && listConcert != null && (concert.getBand() == listConcert.getBand())))
 				{
 					listItem.setQuantity(item.getQuantity());
 					break;
@@ -169,6 +166,17 @@ public class OrderController {
 		}
 	}
 	
-
+	private Order getCart(HttpServletRequest request)
+	{
+		Order cart = (Order) request.getSession().getAttribute("cart");
+		if(cart == null)
+		{
+			//cart = (Order)ApplicationContextService.getContext().getBean("order");
+			cart = new Order();
+			request.getSession().setAttribute("cart",cart);
+		}
+		return cart;
+	}
+	
 
 }

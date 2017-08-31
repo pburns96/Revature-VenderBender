@@ -16,6 +16,8 @@ import javax.persistence.Transient;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table
 public class OrderItem {
@@ -29,6 +31,7 @@ public class OrderItem {
 	@ManyToOne(cascade=CascadeType.REMOVE)
 	@JoinColumn(name = "ORDER_ID", nullable = false)
 	@NotNull
+	@JsonIgnore
 	Order order;
 	
 	@ManyToOne(cascade=CascadeType.DETACH, fetch=FetchType.EAGER)

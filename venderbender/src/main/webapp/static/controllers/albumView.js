@@ -1,5 +1,5 @@
 angular.module("VenderBender").controller("albumViewController",
-		function($http, $scope) {
+		function($http, $scope,$rootScope) {
 			$scope.concertLook = function() {
 				$scope.albums = [];
 				$http({
@@ -107,19 +107,16 @@ angular.module("VenderBender").controller("albumViewController",
 				
 			};
 			$scope.addToCart = function(item,isAlbum){
-				AddItemToCart(item,isAlbum,$rootScope);
+				AddItemToCart(item,isAlbum,$rootScope,$http);
 		};
 });
 
 AddItemToCart = function(item,isAlbum,$rootScope,$http)
 {
-	
+	console.log(item);
 	var orderItem = {
 			id:-1,
-			album : null,
-			concert:null,
-			quantity:1,
-			owner:null
+			quantity:1
 		};
 		if(isAlbum)
 		{
@@ -129,9 +126,12 @@ AddItemToCart = function(item,isAlbum,$rootScope,$http)
 		{
 			orderItem.concert = item;
 		}
+		
+	console.log(orderItem);
 	
-	http.post("/cart/add", orderItem).then(function(response) {
+	$http.post("cart/add", orderItem).then(function(response) {
 		$rootScope.cartOrder = response.data;
+		console.log($rootScope.cartOrder.orderItems);
 	});
 	/*//addItem method(item) and check for similarity
 	//Adds item to cart.order.items
