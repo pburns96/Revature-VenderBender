@@ -52,6 +52,32 @@ angular.module("VenderBender").controller("albumViewController",
 				});
 				
 			};
+			$scope.artistLook = function(search) {
+				$scope.albums = [];
+				$http({
+					method : "GET",
+					url : "AlbumByArtist.do",
+					params :{artist: $scope.search}
+				}).then(function(response) {
+					$scope.albums = response.data;
+					$scope.col1 = [];
+					$scope.col2 = [];
+					$scope.col3 = [];
+					while($scope.albums.length > 0){
+						$scope.col1.push($scope.albums.pop());
+						if($scope.albums.length > 0){
+							$scope.col2.push($scope.albums.pop());
+						}else{
+							break;
+						}
+						if($scope.albums.length > 0){
+							$scope.col3.push($scope.albums.pop());
+						}else{
+							break;
+						}
+					}
+				});			
+			};
 			$scope.cdLook = function() {
 				$scope.albums = [];
 				$http({

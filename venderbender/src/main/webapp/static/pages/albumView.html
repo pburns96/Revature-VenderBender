@@ -2,12 +2,6 @@
 	<div class="well well-sm">
 		<strong>Albums:</strong>
 		<h4>{{col1.length + col2.length + col3.length}} results.</h4>
-		<div class="btn-group">
-			<a href="#" id="list" class="btn btn-default btn-sm"><span
-				class="glyphicon glyphicon-th-list"> </span>List</a> <a href="#"
-				id="grid" class="btn btn-default btn-sm"><span
-				class="glyphicon glyphicon-th"></span>Grid</a>
-		</div>
 	</div>
 	<div class="row">
 		<div class="col-lg-3">
@@ -22,14 +16,14 @@
 					<span class="input-group-btn">
 						<button class="btn btn-default" type="button" ng-click="artistLook(artist)">Go!</button>
 					</span>
-					<input type="text" class="form-control" placeholder="Artist Search" name="artist">
+					<input type="text" class="form-control" placeholder="Artist Search" ng-model="search">
 				</div><!-- /input-group -->
 				<div class="input-group">
 					<span class="input-group-btn">
-						<button class="btn btn-default" type="button" ng-click="artistLook(artist)">Go!</button>
+						<button class="btn btn-default" type="button" ng-click="artistLook()">Concerts!</button>
 					</span>
-					<input type="date" class="form-control" placeholder="Artist Search" name="fromDate">
-					<input type="date" class="form-control" placeholder="Artist Search" name="toDate">
+					<input type="date" class="form-control" placeholder="From" name="fromDate" required="required">
+					<input type="date" class="form-control" placeholder="To" name="toDate" required="required">
 				</div><!-- /input-group -->
 			</div>
 		</div>
