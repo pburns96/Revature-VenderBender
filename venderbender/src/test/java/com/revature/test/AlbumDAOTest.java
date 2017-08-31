@@ -24,7 +24,7 @@ public class AlbumDAOTest {
 	}
 	@Test
 	public void testCreate(){
-		log.info("»Testing Album create...");
+		log.info("—»Testing Album create...");
 		albumDAO = (AlbumDAO) context.getBean("albumDAO");
 		Album testAlbum = (Album) context.getBean("album");
 		testAlbum.setArtist("AlbumDAOTest");
@@ -36,7 +36,7 @@ public class AlbumDAOTest {
 		testAlbum.setGenre("Test");
 		albumDAO.createAlbum(testAlbum);
 		log.info("Album created...");
-		log.info("»Test findByArtist");
+		log.info("—»Test findByArtist");
 		
 		List<Album> albumList = albumDAO.getAlbumsByArtist("AlbumDAOTest");
 		int testId = 0;
@@ -44,13 +44,13 @@ public class AlbumDAOTest {
 			log.info("getAlbumsByArtist(\"AlbumDAOTest\") = " + item.getArtist());
 			Assert.assertEquals(item.getArtist(), "AlbumDAOTest");
 		}
-		log.info("»Test getAll");
+		log.info("—»Test getAll");
 		albumList = albumDAO.getAllAlbums();
 		for(Album item : albumList){
 			Assert.assertNotNull(item);
 			log.info("getAllAlbums() = " + item.getArtist());
 		}
-		log.info("»Test getByCD");
+		log.info("—»Test getByCD");
 		albumList = albumDAO.getAlbumsByType((byte)0);
 		for(Album item : albumList){
 			log.info("getAlbumsByType((byte)0) = " + item.getCd());
@@ -58,7 +58,7 @@ public class AlbumDAOTest {
 			log.info("id from the album in the list is = " + testId);
 		}
 		
-		log.info("»Test getByGenre");
+		log.info("—»Test getByGenre");
 		albumList = albumDAO.getAlbumsByGenre("Test");
 		for(Album item : albumList){
 			log.info("getAlbumsByGenre(\"Test\") = " + item.getGenre());
@@ -68,13 +68,13 @@ public class AlbumDAOTest {
 		log.info("test getById");
 		testAlbum = albumDAO.getAlbumById(testId);
 		Assert.assertEquals(new Integer(testId), new Integer(testAlbum.getId()));
-		log.info("»test update");
+		log.info("—»test update");
 		testAlbum.setImagePath("Somepath");
 		albumDAO.updateAlbum(testAlbum);
 		testAlbum = albumDAO.getAlbumById(testId);
 		Assert.assertEquals(testAlbum.getImagePath(), "Somepath");
 		log.info("Path from updated album = " + testAlbum.getImagePath());
-		log.info("»Test delete");
+		log.info("—»Test delete");
 		albumDAO.deleteAlbum(testAlbum);
 		Assert.assertNull(albumDAO.getAlbumById(testId));
 	}
