@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.revature.beans.Album;
+import com.revature.beans.Concert;
 import com.revature.services.DataService;
 
 @Controller
@@ -45,6 +46,18 @@ public class CustomerViewController {
 	@ResponseBody
 	public ResponseEntity<List<Album>> getAlbumsByGenre(@RequestBody String genre){
 		return new ResponseEntity<List<Album>>(dataService.getAlbumsByGenre(genre), HttpStatus.OK);
+		
+	}
+	@RequestMapping(value="/AlbumsByType.do", method=RequestMethod.GET,consumes=MediaType.TEXT_HTML_VALUE, produces=MediaType.APPLICATION_JSON_VALUE)
+	@ResponseBody
+	public ResponseEntity<List<Album>> getAlbumsByType(@RequestBody int type){
+		return new ResponseEntity<List<Album>>(dataService.getAlbumsByType((byte)type), HttpStatus.OK);
+		
+	}
+	@RequestMapping(value="/ConcertsAll.do", method=RequestMethod.GET,produces=MediaType.APPLICATION_JSON_VALUE)
+	@ResponseBody
+	public ResponseEntity<List<Concert>> getAllConcerts(@RequestBody int type){
+		return new ResponseEntity<List<Concert>>(dataService.getAllConcerts(), HttpStatus.OK);
 		
 	}
 

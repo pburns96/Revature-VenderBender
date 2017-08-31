@@ -12,6 +12,7 @@ public interface ConcertDAO {
 	public List<Concert> getConcertsByDates(Date start, Date end);
 	public List<Concert> getConcertsByBand(String band);
 	public List<Concert> getConcertsByLocation(String location);
+	public List<Concert> getAllConcerts();
 	
 	public void createConcert(Concert concert);
 	public void deleteConcert(Concert concert);

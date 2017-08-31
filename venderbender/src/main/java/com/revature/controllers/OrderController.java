@@ -68,7 +68,7 @@ public class OrderController {
 		// Get customer from session
 		// If a customer isnt logged in, redirect them to login
 		// return new ResponeEntity<List<Order>>(this.dataService.getOrders())
-		return new ResponseEntity<List<Order>>(this.dataService.getOrders(this.dataService.getCustomer("William")),
+		return new ResponseEntity<List<Order>>(this.dataService.getOrders(this.dataService.getCustomer("wclayton")),
 				HttpStatus.OK);
 	}
 
