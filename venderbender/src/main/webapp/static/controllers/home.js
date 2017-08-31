@@ -1,6 +1,5 @@
-//TODO ASK PATRICK
-angular.module("VenderBender").controller("homeController",function($scope,$http,$rootScope){
-	var items = []
+angular.module("VenderBender").controller("homeController",function($rootScope, $scope, $http, $location){
+var items = []
 	$rootScope.cart = {
 	        total : 0,
 	        order : {
@@ -9,10 +8,28 @@ angular.module("VenderBender").controller("homeController",function($scope,$http
 	        	]
 	        }
 	    };
+	$rootScope.notLoggedIn = !$rootScope.loggedIn;
+	$scope.manager = function(){
+		if($rootScope.isManager){
+			$location.path('/manager');
+		}
+	};
+	$scope.orders = function(){
+		if($rootScope.isCustomer){
+			$location.path('/orders');
+		}
+	}
 	
-	//add all functions for adding orders to cart
-	//cart should be tracked throughout switching of controllers
 	
-	
-	//
+	$scope.logout = function(){
+		$http({
+			method: "GET", url: "logout.do"
+		}).then(function(respoe){
+			$location.path("/home");
+			$rootScope.isManager = false;
+			$rootScope.isCustomer = false;
+			$rootScope.loggedIn = false;
+			$rootScope.notLoggedIn = true;
+		});
+	};
 })
