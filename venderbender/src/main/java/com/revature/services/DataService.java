@@ -91,6 +91,10 @@ public class DataService {
 		return concertDao.getConcertsByLocation(location);
 	}
 	
+	public List<Concert> getAllConcerts(){
+		return concertDao.getAllConcerts();
+	}
+	
 	public void createConcert(Concert concert){
 		concertDao.createConcert(concert);
 	}
@@ -134,9 +138,21 @@ public class DataService {
 	public List<OrderItem> getOrderItems(Order order){
 		return orderDao.getOrderItems(order);
 	}
-	
+	//Return all customer orders if they are a manager
 	public List<Order>getOrders(Customer customer){
+		if(customer.isManager())
+		{
+		 return orderDao.getOrders();
+		}
 		return orderDao.getOrders(customer);
+	}
+	public Order getOrder(int id)
+	{
+		return orderDao.getOrder(id);
+	}
+	public OrderItem getOrderItem(int id)
+	{
+		return orderDao.getOrderItem(id);
 	}
 	
 	public void updateOrderItem(OrderItem item){

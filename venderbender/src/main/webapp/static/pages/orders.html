@@ -1,0 +1,62 @@
+<table class="table" style="background-color: white"
+	ng-model="orderTable">
+	<thead>
+		<tr>
+			<th>Customer</th>
+			<th>Date</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr ng-repeat="order in orderHistory.orders">
+			<td>{{order.owner.firstName}} {{order.owner.lastName}}</td>
+			<td><button type="button" class="btn btn-primary btn-lg"
+					data-toggle="modal" data-target="#myModal" ng-Click ="getOrder(order)">
+					{{order.timeOrdered | date}}</button></td>
+	</tbody>
+</table>
+<!-- Button trigger modal -->
+
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
+	aria-labelledby="myModalLabel">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"
+					aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+				<h4 class="modal-title" id="myModalLabel">Modal title</h4>
+			</div>
+			<div class="modal-body">
+
+				<table class="table" style="background-color: white"
+					ng-model="ItemTable">
+					<thead>
+						<tr>
+							<th>Album/Concert</th>
+							<th>Price</th>
+							<th>Quantity</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr ng-repeat="item in modelOrder.items">
+							<td ng-if="!item.album">{{item.album.title}}</td>
+							<td ng-if="!item.concert">{{item.concert.band}}</td>
+							<td ng-if="!item.album">{{item.album.price | currency}}</td>
+							<td ng-if="!item.concert">{{item.concert.price | currency}}</td>
+							<td>{{item.price}}</td>
+					</tbody>
+				</table>
+
+			</div>
+			<div>
+				<strong>{{modelOrder.total | currency}}</strong>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+			</div>
+		</div>
+	</div>
+</div>

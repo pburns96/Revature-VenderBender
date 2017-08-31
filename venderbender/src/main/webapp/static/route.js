@@ -28,6 +28,9 @@ angular.module("VenderBender").config(function($locationProvider, $routeProvider
 	}).when("/createConcerts",{
 		templateUrl:"pages/createConcerts.html",
 		controller:"createConcertsController"
+	}).when("/orders",{
+		templateUrl:"pages/orders.html",
+		controller:"ordersController"
 	}).otherwise(
 	{
 		templateUrl: "pages/home.html",

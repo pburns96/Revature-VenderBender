@@ -160,7 +160,6 @@ public class OrderDAOTest {
 		//testing this way to see if they both grab same object
 		assertEquals(items.get(0),dao.getOrderItem(items.get(0).getId()));
 		
-		
 	}
 
 	@Test

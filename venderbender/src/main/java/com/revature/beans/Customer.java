@@ -88,6 +88,10 @@ public class Customer {
 	public void setPassword(String password) {
 		this.password = password;
 	}
+	
+	public void setHashedPassword(String password){
+		this.password = BCrypt.hashpw(password, BCrypt.gensalt(12));
+	}
 
 	public String getFirstname() {
 		return firstname;

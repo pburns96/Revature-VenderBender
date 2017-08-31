@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.revature.beans.Customer;
-import com.revature.beans.SessionObject;
 
 @Service
 public class AuthenticationService {
@@ -19,11 +18,11 @@ public class AuthenticationService {
 	
 	
 	public Customer authenticate(Customer customer){
-		log.debug("Getting customer by username: " + customer.getUsername() + " in the AuthenticateService");
+		log.info("Getting customer by username: " + customer.getUsername() + " in the AuthenticateService");
 		Customer validCustomer = dataService.getCustomer(customer.getUsername());
 		if(validCustomer != null)
 			if(BCrypt.checkpw(customer.getPassword(), validCustomer.getPassword())){
-				log.debug("Valid customer login");
+				log.info("Valid customer login");
 				return validCustomer;
 			}
 			else{
