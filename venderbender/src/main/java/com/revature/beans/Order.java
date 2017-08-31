@@ -7,6 +7,7 @@ import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -28,7 +29,7 @@ public class Order {
 	@SequenceGenerator(name = "OrderId", sequenceName = "ORDER_ID_SEQ")
 	int id;
 
-	@OneToMany(mappedBy = "order", cascade=CascadeType.REMOVE)
+	@OneToMany(mappedBy = "order", cascade=CascadeType.REMOVE, fetch=FetchType.EAGER)
 	private List<OrderItem> orderItems;
 
 	@ManyToOne(cascade=CascadeType.REMOVE)
@@ -116,7 +117,7 @@ public class Order {
 
 	@Override
 	public String toString() {
-		return "Order [id=" + id + ", orderItems=" + orderItems + ", owner=" + owner + ", timeOrdered=" + timeOrdered
+		return "Order [id=" + id + ", owner=" + owner + ", timeOrdered=" + timeOrdered
 				+ "]";
 	}
 

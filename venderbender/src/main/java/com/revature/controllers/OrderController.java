@@ -1,7 +1,12 @@
 package com.revature.controllers;
 
+import java.util.LinkedList;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -13,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.revature.beans.Customer;
 import com.revature.beans.Order;
 import com.revature.services.DataService;
 
@@ -22,6 +28,9 @@ public class OrderController {
 	@Autowired
 	private DataService dataService;
 
+	private static final Logger log = Logger.getLogger(OrderController.class);
+	
+	
 	public void setDataService(DataService dataService) {
 		this.dataService = dataService;
 	}
@@ -29,14 +38,24 @@ public class OrderController {
 	// Get all Orders and provide customer.
 	// If you are not a manager than you only retrive orders from that provided
 	// customer
-	@RequestMapping(value = "/getAllOrders", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "/getAllOrders.do", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
-	public ResponseEntity<List<Order>> getAllOrders() {
-		// Get customer from session
-		// If a customer isnt logged in, redirect them to login
-		// return new ResponeEntity<List<Order>>(this.dataService.getOrders())
-		return new ResponseEntity<List<Order>>(this.dataService.getOrders(this.dataService.getCustomer("wclayton")),
-				HttpStatus.OK);
+	public ResponseEntity<List<Order>> getAllOrders(HttpServletRequest request) {
+		log.info("Getting orders");
+		HttpSession session = request.getSession(false);
+		if(session!=null){ //If no session, fail to fetch orders
+			Customer customer = (Customer) session.getAttribute("customer");
+			if(customer!=null){ //if no customer, fail to fetch orders
+				if(customer.isManager()){ //if manager, fetch all orders
+					return new ResponseEntity<List<Order>>(this.dataService.getOrders(),HttpStatus.OK);
+				}
+				else{ //if not manager, fetch orders by customers
+					return new ResponseEntity<List<Order>>(this.dataService.getOrders(this.dataService.getCustomer(customer.getUsername())),HttpStatus.OK);
+				}
+			}
+		}
+		//if it fails to fetch orders return status forbidden and an empty list
+		return new ResponseEntity<List<Order>>(new LinkedList<Order>(),HttpStatus.FORBIDDEN);
 	}
 
 	@RequestMapping(value = "/getOrder", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)

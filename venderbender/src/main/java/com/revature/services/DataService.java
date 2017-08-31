@@ -138,6 +138,11 @@ public class DataService {
 	public List<OrderItem> getOrderItems(Order order){
 		return orderDao.getOrderItems(order);
 	}
+	
+	public List<Order>getOrders(){
+		return orderDao.getOrders();
+	}
+	
 	//Return all customer orders if they are a manager
 	public List<Order>getOrders(Customer customer){
 		if(customer.isManager())
