@@ -28,11 +28,11 @@ public class CustomerDAOTest {
 		customerDao = (CustomerDAO)context.getBean("customerDAO");
 		
 		Customer customer = (Customer)context.getBean("customer");
-		customer.setUsername("pburns");
+		customer.setUsername("test");
 		customer.setHashedPassword("password");
-		customer.setFirstname("Patrick");
-		customer.setLastname("Burns");
-		customer.setEmail("pburns@email.com");
+		customer.setFirstname("test");
+		customer.setLastname("test");
+		customer.setEmail("tests@email.com");
 		customer.setManager(false);
 		
 		customerDao.createCustomer(customer);
