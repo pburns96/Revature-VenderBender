@@ -12,6 +12,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class Concert {
 
@@ -33,6 +35,7 @@ public class Concert {
 	@Column(name = "CONCERT_PRICE", nullable = false)
 	private double price;
 	
+	@JsonIgnore
 	@OneToMany(mappedBy="concertTicket", cascade = CascadeType.DETACH)
 	private Set<OrderItem> orderItem;
 
