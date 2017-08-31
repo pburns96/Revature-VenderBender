@@ -4,6 +4,7 @@ package com.revature.beans;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -11,6 +12,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
@@ -23,14 +25,16 @@ public class OrderItem {
 	@GeneratedValue(strategy =GenerationType.SEQUENCE, generator = "OrderItemId")
 	@SequenceGenerator(name="OrderItemId", sequenceName = "ORDER_ITEM_ID_SEQ")
 	int id;
+
 	@ManyToOne(cascade=CascadeType.REMOVE)
 	@JoinColumn(name = "ORDER_ID", nullable = false)
 	@NotNull
 	Order order;
-	@ManyToOne(cascade=CascadeType.DETACH)
+	
+	@ManyToOne(cascade=CascadeType.DETACH, fetch=FetchType.EAGER)
 	@JoinColumn(name = "ALBUM_ID", nullable = true)
 	Album album;
-	@ManyToOne(cascade=CascadeType.DETACH)
+	@ManyToOne(cascade=CascadeType.DETACH, fetch=FetchType.EAGER)
 	@JoinColumn(name = "CONCERT_ID", nullable = true)
 	Concert concertTicket;
 	@Min(value =1)
@@ -126,7 +130,7 @@ public class OrderItem {
 
 	@Override
 	public String toString() {
-		return "OrderItem [id=" + id + ", order=" + order + ", album=" + album + ", concertTicket=" + concertTicket
+		return "OrderItem [id=" + id + ", album=" + album + ", concertTicket=" + concertTicket
 				+ ", quantity=" + quantity + "]";
 	}
 	
