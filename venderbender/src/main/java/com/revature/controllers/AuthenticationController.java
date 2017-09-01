@@ -47,7 +47,7 @@ public class AuthenticationController {
 	public ResponseEntity<Void> logout(HttpServletRequest request){
 		log.debug("Logging out");
 		HttpSession session = request.getSession();
-		session.invalidate();
+		authenticationService.logOut(session);
 		return new ResponseEntity<Void>(HttpStatus.OK);
 	}
 }	

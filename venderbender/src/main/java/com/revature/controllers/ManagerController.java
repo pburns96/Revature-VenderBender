@@ -36,13 +36,13 @@ public class ManagerController {
 	}
 	
 	/*@RequestMapping(value="/pages/createConcerts.html")
-	public String createConcertValidation(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException{
-		if(validateEntry(request)){
-			log.info("Valid");
+	public ResponseEntity<String> createConcertValidation(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException{
+		//if(validateEntry(request)){
+		//	log.info("Valid");
 			//request.getRequestDispatcher("/createConcerts").forward(request, response);
-			return "";
-		}
-		return "home";
+			return new ResponseEntity<String>("createConcerts",HttpStatus.OK);
+		//}
+		//return new REsponseEntity<String>("home", Htto);
 	}*/
 
 	@RequestMapping(value="/createConcerts.do", method=RequestMethod.POST, consumes=MediaType.APPLICATION_JSON_VALUE,produces=MediaType.APPLICATION_JSON_VALUE)

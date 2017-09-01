@@ -15,7 +15,7 @@ public class AuthenticationService {
 	@Autowired
 	DataService dataService;
 
-	private boolean loggedIn = true;
+	private boolean loggedIn = false;
 	
 	private static final Logger log = Logger.getLogger(AuthenticationService.class);
 	
@@ -40,6 +40,11 @@ public class AuthenticationService {
 			loggedIn = false;
 			return null;
 		}
+	}
+	
+	public void logOut(HttpSession session){
+		session.invalidate();
+		loggedIn = false;
 	}
 	
 	public boolean isLoggedIn(){
