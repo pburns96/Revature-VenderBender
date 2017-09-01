@@ -1,38 +1,34 @@
 angular.module("VenderBender").controller("albumViewController",
-		function($http, $scope, $location, $rootScope, passOver) {
-	if(passOver.albums != null && passOver.albums !== undefined){
-		$scope.albums = passOver.albums;
-		console.log(passOver.albums);
-		console.log("Hit the default if statement.");
-		$scope.col1 = [];
-		$scope.col2 = [];
-		$scope.col3 = [];
-		while($scope.albums.length > 0){
-			$scope.col1.push($scope.albums.pop());
-			if($scope.albums.length > 0){
-				$scope.col2.push($scope.albums.pop());
-			}else{
-				break;
-			}
-			if($scope.albums.length > 0){
-				$scope.col3.push($scope.albums.pop());
-			}else{
-				break;
+		function($http, $scope, $location, $rootScope) {
+	if($rootScope.albums != null && $rootScope.albums !== undefined){
+		if ($rootScope.albums.length > 0) {
+			$scope.albums = $rootScope.albums.slice();
+			$scope.col1 = [];
+			$scope.col2 = [];
+			$scope.col3 = [];
+			while ($scope.albums.length > 0) {
+				$scope.col1.push($scope.albums.pop());
+				if ($scope.albums.length > 0) {
+					$scope.col2.push($scope.albums.pop());
+				} else {
+					break;
+				}
+				if ($scope.albums.length > 0) {
+					$scope.col3.push($scope.albums.pop());
+				} else {
+					break;
+				}
 			}
 		}
-		console.log($scope.col1);
 	}
-	$scope.concertLook = function($rootScope) {
+	$scope.concertLook = function() {
 		$http({
 			method : "GET",
 			url : "ConcertsAll.do"
 		}).then(function(response) {
-			passOver.albums = response.data;
-			console.log(passOver.albums);
-			console.log("Going to switch to concert view");
+			$rootScope.albums = response.data;
 			$location.path("concertView");
-			console.log("Just switched to concert view");
-			$scope.albums = passOver.albums;
+			$scope.albums = $rootScope.albums.slice();
 			$scope.col1 = [];
 			$scope.col2 = [];
 			$scope.col3 = [];
@@ -56,11 +52,9 @@ angular.module("VenderBender").controller("albumViewController",
 			method : "GET",
 			url : "AlbumsAll.do"
 		}).then(function(response) {
-			passOver.albums = response.data;
-			console.log("Going to switch to album view");
+			$rootScope.albums = response.data;
 			$location.path("albumView");
-			console.log("Just switched to album view");
-			$scope.albums = passOver.albums;
+			$scope.albums = $rootScope.albums.slice();
 			$scope.col1 = [];
 			$scope.col2 = [];
 			$scope.col3 = [];
@@ -86,9 +80,9 @@ angular.module("VenderBender").controller("albumViewController",
 			url : "AlbumByArtist.do",
 			params :{artist: $scope.search}
 		}).then(function(response) {
-			passOver.albums = response.data;
+			$rootScope.albums = response.data;
 			$location.path("albumView");
-			$scope.albums = passOver.albums;
+			$scope.albums = $rootScope.albums.slice();
 			$scope.col1 = [];
 			$scope.col2 = [];
 			$scope.col3 = [];
@@ -114,9 +108,9 @@ angular.module("VenderBender").controller("albumViewController",
 			url : "AlbumsByType.do",
 			params :{type: 0}
 		}).then(function(response) {
-			passOver.albums = response.data;
+			$rootScope.albums = response.data;
 			$location.path("albumView");
-			$scope.albums = passOver.albums;
+			$scope.albums = $rootScope.albums.slice();
 			$scope.col1 = [];
 			$scope.col2 = [];
 			$scope.col3 = [];
@@ -142,9 +136,9 @@ angular.module("VenderBender").controller("albumViewController",
 			url : "AlbumsByType.do",
 			params : {type: 1}
 		}).then(function(response) {
-			passOver.albums = response.data;
+			$rootScope.albums = response.data;
 			$location.path("albumView");
-			$scope.albums = passOver.albums;
+			$scope.albums = $rootScope.albums.slice();
 			$scope.col1 = [];
 			$scope.col2 = [];
 			$scope.col3 = [];
@@ -170,9 +164,9 @@ angular.module("VenderBender").controller("albumViewController",
 			url : "ConcertsByDate.do",
 			params : {start: new Date($scope.startDate).getTime(), end: new Date($scope.endDate).getTime()}
 		}).then(function(response) {
-			passOver.albums = response.data;
+			$rootScope.albums = response.data;
 			$location.path("concertViewView");
-			$scope.albums = passOver.albums;
+			$scope.albums = $rootScope.albums.slice();
 			$scope.col1 = [];
 			$scope.col2 = [];
 			$scope.col3 = [];
