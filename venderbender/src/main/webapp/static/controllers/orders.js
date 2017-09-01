@@ -1,7 +1,22 @@
 /**
  * 
  */
-angular.module("VenderBender").controller("ordersController",function($scope,$http){
+angular.module("VenderBender").controller("ordersController",function($location, $rootScope, $scope,$http){
+	
+	$http({
+		method: "GET", url: "validationOrderCheck.do"
+	}).then(function(response) {
+		$scope.user = response.data
+		$rootScope.isManager = response.data.manager;
+		$rootScope.isCustomer = !response.data.manager;
+
+		$rootScope.notLoggedIn = false;
+		$rootScope.loggedIn = true;
+		
+	}, function(response) {
+		$location.path("/login");
+	});
+	
 	
 	$http.get("getAllOrders.do").then(function(response) {
 		$scope.orders = response.data;

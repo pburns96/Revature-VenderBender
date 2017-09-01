@@ -1,4 +1,17 @@
-angular.module("VenderBender").controller("cartController", function($http, $scope,$rootScope) {
+angular.module("VenderBender").controller("cartController", function($http, $location, $scope,$rootScope) {
+	$http({
+		method: "GET", url: "validationOrderCheck.do"
+	}).then(function(response) {
+		$scope.user = response.data
+		$rootScope.isManager = response.data.manager;
+		$rootScope.isCustomer = !response.data.manager;
+
+		$rootScope.notLoggedIn = false;
+		$rootScope.loggedIn = true;
+		
+	}, function(response) {
+		$location.path("/login");
+	});
 	
 	
 	$scope.buyOrder = function(){

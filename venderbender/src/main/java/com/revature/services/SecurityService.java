@@ -9,6 +9,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 
+import com.revature.beans.Customer;
+
 @Aspect
 @Component
 public class SecurityService {
@@ -19,14 +21,23 @@ public class SecurityService {
 	private static final Logger log = Logger.getLogger(SecurityService.class);
 	
 	@SuppressWarnings("rawtypes")
-	@Around(value="execution(* com.revature.controllers.ManagerController.*(..)) || execution(* com.revature.controllers.OrderController.*(..))")
-	public Object securityValidation(ProceedingJoinPoint joinpoint) throws Throwable{
+	@Around(value="execution(* com.revature.controllers.ManagerController.*(..))")
+	public Object securityManagerValidation(ProceedingJoinPoint joinpoint) throws Throwable{
+		log.info("Security Check: " + joinpoint.getTarget());
+		if(authenticationService.isLoggedIn() && authenticationService.getSession() != null && ((Customer)authenticationService.getSession().getAttribute("customer")).isManager())
+			return (ResponseEntity) joinpoint.proceed();
+		else
+			return new ResponseEntity(HttpStatus.UNAUTHORIZED);
+	}
+	
+	@SuppressWarnings("rawtypes")
+	@Around(value=" execution(* com.revature.controllers.OrderController.*(..))")
+	public Object securityOrdersValidation(ProceedingJoinPoint joinpoint) throws Throwable{
 		log.info("Security Check: " + joinpoint.getTarget());
 		if(authenticationService.isLoggedIn())
 			return (ResponseEntity) joinpoint.proceed();
 		else
 			return new ResponseEntity(HttpStatus.UNAUTHORIZED);
-		//return joinpoint.proceed();
 	}
 	
 	public void setAuthenticationService(AuthenticationService authenticationService){

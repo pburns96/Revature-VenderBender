@@ -23,6 +23,7 @@ import com.revature.beans.Concert;
 import com.revature.beans.Customer;
 import com.revature.beans.Order;
 import com.revature.beans.OrderItem;
+import com.revature.services.AuthenticationService;
 import com.revature.services.DataService;
 
 @Controller
@@ -31,6 +32,9 @@ public class OrderController {
 	@Autowired
 	private DataService dataService;
 
+	@Autowired
+	private AuthenticationService authenticationService;
+	
 	// This is used for creating a Order object for a service side cart for each
 	// session
 	
@@ -41,6 +45,12 @@ public class OrderController {
 		this.dataService = dataService;
 	}
 
+	@RequestMapping(value="/validationOrderCheck.do")
+	@ResponseBody
+	public ResponseEntity<Customer> validationCheck(){
+		return new ResponseEntity<Customer>((Customer) authenticationService.getSession().getAttribute("customer"),HttpStatus.OK);
+	}
+	
 	// Get all Orders and provide customer.
 	// If you are not a manager than you only retrive orders from that provided
 	// customer
@@ -184,6 +194,10 @@ public class OrderController {
 			request.getSession().setAttribute("cart",cart);
 		}
 		return cart;
+	}
+	
+	public void setAuthenticationService(AuthenticationService authenticationService){
+		this.authenticationService = authenticationService;
 	}
 	
 
