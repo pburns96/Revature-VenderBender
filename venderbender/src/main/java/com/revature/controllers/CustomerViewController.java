@@ -64,8 +64,9 @@ public class CustomerViewController {
 	}
 	@RequestMapping(value="/ConcertsByDate.do", method=RequestMethod.GET, produces=MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
-	public ResponseEntity<List<Concert>> getConcertsByDates(@RequestParam("start") Date start,@RequestParam("end") Date end){
-		return new ResponseEntity<List<Concert>>(dataService.getConcertsByDates(start, end), HttpStatus.OK);
+	public ResponseEntity<List<Concert>> getConcertsByDates(@RequestParam("start") long start,@RequestParam("end") long end){
+		
+		return new ResponseEntity<List<Concert>>(dataService.getConcertsByDates(new Date(start), new Date(end)), HttpStatus.OK);
 		
 	}
 

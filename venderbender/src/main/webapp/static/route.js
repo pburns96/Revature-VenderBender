@@ -11,8 +11,8 @@ angular.module("VenderBender").config(function($locationProvider, $routeProvider
 		templateUrl:"pages/albumView.html",
 		controller:"albumViewController"
 	}).when("/shop", {
-		templateUrl:"pages/shop.html",
-		controller:"shopController"
+		templateUrl:"pages/albumView.html",
+		controller:"albumViewController"
 	}).when("/concertView", {
 		templateUrl:"pages/concertView.html",
 		controller:"albumViewController"

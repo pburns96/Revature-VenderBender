@@ -18,13 +18,11 @@
 					</span>
 					<input type="text" class="form-control" placeholder="Artist Search" ng-model="search">
 				</div><!-- /input-group -->
-				<div class="input-group">
 					<span class="input-group-btn">
-						<button class="btn btn-default" type="button" ng-click="concertSearch()">Concerts!</button>
-					</span>
-					<input type="date" class="form-control" placeholder="From" ng-model="startDate" required="required">
-					<input type="date" class="form-control" placeholder="To" ng-model="endDate" required="required" >
-				</div><!-- /input-group -->
+						<button class="btn btn-default" type="button" ng-click="concertSearch()">Concert search!</button>
+					</span><br/>
+					<input type="text" id="yonStat" class="form-control" placeholder="From yyyy/mm/dd" ng-model="startDate" required="required"><br/>
+					<input type="test" id="yonEnd" class="form-control" placeholder="To yyyy/mm/dd" ng-model="endDate" required="required" >
 			</div>
 		</div>
 		<div class="col-lg-3" ng-repeat="album in col1">
