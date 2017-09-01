@@ -27,7 +27,7 @@ public class OrderDAOImpl implements OrderDAO {
 
 	@Override
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
-	public void createOrder(Order order) throws InvalidDataAccessApiUsageException, UnexpectedTypeException {
+	public void createOrder(Order order){
 		sessionFactory.getCurrentSession().save(order);
 	}
 

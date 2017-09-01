@@ -64,14 +64,6 @@ public class OrderController {
 		return new ResponseEntity<List<Order>>(new LinkedList<Order>(),HttpStatus.FORBIDDEN);
 	}
 
-	@RequestMapping(value = "/getOrder", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	@ResponseBody
-	public ResponseEntity<Order> getOrdersFromCustomer(@RequestParam int id) {
-		// Get customer from session
-		// If a customer isnt logged in the nredirect them to log in
-		// If a customer request for a order that isnt theirs throw an error
-		return new ResponseEntity<Order>(this.dataService.getOrder(id), HttpStatus.OK);
-	}
 
 	@RequestMapping(value = "/createOrder", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
@@ -123,7 +115,7 @@ public class OrderController {
 	
 	@RequestMapping(value = "/cart/remove", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
-	public ResponseEntity<Order> cartRemoveItem(@RequestBody OrderItem item, HttpServletRequest request) {
+	public ResponseEntity<Order> removeCartItem(@RequestBody OrderItem item, HttpServletRequest request) {
 		// If a customer isnt logged in the nredirect them to log in
 		if (request.getSession().getAttribute("customer") != null) {
 			//applicationContext = new FileSystemXmlApplicationContext("/src/main/webapp/WEB-INF/bender.xml");
@@ -132,7 +124,23 @@ public class OrderController {
 			cart.getOrderItems().remove(item);
 			request.getSession().setAttribute("cart",cart);
 			
-			return new ResponseEntity<Order>(cart,HttpStatus.CREATED);
+			return new ResponseEntity<Order>(cart,HttpStatus.OK);
+		} else {
+			return new ResponseEntity<Order>(HttpStatus.FORBIDDEN);
+		}
+	}
+	
+	@RequestMapping(value = "/cart/get", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@ResponseBody
+	public ResponseEntity<Order> getCartInSevice(HttpServletRequest request) {
+		// If a customer isnt logged in the nredirect them to log in
+		if (request.getSession().getAttribute("customer") != null) {
+			//applicationContext = new FileSystemXmlApplicationContext("/src/main/webapp/WEB-INF/bender.xml");
+			Order cart = getCart(request);
+			
+			request.getSession().setAttribute("cart",cart);
+			
+			return new ResponseEntity<Order>(cart,HttpStatus.OK);
 		} else {
 			return new ResponseEntity<Order>(HttpStatus.FORBIDDEN);
 		}
@@ -140,7 +148,7 @@ public class OrderController {
 	
 	@RequestMapping(value = "/cart/update", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
-	public ResponseEntity<Order> cartUpdateItemQuantity(@RequestBody OrderItem item, HttpServletRequest request) {
+	public ResponseEntity<Order> updateCartItemQuantity(@RequestBody OrderItem item, HttpServletRequest request) {
 		// If a customer isnt logged in then redirect them to log in
 		if (request.getSession().getAttribute("customer") != null) {
 			//applicationContext = new FileSystemXmlApplicationContext("/src/main/webapp/WEB-INF/bender.xml");
@@ -160,7 +168,7 @@ public class OrderController {
 			
 			request.getSession().setAttribute("cart",cart);
 			
-			return new ResponseEntity<Order>(cart,HttpStatus.CREATED);
+			return new ResponseEntity<Order>(cart,HttpStatus.OK);
 		} else {
 			return new ResponseEntity<Order>(HttpStatus.FORBIDDEN);
 		}

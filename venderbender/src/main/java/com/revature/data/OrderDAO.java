@@ -14,7 +14,7 @@ public interface OrderDAO {
 
 	
 	//Create
-	public void createOrder(Order order) throws InvalidDataAccessApiUsageException, UnexpectedTypeException;
+	public void createOrder(Order order);
 	public void createOrderItem(OrderItem orderItem);
 	//Select
 	public List<OrderItem> getOrderItems(Order order);

@@ -21,13 +21,12 @@
 									</div>
 								</div>
 							</td>
-							<td data-th="Price" >{{item.album.price | currency}}</td>
-							<td data-th="Price" >{{item.concertTicket.price | currency}}</td>
+							<td data-th="Price" >{{item.album.price | currency}}{{item.concertTicket.price | currency}}</td>
 							<td data-th="Quantity">
-								<input type="number" class="form-control text-center" value="item.quantity" ng-model ="item.quantity">
+								<input type="number" min = "1" class="form-control text-center" value="item.quantity" ng-model ="item.quantity">
 							</td>
-							<!--<td data-th="Subtotal" class="text-center" ng-if="!item.album.price"><span ng-model="item.subtotal = item.quantity * item.album.price"/></span>{{item.subtotal | currency}}</td>
-							<td data-th="Subtotal" class="text-center" ng-if="!item.concert.price"><span ng-model="item.subtotal = item.quantity * item.concert.price"/></span>{{item.subtotal | currency}}</td>-->
+							<td data-th="Subtotal" class="text-center">{{(item.quantity * item.album.price) | currency}}</td>
+							<td data-th="Subtotal" class="text-center">{{(item.quantity * item.concert.price) | currency}}</td>
 							<td class="actions" data-th="">
 								<button class="btn btn-info btn-sm"><i class="fa fa-refresh" ng-click ="updateOrderItem(item)"></i></button>
 								<button class="btn btn-danger btn-sm"><i class="fa fa-trash-o" ng-click = "removeOrderItem(item)"></i></button>								
@@ -36,9 +35,9 @@
 					</tbody>
 					<tfoot>
 						<tr>
-							<td><a href="#" class="btn btn-warning"><i class="fa fa-angle-left"></i> Continue Shopping</a></td>
+							<td><a href="#shop" class="btn btn-warning"><i class="fa fa-angle-left"></i> Continue Shopping</a></td>
 							<td colspan="2" class="hidden-xs"></td>
-							<td class="hidden-xs text-center"><strong>{{cart.total | currency}}</strong></td>
+							<td class="hidden-xs text-center"><strong>{{cartTotal | currency}}</strong></td>
 							<td><a href="#" class="btn btn-success btn-block" ng-click="buyOrder()">Checkout <i class="fa fa-angle-right"></i></a></td>
 						</tr>
 					</tfoot>
