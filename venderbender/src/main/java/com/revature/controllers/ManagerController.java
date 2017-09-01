@@ -2,7 +2,6 @@ package com.revature.controllers;
 
 import java.io.IOException;
 
-import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -36,32 +35,23 @@ public class ManagerController {
 		this.dataService = dataService;
 	}
 	
-	//@RequestMapping(value="/pages/createConcerts.html")
-	public ResponseEntity<Void> createConcertValidation(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException{
-		log.info("Validating createConcert access");
-		HttpSession session = request.getSession(false);
-		if(session != null){
-			Customer customer = (Customer) session.getAttribute("customer");
-			if(customer != null && customer.isManager()){
-				log.info("Valid");
-				request.getRequestDispatcher("/createConcerts").forward(request, response);
-				return new ResponseEntity<Void>(HttpStatus.OK);
-			}
+	/*@RequestMapping(value="/pages/createConcerts.html")
+	public String createConcertValidation(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException{
+		if(validateEntry(request)){
+			log.info("Valid");
+			//request.getRequestDispatcher("/createConcerts").forward(request, response);
+			return "";
 		}
-		return new ResponseEntity<Void>(HttpStatus.FORBIDDEN);
-	}
+		return "home";
+	}*/
 
 	@RequestMapping(value="/createConcerts.do", method=RequestMethod.POST, consumes=MediaType.APPLICATION_JSON_VALUE,produces=MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	public <S extends Concert> ResponseEntity<S> createConcert(@RequestBody Concert concert, HttpServletRequest request){
-		HttpSession session = request.getSession(false);
-		if(session != null){
-			Customer customer = (Customer) session.getAttribute("customer");
-			if(customer != null && customer.isManager()){
-				log.info("Creating Concert");
-				dataService.createConcert(concert);
-				return new ResponseEntity<S>(HttpStatus.CREATED);
-			}
+		if(validateEntry(request)){
+			log.info("Creating Concert");
+			dataService.createConcert(concert);
+			return new ResponseEntity<S>(HttpStatus.CREATED);
 		}
 		return new ResponseEntity<S>(HttpStatus.FORBIDDEN);
 	}
@@ -69,15 +59,32 @@ public class ManagerController {
 	@RequestMapping(value="/createAlbums.do", method=RequestMethod.POST, consumes=MediaType.APPLICATION_JSON_VALUE,produces=MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	public <S extends Concert> ResponseEntity<S> createAlbum(@RequestBody Album album, HttpServletRequest request){
+		if(validateEntry(request)){
+			log.info("Creating Album");
+			dataService.createAlbum(album);
+			return new ResponseEntity<S>(HttpStatus.CREATED);
+		}
+		return new ResponseEntity<S>(HttpStatus.FORBIDDEN);
+	}
+	
+	@RequestMapping(value="/getOrderCount.do", method=RequestMethod.GET,produces=MediaType.APPLICATION_JSON_VALUE)
+	@ResponseBody
+	public ResponseEntity<Integer> getOrderCount(HttpServletRequest request){
+		if(validateEntry(request)){
+			log.info("Getting order count");
+			int count = dataService.getOrderCount();
+			return new ResponseEntity<Integer>(count,HttpStatus.OK);
+		}
+		return new ResponseEntity<Integer>(HttpStatus.FORBIDDEN);
+	}
+	
+	public boolean validateEntry(HttpServletRequest request){
+		log.info("Validating createConcert access");
 		HttpSession session = request.getSession(false);
 		if(session != null){
 			Customer customer = (Customer) session.getAttribute("customer");
-			if(customer != null && customer.isManager()){
-				log.info("Creating Album");
-				dataService.createAlbum(album);
-				return new ResponseEntity<S>(HttpStatus.CREATED);
-			}
+			return (customer != null && customer.isManager());
 		}
-		return new ResponseEntity<S>(HttpStatus.FORBIDDEN);
+		return false;
 	}
 }

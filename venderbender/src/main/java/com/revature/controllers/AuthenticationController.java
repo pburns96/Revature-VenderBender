@@ -34,14 +34,11 @@ public class AuthenticationController {
 	@ResponseBody
 	public ResponseEntity<Customer> authenticate(@RequestBody Customer customer, HttpServletRequest request){
 		log.debug("Logging in");
-		Customer validCustomer = authenticationService.authenticate(customer);
-		HttpSession session = request.getSession();
+		Customer validCustomer = authenticationService.authenticate(customer,request.getSession());
 		if(validCustomer != null){
-			session.setAttribute("customer", validCustomer);
 			return new ResponseEntity<Customer>(validCustomer,HttpStatus.OK);
 		}
 		else{
-			session.invalidate();
 			return new ResponseEntity<Customer>(HttpStatus.NO_CONTENT);
 		}
 	}

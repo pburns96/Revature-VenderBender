@@ -61,6 +61,13 @@ public class OrderDAOImpl implements OrderDAO {
 		query.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
 		return query.list();
 	}
+	
+	@Override
+	@Transactional
+	public int getOrderCount(){
+		Criteria query = sessionFactory.getCurrentSession().createCriteria(Order.class).setProjection(Projections.rowCount());
+		return ((Long)query.list().get(0)).intValue();
+	}
 
 
 	@Override

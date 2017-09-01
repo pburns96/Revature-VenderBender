@@ -1,10 +1,12 @@
 
-<form action="#/createConcerts">
-	<input type="submit" class="btn btn-lg btn-primary" value = "Create Concerts"/>
-</form>
-<form action="#/createAlbums">
-	<input type="submit" class="btn btn-lg btn-primary" value = "Create Albums"/>
-</form>
-<form action="#/orders">
-	<input type ="submit" class="btn btn-lg" style='background-color:dark-blue' value = "View Orders"/>
-</form>
+<div class="form-control">
+	<form action="#/createConcerts" class="form-control">
+		<input type="submit" class="btn btn-lg"style="background-color:#606870;color:white;border:2px solid #7f8b96"  value = "Create Concerts"/>
+	</form>
+	<form action="#/createAlbums" class="form-control">
+		<input type="submit" class="btn btn-lg" style="background-color:#606870;color:white;border:2px solid #7f8b96"  value = "Create Albums"/>
+	</form>
+	<form action="#/orders" class="form-control">
+		<input type ="submit" class="btn btn-lg" style="background-color:#606870;color:white;border:2px solid #7f8b96" value = "View Orders"/> Current Orders: {{orderCount}} 
+	</form>
+</div>
