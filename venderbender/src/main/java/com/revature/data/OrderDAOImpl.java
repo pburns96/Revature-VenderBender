@@ -27,7 +27,7 @@ public class OrderDAOImpl implements OrderDAO {
 
 	@Override
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
-	public void createOrder(Order order) throws InvalidDataAccessApiUsageException, UnexpectedTypeException {
+	public void createOrder(Order order){
 		sessionFactory.getCurrentSession().save(order);
 	}
 
@@ -60,6 +60,13 @@ public class OrderDAOImpl implements OrderDAO {
 		Criteria query = sessionFactory.getCurrentSession().createCriteria(Order.class);
 		query.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
 		return query.list();
+	}
+	
+	@Override
+	@Transactional
+	public int getOrderCount(){
+		Criteria query = sessionFactory.getCurrentSession().createCriteria(Order.class).setProjection(Projections.rowCount());
+		return ((Long)query.list().get(0)).intValue();
 	}
 
 

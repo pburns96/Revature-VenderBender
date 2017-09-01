@@ -167,6 +167,10 @@ public class DataService {
 		return orderDao.getOrderItem(id);
 	}
 	
+	public int getOrderCount(){
+		return orderDao.getOrderCount();
+	}
+	
 	public void updateOrderItem(OrderItem item){
 		orderDao.updateOrderItem(item);
 	}
