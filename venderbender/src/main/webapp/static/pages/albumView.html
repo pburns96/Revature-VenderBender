@@ -14,16 +14,16 @@
 				<button ng-click="lpLook()" class="list-group-item">View Vinyls</button>
 				<div class="input-group">
 					<span class="input-group-btn">
-						<button class="btn btn-default" type="button" ng-click="artistLook(artist)">Go!</button>
+						<button class="btn btn-default" type="button" ng-click="artistLook()">Go!</button>
 					</span>
 					<input type="text" class="form-control" placeholder="Artist Search" ng-model="search">
 				</div><!-- /input-group -->
 				<div class="input-group">
 					<span class="input-group-btn">
-						<button class="btn btn-default" type="button" ng-click="artistLook()">Concerts!</button>
+						<button class="btn btn-default" type="button" ng-click="concertSearch()">Concerts!</button>
 					</span>
-					<input type="date" class="form-control" placeholder="From" ng-model="fromDate" required="required">
-					<input type="date" class="form-control" placeholder="To" ng-model="toDate" required="required">
+					<input type="date" class="form-control" placeholder="From" ng-model="startDate" required="required">
+					<input type="date" class="form-control" placeholder="To" ng-model="endDate" required="required" >
 				</div><!-- /input-group -->
 			</div>
 		</div>

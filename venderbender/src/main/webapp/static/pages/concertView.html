@@ -14,23 +14,23 @@
 				<button ng-click="lpLook()" class="list-group-item">View Vinyls</button>
 				<div class="input-group">
 					<span class="input-group-btn">
-						<button class="btn btn-default" type="button" ng-click="artistLook(artist)">Go!</button>
+						<button class="btn btn-default" type="button" ng-click="artistLook()">Go!</button>
 					</span>
 					<input type="text" class="form-control" placeholder="Artist Search" ng-model="search">
 				</div><!-- /input-group -->
 				<div class="input-group">
 					<span class="input-group-btn">
-						<button class="btn btn-default" type="button" ng-click="artistLook()">Concerts!</button>
+						<button class="btn btn-default" type="button" ng-click="concertSearch()">Concerts!</button>
 					</span>
-					<input type="date" class="form-control" placeholder="From" ng-model="fromDate" required="required">
-					<input type="date" class="form-control" placeholder="To" ng-model="toDate" required="required">
+					<input type="date" class="form-control" placeholder="From" ng-model="startDate" required="required">
+					<input type="date" class="form-control" placeholder="To" ng-model="endDate" required="required" >
 				</div><!-- /input-group -->
 			</div>
 		</div>
 		<div class="col-lg-3" ng-repeat="album in col1">
 			<div class="row row-offcanvas row-offcanvas-right">
 				<div class="thumbnail">
-					<img class="group list-group-image" src="/images/concert/Rock_Live.jpg"
+					<img class="group list-group-image" src="images/concert/Rock_Live.jpg"
 						alt="Image of {{album.band}}" />
 					<div class="caption">
 						<h4 class="group inner list-group-item-heading">{{album.location}}</h4>
@@ -53,7 +53,7 @@
 	<div class="col-lg-3" ng-repeat="album in col2">
 			<div class="row row-offcanvas row-offcanvas-right">
 				<div class="thumbnail">
-					<img class="group list-group-image" src="/images/concert/Rock_Live.jpg"
+					<img class="group list-group-image" src="images/concert/Rock_Live.jpg"
 						alt="Image of {{album.band}}" />
 					<div class="caption">
 						<h4 class="group inner list-group-item-heading">{{album.location}}</h4>
@@ -76,7 +76,7 @@
 	<div class="col-lg-3" ng-repeat="album in col3">
 			<div class="row row-offcanvas row-offcanvas-right">
 				<div class="thumbnail">
-					<img class="group list-group-image" src="/images/concert/Rock_Live.jpg"
+					<img class="group list-group-image" src="images/concert/Rock_Live.jpg"
 						alt="Image of {{album.band}}" />
 					<div class="caption">
 						<h4 class="group inner list-group-item-heading">{{album.location}}</h4>
