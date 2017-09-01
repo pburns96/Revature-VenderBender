@@ -48,7 +48,21 @@ public class AuthenticationController {
 	public ResponseEntity<Void> logout(HttpServletRequest request){
 		log.debug("Logging out");
 		HttpSession session = request.getSession();
-		session.invalidate();
+		authenticationService.logOut(session);
 		return new ResponseEntity<Void>(HttpStatus.OK);
 	}
+	
+	@RequestMapping(value="/isLoggedIn.do", method=RequestMethod.GET)
+	@ResponseBody
+	public ResponseEntity<Customer> isLoggedIn(HttpServletRequest request){
+		log.debug("Checking to see if already logged in");
+		HttpSession session = request.getSession();
+		if(authenticationService.isLoggedIn()){
+			return new ResponseEntity<Customer>((Customer)session.getAttribute("customer"),HttpStatus.OK);
+		}
+		else{
+			return new ResponseEntity<Customer>(HttpStatus.OK);
+		}
+	}
+
 }	

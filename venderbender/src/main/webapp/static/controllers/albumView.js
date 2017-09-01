@@ -1,5 +1,18 @@
 angular.module("VenderBender").controller("albumViewController",
 		function($http, $scope, $location, $rootScope) {
+	
+	$http.get("isLoggedIn.do").then(function(response) {
+		var customer = response.data;
+		if(customer.username != null)
+		{
+			$scope.user = customer
+			$rootScope.loggedIn = true;
+			$rootScope.notLoggedIn = false;
+			$rootScope.isManager = customer.manager;
+			$rootScope.isCustomer = customer.manager;
+		}
+	})
+	
 	if($rootScope.albums != null && $rootScope.albums !== undefined){
 		if ($rootScope.albums.length > 0) {
 			$scope.albums = $rootScope.albums.slice();

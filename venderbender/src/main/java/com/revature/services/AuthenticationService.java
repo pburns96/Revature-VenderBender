@@ -15,7 +15,8 @@ public class AuthenticationService {
 	@Autowired
 	DataService dataService;
 
-	private boolean loggedIn = true;
+	private boolean loggedIn = false;
+	private HttpSession session;
 	
 	private static final Logger log = Logger.getLogger(AuthenticationService.class);
 	
@@ -27,6 +28,7 @@ public class AuthenticationService {
 			if(BCrypt.checkpw(customer.getPassword(), validCustomer.getPassword())){
 				log.info("Valid customer login");
 				session.setAttribute("customer", validCustomer);
+				this.session = session;
 				loggedIn = true;
 				return validCustomer;
 			}
@@ -42,11 +44,24 @@ public class AuthenticationService {
 		}
 	}
 	
+	public void logOut(HttpSession session){
+		session.invalidate();
+		loggedIn = false;
+	}
+	
 	public boolean isLoggedIn(){
 		return loggedIn;
 	}
 	
 	public void setDataService(DataService dataService){
 		this.dataService = dataService;
+	}
+
+	public HttpSession getSession() {
+		return session;
+	}
+
+	public void setSession(HttpSession session) {
+		this.session = session;
 	}
 }

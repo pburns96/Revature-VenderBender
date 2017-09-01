@@ -23,6 +23,7 @@ import com.revature.beans.Concert;
 import com.revature.beans.Customer;
 import com.revature.beans.Order;
 import com.revature.beans.OrderItem;
+import com.revature.services.AuthenticationService;
 import com.revature.services.DataService;
 
 @Controller
@@ -31,6 +32,9 @@ public class OrderController {
 	@Autowired
 	private DataService dataService;
 
+	@Autowired
+	private AuthenticationService authenticationService;
+	
 	// This is used for creating a Order object for a service side cart for each
 	// session
 	
@@ -41,15 +45,20 @@ public class OrderController {
 		this.dataService = dataService;
 	}
 
+	@RequestMapping(value="/validationOrderCheck.do")
+	@ResponseBody
+	public ResponseEntity<Customer> validationCheck(){
+		return new ResponseEntity<Customer>((Customer) authenticationService.getSession().getAttribute("customer"),HttpStatus.OK);
+	}
+	
 	// Get all Orders and provide customer.
 	// If you are not a manager than you only retrive orders from that provided
 	// customer
-	@RequestMapping(value = "/getAllOrders.do", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "/order/all", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	public ResponseEntity<List<Order>> getAllOrders(HttpServletRequest request) {
 		log.info("Getting orders");
 		HttpSession session = request.getSession(false);
-		if(session!=null){ //If no session, fail to fetch orders
 			Customer customer = (Customer) session.getAttribute("customer");
 			if(customer!=null){ //if no customer, fail to fetch orders
 				if(customer.isManager()){ //if manager, fetch all orders.
@@ -59,35 +68,25 @@ public class OrderController {
 					return new ResponseEntity<List<Order>>(this.dataService.getOrders(this.dataService.getCustomer(customer.getUsername())),HttpStatus.OK);
 				}
 			}
-		}
 		//if it fails to fetch orders return status forbidden and an empty list
 		return new ResponseEntity<List<Order>>(new LinkedList<Order>(),HttpStatus.FORBIDDEN);
 	}
 
 
-	@RequestMapping(value = "/createOrder", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "/order/create", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	public ResponseEntity<Void> createOrder(@RequestBody Order order,  HttpServletRequest request) {
-		// Get customer from session
-		// If a customer isnt logged in the nredirect them to log in
-		Customer customer = (Customer)request.getSession().getAttribute("customer");
-		if (customer != null) {
-		this.dataService.createOrder(order,customer);
+		this.dataService.createOrder(order,(Customer)request.getSession().getAttribute("customer"));
 		return new ResponseEntity<Void>(HttpStatus.CREATED);
-		}
-		return new ResponseEntity<Void>(HttpStatus.FORBIDDEN);
 	}
 
 	@RequestMapping(value = "/cart/add", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	public ResponseEntity<Order> cartAddItem(@RequestBody OrderItem item, HttpServletRequest request) {
-		// If a customer isnt logged in the nredirect them to log in
-		if (request.getSession().getAttribute("customer") != null) {
 			//applicationContext = new FileSystemXmlApplicationContext("/src/main/webapp/WEB-INF/bender.xml");
 			Order cart = getCart(request);
 			//If that item is already added then update the quantity instead
 			boolean found = false;
-	
 			for (OrderItem listItem : cart.getOrderItems()) {
 				Album listAlbum = listItem.getAlbum();
 				Album album = item.getAlbum();
@@ -108,11 +107,8 @@ public class OrderController {
 			}
 			request.getSession().setAttribute("cart",cart);
 			return new ResponseEntity<Order>(cart,HttpStatus.CREATED);
-		} else {
-			return new ResponseEntity<Order>(HttpStatus.FORBIDDEN);
-		}
-	}
-	
+		} 
+
 	@RequestMapping(value = "/cart/remove", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	public ResponseEntity<Order> removeCartItem(@RequestBody OrderItem item, HttpServletRequest request) {
@@ -133,24 +129,15 @@ public class OrderController {
 	@RequestMapping(value = "/cart/get", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	public ResponseEntity<Order> getCartInSevice(HttpServletRequest request) {
-		// If a customer isnt logged in the nredirect them to log in
-		if (request.getSession().getAttribute("customer") != null) {
 			//applicationContext = new FileSystemXmlApplicationContext("/src/main/webapp/WEB-INF/bender.xml");
 			Order cart = getCart(request);
-			
 			request.getSession().setAttribute("cart",cart);
-			
 			return new ResponseEntity<Order>(cart,HttpStatus.OK);
-		} else {
-			return new ResponseEntity<Order>(HttpStatus.FORBIDDEN);
-		}
 	}
 	
 	@RequestMapping(value = "/cart/update", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	public ResponseEntity<Order> updateCartItemQuantity(@RequestBody OrderItem item, HttpServletRequest request) {
-		// If a customer isnt logged in then redirect them to log in
-		if (request.getSession().getAttribute("customer") != null) {
 			//applicationContext = new FileSystemXmlApplicationContext("/src/main/webapp/WEB-INF/bender.xml");
 			Order cart = getCart(request);
 			for (OrderItem listItem : cart.getOrderItems()) {
@@ -161,17 +148,15 @@ public class OrderController {
 				if((album != null && listAlbum!= null  && (album.equals(listAlbum))) ||(
 					concert!= null && listConcert != null && (concert.getBand() == listConcert.getBand())))
 				{
+					if(item.getQuantity() > 0)
+					{
 					listItem.setQuantity(item.getQuantity());
 					break;
+					}
 				}
 			}
-			
 			request.getSession().setAttribute("cart",cart);
-			
 			return new ResponseEntity<Order>(cart,HttpStatus.OK);
-		} else {
-			return new ResponseEntity<Order>(HttpStatus.FORBIDDEN);
-		}
 	}
 	
 	private Order getCart(HttpServletRequest request)
@@ -184,6 +169,10 @@ public class OrderController {
 			request.getSession().setAttribute("cart",cart);
 		}
 		return cart;
+	}
+	
+	public void setAuthenticationService(AuthenticationService authenticationService){
+		this.authenticationService = authenticationService;
 	}
 	
 
