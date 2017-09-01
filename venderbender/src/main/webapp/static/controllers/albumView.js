@@ -1,127 +1,200 @@
 angular.module("VenderBender").controller("albumViewController",
-		function($http, $scope) {
-			$scope.concertLook = function() {
-				$scope.albums = [];
-				$http({
-					method : "GET",
-					url : "ConcertsAll.do"
-				}).then(function(response) {
-					$scope.albums = response.data;
-					$scope.col1 = [];
-					$scope.col2 = [];
-					$scope.col3 = [];
-					while($scope.albums.length > 0){
-						$scope.col1.push($scope.albums.pop());
-						if($scope.albums.length > 0){
-							$scope.col2.push($scope.albums.pop());
-						}else{
-							break;
-						}
-						if($scope.albums.length > 0){
-							$scope.col3.push($scope.albums.pop());
-						}else{
-							break;
-						}
-					}
-				});
-
-			};
-			$scope.albumLook = function() {
-				$scope.albums = [];
-				$http({
-					method : "GET",
-					url : "AlbumsAll.do"
-				}).then(function(response) {
-					$scope.albums = response.data;
-					$scope.col1 = [];
-					$scope.col2 = [];
-					$scope.col3 = [];
-					while($scope.albums.length > 0){
-						$scope.col1.push($scope.albums.pop());
-						if($scope.albums.length > 0){
-							$scope.col2.push($scope.albums.pop());
-						}else{
-							break;
-						}
-						if($scope.albums.length > 0){
-							$scope.col3.push($scope.albums.pop());
-						}else{
-							break;
-						}
-					}
-				});
-				
-			};
-			$scope.cdLook = function() {
-				$scope.albums = [];
-				$http({
-					method : "GET",
-					url : "AlbumsByType.do",
-					params :{type: 0}
-				}).then(function(response) {
-					$scope.albums = response.data;
-					$scope.col1 = [];
-					$scope.col2 = [];
-					$scope.col3 = [];
-					while($scope.albums.length > 0){
-						$scope.col1.push($scope.albums.pop());
-						if($scope.albums.length > 0){
-							$scope.col2.push($scope.albums.pop());
-						}else{
-							break;
-						}
-						if($scope.albums.length > 0){
-							$scope.col3.push($scope.albums.pop());
-						}else{
-							break;
-						}
-					}
-				});
-				
-			};
-			$scope.lpLook = function() {
-				$scope.albums = [];
-				$http({
-					method : "GET",
-					url : "AlbumsByType.do",
-					params :{type: 1}
-				}).then(function(response) {
-					$scope.albums = response.data;
-					$scope.col1 = [];
-					$scope.col2 = [];
-					$scope.col3 = [];
-					while($scope.albums.length > 0){
-						$scope.col1.push($scope.albums.pop());
-						if($scope.albums.length > 0){
-							$scope.col2.push($scope.albums.pop());
-						}else{
-							break;
-						}
-						if($scope.albums.length > 0){
-							$scope.col3.push($scope.albums.pop());
-						}else{
-							break;
-						}
-					}
-				});
-				
-			};
-			$scope.addToCart = function(item,isAlbum){
-				AddItemToCart(item,isAlbum,$rootScope);
-		};
+		function($http, $scope, $location, $rootScope) {
+	if($rootScope.albums != null && $rootScope.albums !== undefined){
+		if ($rootScope.albums.length > 0) {
+			$scope.albums = $rootScope.albums.slice();
+			$scope.col1 = [];
+			$scope.col2 = [];
+			$scope.col3 = [];
+			while ($scope.albums.length > 0) {
+				$scope.col1.push($scope.albums.pop());
+				if ($scope.albums.length > 0) {
+					$scope.col2.push($scope.albums.pop());
+				} else {
+					break;
+				}
+				if ($scope.albums.length > 0) {
+					$scope.col3.push($scope.albums.pop());
+				} else {
+					break;
+				}
+			}
+		}
+	}
+	$scope.concertLook = function() {
+		$http({
+			method : "GET",
+			url : "ConcertsAll.do"
+		}).then(function(response) {
+			$rootScope.albums = response.data;
+			$location.path("concertView");
+			$scope.albums = $rootScope.albums.slice();
+			$scope.col1 = [];
+			$scope.col2 = [];
+			$scope.col3 = [];
+			while ($scope.albums.length > 0) {
+				$scope.col1.push($scope.albums.pop());
+				if ($scope.albums.length > 0) {
+					$scope.col2.push($scope.albums.pop());
+				} else {
+					break;
+				}
+				if ($scope.albums.length > 0) {
+					$scope.col3.push($scope.albums.pop());
+				} else {
+					break;
+				}
+			}
+		});
+	};
+	$scope.albumLook = function() {
+		$http({
+			method : "GET",
+			url : "AlbumsAll.do"
+		}).then(function(response) {
+			$rootScope.albums = response.data;
+			$location.path("albumView");
+			$scope.albums = $rootScope.albums.slice();
+			$scope.col1 = [];
+			$scope.col2 = [];
+			$scope.col3 = [];
+			while($scope.albums.length > 0){
+				$scope.col1.push($scope.albums.pop());
+				if($scope.albums.length > 0){
+					$scope.col2.push($scope.albums.pop());
+				}else{
+					break;
+				}
+				if($scope.albums.length > 0){
+					$scope.col3.push($scope.albums.pop());
+				}else{
+					break;
+				}
+			}
+		});				
+	};
+	$scope.artistLook = function(search) {
+		$scope.albums = [];
+		$http({
+			method : "GET",
+			url : "AlbumByArtist.do",
+			params :{artist: $scope.search}
+		}).then(function(response) {
+			$rootScope.albums = response.data;
+			$location.path("albumView");
+			$scope.albums = $rootScope.albums.slice();
+			$scope.col1 = [];
+			$scope.col2 = [];
+			$scope.col3 = [];
+			while($scope.albums.length > 0){
+				$scope.col1.push($scope.albums.pop());
+				if($scope.albums.length > 0){
+					$scope.col2.push($scope.albums.pop());
+				}else{
+					break;
+				}
+				if($scope.albums.length > 0){
+					$scope.col3.push($scope.albums.pop());
+				}else{
+					break;
+				}
+			}
+		});			
+	};
+	$scope.cdLook = function() {
+		$scope.albums = [];
+		$http({
+			method : "GET",
+			url : "AlbumsByType.do",
+			params :{type: 0}
+		}).then(function(response) {
+			$rootScope.albums = response.data;
+			$location.path("albumView");
+			$scope.albums = $rootScope.albums.slice();
+			$scope.col1 = [];
+			$scope.col2 = [];
+			$scope.col3 = [];
+			while($scope.albums.length > 0){
+				$scope.col1.push($scope.albums.pop());
+				if($scope.albums.length > 0){
+					$scope.col2.push($scope.albums.pop());
+				}else{
+					break;
+				}
+				if($scope.albums.length > 0){
+					$scope.col3.push($scope.albums.pop());
+				}else{
+					break;
+				}
+			}
+		});				
+	};
+	$scope.lpLook = function() {
+		$scope.albums = [];
+		$http({
+			method : "GET",
+			url : "AlbumsByType.do",
+			params : {type: 1}
+		}).then(function(response) {
+			$rootScope.albums = response.data;
+			$location.path("albumView");
+			$scope.albums = $rootScope.albums.slice();
+			$scope.col1 = [];
+			$scope.col2 = [];
+			$scope.col3 = [];
+			while($scope.albums.length > 0){
+				$scope.col1.push($scope.albums.pop());
+				if($scope.albums.length > 0){
+					$scope.col2.push($scope.albums.pop());
+				}else{
+					break;
+				}
+				if($scope.albums.length > 0){
+					$scope.col3.push($scope.albums.pop());
+				}else{
+					break;
+				}
+			}
+		});				
+	};
+	$scope.concertSearch = function() {
+		$scope.albums = [];
+		$http({
+			method : "GET",
+			url : "ConcertsByDate.do",
+			params : {start: new Date($scope.startDate).getTime(), end: new Date($scope.endDate).getTime()}
+		}).then(function(response) {
+			$rootScope.albums = response.data;
+			$location.path("concertViewView");
+			$scope.albums = $rootScope.albums.slice();
+			$scope.col1 = [];
+			$scope.col2 = [];
+			$scope.col3 = [];
+			while($scope.albums.length > 0){
+				$scope.col1.push($scope.albums.pop());
+				if($scope.albums.length > 0){
+					$scope.col2.push($scope.albums.pop());
+				}else{
+					break;
+				}
+				if($scope.albums.length > 0){
+					$scope.col3.push($scope.albums.pop());
+				}else{
+					break;
+				}
+			}
+		});				
+	};
+	$scope.addToCart = function(item,isAlbum){
+		AddItemToCart(item,isAlbum,$rootScope,$http);
+	};
 });
 
-AddItemToCart = function(item,isAlbum,$rootScope)
+AddItemToCart = function(item,isAlbum,$rootScope,$http)
 {
-	//addItem method(item) and check for similarity
-	//Adds item to cart.order.items
-		console.log("Attempting to add to cart!");
-		console.log($rootScope.cart.order.items.length)
-		
-		var orderItem = {
+	console.log(item);
+	var orderItem = {
 			id:-1,
-			album : null,
-			concert:null,
 			quantity:1
 		};
 		if(isAlbum)
@@ -132,37 +205,12 @@ AddItemToCart = function(item,isAlbum,$rootScope)
 		{
 			orderItem.concert = item;
 		}
-		//Check and see if the item already exist
-		var exist = false;
-		if($rootScope.cart.order.items.length > 0)
-			{
-		angular.forEach($rootScope.cart.order.items, function(listItem, index) {
-				//If the item already exist then add to the existing quantity
-			if(isAlbum)
-			{
-			  if(listItem.album.id==orderItem.album.id)
-			  	{
-				  exist = true;
-				  console.log("found already added item! adding to quantity to cart!");
-				  $rootScope.cart.order.items[index].quantity += 1;
-				}
-			}
-			else
-			{
-				if(listItem.concert.id==orderItem.concert.id)
-				  {
-					  exist = true;
-					  console.log("found already added item! adding to quantity to cart!");
-					  $rootScope.cart.order.items[index].quantity += 1;
-					}
-			}
-			});
-			}
 		
-		if(exist ==false)
-			{
-			console.log("added New Item to cart!");
-		$rootScope.cart.order.items.push(orderItem);
-			}
+	console.log(orderItem);
+	
+	$http.post("cart/add", orderItem).then(function(response) {
+		$rootScope.cartOrder = response.data;
+		console.log($rootScope.cartOrder.orderItems);
+	});
 	
 }

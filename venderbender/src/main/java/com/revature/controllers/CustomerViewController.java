@@ -1,5 +1,6 @@
 package com.revature.controllers;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.revature.beans.Album;
@@ -32,7 +34,7 @@ public class CustomerViewController {
 	}
 	@RequestMapping(value="/AlbumByArtist.do", method=RequestMethod.GET,produces=MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
-	public ResponseEntity<List<Album>> getAlbumsByArtist(@RequestBody String artist){
+	public ResponseEntity<List<Album>> getAlbumsByArtist(@RequestParam("artist") String artist){
 		return new ResponseEntity<List<Album>>(dataService.getAlbumsByArtist(artist), HttpStatus.OK);
 		
 	}
@@ -48,16 +50,22 @@ public class CustomerViewController {
 		return new ResponseEntity<List<Album>>(dataService.getAlbumsByGenre(genre), HttpStatus.OK);
 		
 	}
-	@RequestMapping(value="/AlbumsByType.do", method=RequestMethod.GET,consumes=MediaType.TEXT_HTML_VALUE, produces=MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value="/AlbumsByType.do", method=RequestMethod.GET, produces=MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
-	public ResponseEntity<List<Album>> getAlbumsByType(@RequestBody int type){
+	public ResponseEntity<List<Album>> getAlbumsByType(@RequestParam("type") int type){
 		return new ResponseEntity<List<Album>>(dataService.getAlbumsByType((byte)type), HttpStatus.OK);
 		
 	}
-	@RequestMapping(value="/ConcertsAll.do", method=RequestMethod.GET,produces=MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value="/ConcertsAll.do", method=RequestMethod.GET, produces=MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
-	public ResponseEntity<List<Concert>> getAllConcerts(@RequestBody int type){
+	public ResponseEntity<List<Concert>> getAllConcerts(){
 		return new ResponseEntity<List<Concert>>(dataService.getAllConcerts(), HttpStatus.OK);
+		
+	}
+	@RequestMapping(value="/ConcertsByDate.do", method=RequestMethod.GET, produces=MediaType.APPLICATION_JSON_VALUE)
+	@ResponseBody
+	public ResponseEntity<List<Concert>> getConcertsByDates(@RequestParam("start") Date start,@RequestParam("end") Date end){
+		return new ResponseEntity<List<Concert>>(dataService.getConcertsByDates(start, end), HttpStatus.OK);
 		
 	}
 

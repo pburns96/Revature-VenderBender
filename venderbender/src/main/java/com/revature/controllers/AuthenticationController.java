@@ -24,6 +24,7 @@ public class AuthenticationController {
 	
 	@Autowired
 	private AuthenticationService authenticationService;
+	
 
 	public void setAuthenticationService(AuthenticationService authenticationService) {
 		this.authenticationService = authenticationService;

@@ -1,47 +1,100 @@
 <div>
-    <div class="well well-sm">
-        <strong>Concerts:</strong>
-    	<h4>{{concerts.length}} results.</h4>
-        <div class="btn-group">
-            <a href="#" id="list" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-th-list">
-            </span>List</a> <a href="#" id="grid" class="btn btn-default btn-sm"><span
-                class="glyphicon glyphicon-th"></span>Grid</a>
-        </div>
-    </div>
-    <div class="col-lg-3">
+	<div class="well well-sm">
+		<strong>Concerts:</strong>
+		<h4>{{col1.length + col2.length + col3.length}} results.</h4>
+	</div>
+	<div class="row">
+		<div class="col-lg-3">
 
-          <h1 class="my-4">Shop Name</h1>
-          <div class="list-group">
-            <a href="#" class="list-group-item">Category 1</a>
-            <a href="#" class="list-group-item">Category 2</a>
-            <a href="#" class="list-group-item">Category 3</a>
-          </div>
-        </div>
-    <div ng-repeat="concert in concerts" class="col-lg-9">
-        <div class="item  col-xs-4 col-lg-4">
-            <div class="thumbnail">
-                <img class="group list-group-image" src="images/concert/Rock_Live.jpg" alt="Image of {{concert.band}}" />
-                <div class="caption">
-                    <h4 class="group inner list-group-item-heading">{{concert.band}}</h4>
-                    <p class="group inner list-group-item-text">
-                        Location: {{concert.location}}<br/>                 
-                        Date: {{concert.date}}</p>                   
-                    <div class="row">
-                        <div class="col-xs-12 col-md-6">
-                            <p class="lead">
-                                {{concert.price | currency}}</p>
-                        </div>
-                        <div class="col-xs-12 col-md-6">
-                            <button class="btn btn-success" ng-click="addToCart(concert,false)">Add to cart!</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    <pagination 
-      ng-model="currentPage"
-      total-items="concerts.length"
-      max-size="maxSize"  
-      boundary-links="true">
-    </pagination>
+			<h1 class="my-4">Concert Vender</h1>
+			<div class="btn-group-vertical" role="group">
+				<button ng-click="concertLook()" class="list-group-item">View Concerts</button>
+				<button ng-click="albumLook()" class="list-group-item">View Albums</button>
+				<button ng-click="cdLook()" class="list-group-item">View CDs</button>
+				<button ng-click="lpLook()" class="list-group-item">View Vinyls</button>
+				<div class="input-group">
+					<span class="input-group-btn">
+						<button class="btn btn-default" type="button" ng-click="artistLook()">Go!</button>
+					</span>
+					<input type="text" class="form-control" placeholder="Artist Search" ng-model="search">
+				</div><!-- /input-group -->
+				<div class="input-group">
+					<span class="input-group-btn">
+						<button class="btn btn-default" type="button" ng-click="concertSearch()">Concerts!</button>
+					</span>
+					<input type="date" class="form-control" placeholder="From" ng-model="startDate" required="required">
+					<input type="date" class="form-control" placeholder="To" ng-model="endDate" required="required" >
+				</div><!-- /input-group -->
+			</div>
+		</div>
+		<div class="col-lg-3" ng-repeat="album in col1">
+			<div class="row row-offcanvas row-offcanvas-right">
+				<div class="thumbnail">
+					<img class="group list-group-image" src="images/concert/Rock_Live.jpg"
+						alt="Image of {{album.band}}" />
+					<div class="caption">
+						<h4 class="group inner list-group-item-heading">{{album.location}}</h4>
+						<p class="group inner list-group-item-text">
+							Artist: {{album.band}}<br /> Date: {{album.date | date}}<br />
+						</p>
+						<div class="row">
+							<div class="col-xs-12 col-md-6">
+								<p class="lead">{{album.price | currency}}</p>
+							</div>
+							<div class="col-xs-12 col-md-6">
+								<button class="btn btn-success" ng-click="addToCart(album,true)">Add
+									to cart!</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+	</div>
+	<div class="col-lg-3" ng-repeat="album in col2">
+			<div class="row row-offcanvas row-offcanvas-right">
+				<div class="thumbnail">
+					<img class="group list-group-image" src="images/concert/Rock_Live.jpg"
+						alt="Image of {{album.band}}" />
+					<div class="caption">
+						<h4 class="group inner list-group-item-heading">{{album.location}}</h4>
+						<p class="group inner list-group-item-text">
+							Artist: {{album.band}}<br /> Date: {{album.date | date}}<br />
+						</p>
+						<div class="row">
+							<div class="col-xs-12 col-md-6">
+								<p class="lead">{{album.price | currency}}</p>
+							</div>
+							<div class="col-xs-12 col-md-6">
+								<button class="btn btn-success" ng-click="addToCart(album,true)">Add
+									to cart!</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+	</div>
+	<div class="col-lg-3" ng-repeat="album in col3">
+			<div class="row row-offcanvas row-offcanvas-right">
+				<div class="thumbnail">
+					<img class="group list-group-image" src="images/concert/Rock_Live.jpg"
+						alt="Image of {{album.band}}" />
+					<div class="caption">
+						<h4 class="group inner list-group-item-heading">{{album.location}}</h4>
+						<p class="group inner list-group-item-text">
+							Artist: {{album.band}}<br /> Date: {{album.date | date}}<br />
+						</p>
+						<div class="row">
+							<div class="col-xs-12 col-md-6">
+								<p class="lead">{{album.price | currency}}</p>
+							</div>
+							<div class="col-xs-12 col-md-6">
+								<button class="btn btn-success" ng-click="addToCart(album,true)">Add
+									to cart!</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+	</div>
+	</div>
 </div>

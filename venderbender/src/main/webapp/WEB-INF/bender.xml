@@ -79,5 +79,4 @@
 	<bean name="orderItem" class = "com.revature.beans.OrderItem" scope = "prototype"/> 
 	<bean name="order" class = "com.revature.beans.Order" scope = "prototype"/> 
 	
-	
 </beans>
