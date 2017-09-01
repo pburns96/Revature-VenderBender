@@ -24,6 +24,8 @@ public interface OrderDAO {
 	public List<Order>getOrders();
 	public Order getOrder(int id);
 	public OrderItem getOrderItem(int id);
+	public int getOrderCount();
+	
 	//Update
 	public void updateOrderItem(OrderItem item);
 	//Delete
