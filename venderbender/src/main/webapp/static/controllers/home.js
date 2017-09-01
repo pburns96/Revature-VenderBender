@@ -1,4 +1,16 @@
 angular.module("VenderBender").controller("homeController",function($rootScope, $scope, $http, $location){
+	
+	$http.get("isLoggedIn.do").then(function(response) {
+		var customer = response.data;
+		if(customer.username != null)
+		{
+			$scope.user = customer
+			$rootScope.loggedIn = true;
+			$rootScope.notLoggedIn = false;
+			$rootScope.isManager = customer.manager;
+			$rootScope.isCustomer = customer.manager;
+		}
+	})
 var items = []
 	$rootScope.cart = {
 	        total : 0,
