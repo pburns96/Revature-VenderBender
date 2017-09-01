@@ -15,7 +15,7 @@ angular.module("VenderBender").controller("cartController", function($http, $loc
 	
 	
 	$scope.buyOrder = function(){
-		$http.post("createOrder", $rootScope.cartOrder).then(function(resp) {
+		$http.post("order/create", $rootScope.cartOrder).then(function(resp) {
 			//empty car order
 			$rootScope.cartOrder = resp.data;
 	});
