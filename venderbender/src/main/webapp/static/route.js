@@ -15,7 +15,7 @@ angular.module("VenderBender").config(function($locationProvider, $routeProvider
 		controller:"shopController"
 	}).when("/concertView", {
 		templateUrl:"pages/concertView.html",
-		controller:"concertViewController"
+		controller:"albumViewController"
 	}).when("/cart",{
 		templateUrl:"pages/cart.html",
 		controller:"cartController"
@@ -37,3 +37,6 @@ angular.module("VenderBender").config(function($locationProvider, $routeProvider
 		controller: "homeController"
 	})
 })
+angular.module("VenderBender").factory("passOver",function(){
+        return {};
+});
