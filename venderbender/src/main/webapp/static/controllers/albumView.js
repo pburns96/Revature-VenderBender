@@ -199,7 +199,20 @@ angular.module("VenderBender").controller("albumViewController",
 		});				
 	};
 	$scope.addToCart = function(item,isAlbum){
-		AddItemToCart(item,isAlbum,$rootScope,$http);
+		$http({
+			method: "GET", url: "validationOrderCheck.do"
+		}).then(function(response) {
+			$scope.user = response.data
+			$rootScope.isManager = response.data.manager;
+			$rootScope.isCustomer = !response.data.manager;
+
+			$rootScope.notLoggedIn = false;
+			$rootScope.loggedIn = true;
+			AddItemToCart(item,isAlbum,$rootScope,$http);
+			
+		}, function(response) {
+			$location.path("/login");
+		});
 	};
 });
 
