@@ -14,7 +14,6 @@ angular.module("VenderBender").controller("cartController", function($http, $loc
 		$http.get("cart/get").then(function(response) {
 			$rootScope.cartOrder = response.data;
 			isOrderItems = $rootScope.cartOrder.orderItems;
-			console.log(isOrderItems);
 			if(isOrderItems)
 			{
 				$scope.itemTotal = CalcTotal($rootScope.cartOrder,$scope,$rootScope,$http);
@@ -32,7 +31,6 @@ angular.module("VenderBender").controller("cartController", function($http, $loc
 	
 	$scope.buyOrder = function(){
 		$http.post("order/create", $rootScope.cartOrder).then(function(resp) {
-			//empty car order
 			$rootScope.cartOrder = resp.data;
 	});
 	}

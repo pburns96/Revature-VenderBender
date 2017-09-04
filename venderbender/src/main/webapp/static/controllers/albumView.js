@@ -9,7 +9,7 @@ angular.module("VenderBender").controller("albumViewController",
 			$rootScope.loggedIn = true;
 			$rootScope.notLoggedIn = false;
 			$rootScope.isManager = customer.manager;
-			$rootScope.isCustomer = customer.manager;
+			$rootScope.isCustomer = !customer.manager;
 		}
 	})
 	
@@ -218,7 +218,7 @@ angular.module("VenderBender").controller("albumViewController",
 
 AddItemToCart = function(item,isAlbum,$rootScope,$http)
 {
-	console.log(item);
+	//console.log(item);
 	var orderItem = {
 			id:-1,
 			quantity:1
@@ -229,14 +229,14 @@ AddItemToCart = function(item,isAlbum,$rootScope,$http)
 		}
 		else
 		{
-			orderItem.concert = item;
+			orderItem.concertTicket = item;
 		}
 		
-	console.log(orderItem);
+	//console.log(orderItem);
 	
 	$http.post("cart/add", orderItem).then(function(response) {
 		$rootScope.cartOrder = response.data;
-		console.log($rootScope.cartOrder.orderItems);
+		//console.log($rootScope.cartOrder.orderItems);
 	});
 	
 }

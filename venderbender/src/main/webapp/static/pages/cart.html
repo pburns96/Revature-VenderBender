@@ -16,17 +16,17 @@
 								<div class="row">
 									<div class="col-sm-2 hidden-xs"><img src="http://placehold.it/100x100" alt="..." class="img-responsive"/></div>
 									<div class="col-sm-10">
-										<h4 class="nomargin">{{item.album.title}} album</h4>
-										<h4 class="nomargin">{{item.concertTicket.band}} ticket</h4>
+										<h4 class="nomargin" ng-if="item.album">{{item.album.title}} album</h4>
+										<h4 class="nomargin" ng-if="item.concertTicket">{{item.concertTicket.band}} ticket</h4>
 									</div>
 								</div>
 							</td>
 							<td data-th="Price" >{{item.album.price | currency}}{{item.concertTicket.price | currency}}</td>
 							<td data-th="Quantity">
-								<input type="number" min = "1" class="form-control text-center" value="item.quantity" ng-model ="item.quantity">
+								<input type="number" min = "1" step = "1" class="form-control text-center" ng-model ="item.quantity">
 							</td>
-							<td data-th="Subtotal" class="text-center">{{(item.quantity * item.album.price) | currency}}</td>
-							<td data-th="Subtotal" class="text-center">{{(item.quantity * item.concert.price) | currency}}</td>
+							<td data-th="Subtotal" class="text-center" ng-if ="item.album">{{(item.quantity * item.album.price) | currency}}</td>
+							<td data-th="Subtotal" class="text-center" ng-if ="item.concertTicket">{{(item.quantity * item.concertTicket.price) | currency}}</td>
 							<td class="actions" data-th="">
 								<button class="btn btn-info btn-sm"><i class="fa fa-refresh" ng-click ="updateOrderItem(item)"></i></button>
 								<button class="btn btn-danger btn-sm"><i class="fa fa-trash-o" ng-click = "removeOrderItem(item)"></i></button>								
