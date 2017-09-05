@@ -77,6 +77,7 @@ public class OrderController {
 	@ResponseBody
 	public ResponseEntity<Void> createOrder(@RequestBody Order order,  HttpServletRequest request) {
 		log.info("Creating Order");
+		request.getSession().setAttribute("cart",null);
 		this.dataService.createOrder(order,(Customer)request.getSession().getAttribute("customer"));
 		return new ResponseEntity<Void>(HttpStatus.CREATED);
 	}
