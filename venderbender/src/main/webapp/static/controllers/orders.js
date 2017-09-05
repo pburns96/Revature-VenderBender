@@ -20,7 +20,6 @@ angular.module("VenderBender").controller("ordersController",function($location,
 	
 	$http.get("order/all").then(function(response) {
 		$scope.orders = response.data;
-		console.log(response.data);
 	});
 
 	
