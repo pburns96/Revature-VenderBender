@@ -62,11 +62,11 @@ public class CustomerViewController {
 		return new ResponseEntity<List<Concert>>(dataService.getAllConcerts(), HttpStatus.OK);
 		
 	}
-	@RequestMapping(value="/ConcertsByDate.do", method=RequestMethod.GET, produces=MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value="/ConcertsByBand.do", method=RequestMethod.GET, produces=MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
-	public ResponseEntity<List<Concert>> getConcertsByDates(@RequestParam("start") long start,@RequestParam("end") long end){
+	public ResponseEntity<List<Concert>> getConcertsByDates(@RequestParam("band") String band){
 		
-		return new ResponseEntity<List<Concert>>(dataService.getConcertsByDates(new Date(start), new Date(end)), HttpStatus.OK);
+		return new ResponseEntity<List<Concert>>(dataService.getConcertsByBand(band), HttpStatus.OK);
 		
 	}
 

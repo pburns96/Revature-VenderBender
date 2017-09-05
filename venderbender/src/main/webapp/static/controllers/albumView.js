@@ -174,11 +174,11 @@ angular.module("VenderBender").controller("albumViewController",
 		$scope.albums = [];
 		$http({
 			method : "GET",
-			url : "ConcertsByDate.do",
-			params : {start: new Date($scope.startDate).getTime(), end: new Date($scope.endDate).getTime()}
+			url : "ConcertsByBand.do",
+			params : {band: $scope.band}
 		}).then(function(response) {
 			$rootScope.albums = response.data;
-			$location.path("concertViewView");
+			$location.path("concertView");
 			$scope.albums = $rootScope.albums.slice();
 			$scope.col1 = [];
 			$scope.col2 = [];
@@ -218,7 +218,6 @@ angular.module("VenderBender").controller("albumViewController",
 
 AddItemToCart = function(item,isAlbum,$rootScope,$http)
 {
-	//console.log(item);
 	var orderItem = {
 			id:-1,
 			quantity:1
@@ -231,12 +230,9 @@ AddItemToCart = function(item,isAlbum,$rootScope,$http)
 		{
 			orderItem.concertTicket = item;
 		}
-		
-	//console.log(orderItem);
 	
 	$http.post("cart/add", orderItem).then(function(response) {
 		$rootScope.cartOrder = response.data;
-		//console.log($rootScope.cartOrder.orderItems);
 	});
 	
 }
