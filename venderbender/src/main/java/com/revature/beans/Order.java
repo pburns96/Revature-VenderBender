@@ -37,7 +37,6 @@ public class Order {
 	@ManyToOne(cascade=CascadeType.REMOVE)
 	@JoinColumn(nullable = true, name = "CUSTOMER_ID")
 	@NotNull
-	@JsonIgnore
 	Customer owner;
 
 	@NotNull

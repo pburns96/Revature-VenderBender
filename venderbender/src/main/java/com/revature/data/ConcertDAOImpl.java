@@ -49,7 +49,7 @@ public class ConcertDAOImpl implements ConcertDAO{
 	@Transactional
 	public List<Concert> getConcertsByBand(String band) {
 		Criteria query = sessionFactory.getCurrentSession().createCriteria(Concert.class);
-		query.add(Restrictions.eq("band",band));
+		query.add(Restrictions.ilike("band","%"+band+"%"));
 		return query.list();
 	}
 

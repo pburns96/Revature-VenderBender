@@ -174,11 +174,11 @@ angular.module("VenderBender").controller("albumViewController",
 		$scope.albums = [];
 		$http({
 			method : "GET",
-			url : "ConcertsByDate.do",
-			params : {start: new Date($scope.startDate).getTime(), end: new Date($scope.endDate).getTime()}
+			url : "ConcertsByBand.do",
+			params : {band: $scope.band}
 		}).then(function(response) {
 			$rootScope.albums = response.data;
-			$location.path("concertViewView");
+			$location.path("concertView");
 			$scope.albums = $rootScope.albums.slice();
 			$scope.col1 = [];
 			$scope.col2 = [];

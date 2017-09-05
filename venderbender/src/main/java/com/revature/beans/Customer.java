@@ -12,6 +12,8 @@ import javax.persistence.OneToMany;
 
 import org.mindrot.jbcrypt.BCrypt;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class Customer {
 
@@ -39,6 +41,7 @@ public class Customer {
 	private boolean manager;
 	
 	@OneToMany(mappedBy = "owner", cascade = CascadeType.REMOVE)
+	@JsonIgnore
 	private List<Order> orders;
  
 	public Customer() {
