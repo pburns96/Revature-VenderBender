@@ -26,13 +26,13 @@
 							<td>{{item.concertTicket.band}}{{item.album.title}}</td>
 							<td>{{item.concertTicket.location}}{{item.album.artist}}</td>
 							<td>{{item.concertTicket.price | currency}}{{item.album.price | currency}}</td>
-							<td ng-init="itemTotal(item)">{{item.quantity}}</td>
+							<td>{{item.quantity}}</td>
 						</tr>
 						<thead>
 							<tr>
 								<td></td>
 								<td>Total: </td>
-								<td>{{itemTotal | currency}}</td>
+								<td>{{itemTotal(order) | currency}}</td>
 								<td></td>
 							</tr>
 						</thead>

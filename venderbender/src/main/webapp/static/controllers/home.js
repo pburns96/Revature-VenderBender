@@ -8,7 +8,7 @@ angular.module("VenderBender").controller("homeController",function($rootScope, 
 			$rootScope.loggedIn = true;
 			$rootScope.notLoggedIn = false;
 			$rootScope.isManager = customer.manager;
-			$rootScope.isCustomer = customer.manager;
+			$rootScope.isCustomer = !customer.manager;
 		}
 	})
 var items = []
