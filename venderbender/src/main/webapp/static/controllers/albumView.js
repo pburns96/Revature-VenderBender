@@ -218,7 +218,6 @@ angular.module("VenderBender").controller("albumViewController",
 
 AddItemToCart = function(item,isAlbum,$rootScope,$http)
 {
-	console.log(item);
 	var orderItem = {
 			id:-1,
 			quantity:1
@@ -231,14 +230,9 @@ AddItemToCart = function(item,isAlbum,$rootScope,$http)
 		{
 			orderItem.concertTicket = item;
 		}
-		
-	console.log(orderItem);
 	
 	$http.post("cart/add", orderItem).then(function(response) {
 		$rootScope.cartOrder = response.data;
-		console.log($rootScope.cartOrder.orderItems);
-	},function(response){
-		console.log(response.data);
 	});
 	
 }

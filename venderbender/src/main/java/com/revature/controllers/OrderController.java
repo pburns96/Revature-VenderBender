@@ -76,6 +76,7 @@ public class OrderController {
 	@RequestMapping(value = "/order/create", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	public ResponseEntity<Void> createOrder(@RequestBody Order order,  HttpServletRequest request) {
+		log.info("Creating Order");
 		this.dataService.createOrder(order,(Customer)request.getSession().getAttribute("customer"));
 		return new ResponseEntity<Void>(HttpStatus.CREATED);
 	}
@@ -93,7 +94,7 @@ public class OrderController {
 				Concert listConcert =  listItem.getConcertTicket();
 				Concert concert =  item.getConcertTicket();
 				if((album != null && listAlbum!= null  && (album.equals(listAlbum))) ||(
-					concert!= null && listConcert != null && (concert.getBand() == listConcert.getBand())))
+					concert!= null && listConcert != null && (concert.equals(listConcert))))
 				{
 					found =true;
 					listItem.setQuantity(listItem.getQuantity() + 1);
@@ -106,6 +107,7 @@ public class OrderController {
 			cart.addOrderItem(item);
 			}
 			request.getSession().setAttribute("cart",cart);
+			log.info("Adding OrderItem to cart");
 			return new ResponseEntity<Order>(cart,HttpStatus.CREATED);
 		} 
 
@@ -119,7 +121,7 @@ public class OrderController {
 			
 			cart.getOrderItems().remove(item);
 			request.getSession().setAttribute("cart",cart);
-			
+			log.info("Removing OrderItem to cart");
 			return new ResponseEntity<Order>(cart,HttpStatus.OK);
 		} else {
 			return new ResponseEntity<Order>(HttpStatus.FORBIDDEN);
@@ -146,11 +148,11 @@ public class OrderController {
 				Concert listConcert =  listItem.getConcertTicket();
 				Concert concert =  item.getConcertTicket();
 				if((album != null && listAlbum!= null  && (album.equals(listAlbum))) ||(
-					concert!= null && listConcert != null && (concert.getBand() == listConcert.getBand())))
+					concert!= null && listConcert != null && (concert.equals(listConcert))))
 				{
 					if(item.getQuantity() > 0)
 					{
-					listItem.setQuantity(item.getQuantity());
+						listItem.setQuantity(item.getQuantity());
 					break;
 					}
 				}
